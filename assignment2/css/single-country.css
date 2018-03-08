@@ -1,0 +1,13 @@
+.jumbotron p {
+    font-size: 1em;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.smallImg {
+    margin: auto;
+    display: inline-block;
+    padding: 1em;
+}
