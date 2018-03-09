@@ -15,7 +15,7 @@
         abstract protected function getSelectStatement();
         
         // retrieve keys from table
-        abstract protected function getKeys();
+        abstract protected function getContents();
         
         // get FROM clause
         abstract protected function getFromTable();
@@ -27,8 +27,28 @@
         abstract protected function getPkName();
         
         // get data from joined tables
-        public function joinTables($table) {
-            return 'JOIN ' . $table;
+        public function joinTables($table=array()) {
+            $sql = 'SELECT ' . $this->getContents();
+            
+            for($i=0; $i < count($table); $i++) {
+                $sql .= ', ' . $table[$i]->getContents();
+            }
+            
+            $sql .= ' FROM ' . $this->getFromTable(); 
+            
+            for($i=0; $i < count($table); $i++) {
+                $sql .= ', ' . $table[$i]->getFromTable();
+            }
+            
+            // FIX WHERE CLAUSE
+            
+            // $sql .= ' WHERE Posts.MainPostImage = ImageDetails.ImageID';
+            
+            
+            echo $sql;
+            
+            $statement = DatabaseHelp::runQuery($this->connection, $sql, null);
+            return $statement -> fetch();
         }
         
         public function getAll($sortFields=null) {

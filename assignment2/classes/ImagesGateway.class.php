@@ -10,15 +10,15 @@ class ImagesGateway extends MainGateway {
     }
     
     protected function getSelectStatement() {
-        return 'SELECT ' . ImagesGateway::getKeys() . ImagesGateway::getFromTable(); //ImageID, Title, Path FROM ImageDetails';
+        return 'SELECT ImageID, Title, Path FROM ImageDetails';
     }
     
-    protected function getKeys() {
-        return 'ImageID, Title, Path';
+    protected function getContents() {
+        return 'ImageID, ImageDetails.Title, Path';
     }
     
     protected function getFromTable() { 
-        return ' FROM ImageDetails '; 
+        return 'ImageDetails'; 
     }
     
     protected function getPkName() {

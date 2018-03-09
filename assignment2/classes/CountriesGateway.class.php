@@ -6,19 +6,18 @@
 class CountriesGateway extends MainGateway {
     public function __construct($connect) {
         parent::__construct($connect);
-        
     }
     
     protected function getSelectStatement() {
         return 'SELECT ISO, CountryName, Capital, Area, Population, Continent, CurrencyName, CountryDescription FROM Countries';
     }
     
-    protected function getKeys() {
+    protected function getContents() {
         return '';
     }
     
     protected function getFromTable() {
-        return '';
+        return 'Countries';
     }
     
     protected function getPkName() {

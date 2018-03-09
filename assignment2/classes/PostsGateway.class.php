@@ -6,19 +6,18 @@
 class PostsGateway extends MainGateway {
     public function __construct($connect) {
         parent::__construct($connect);
-        
     }
     
     protected function getSelectStatement() {
-        return 'SELECT ' . PostsGateway::getKeys() . PostsGateway::getFromTable(); //PostID, UserID, MainPostImage, Message, PostTime FROM Posts';
+        return 'SELECT PostID, UserID, MainPostImage, Message, PostTime FROM Posts';
     }
     
-    protected function getKeys() {
-        return 'PostID, UserID, MainPostImage, Message, PostTime';
+    protected function getContents() {
+        return 'PostID, MainPostImage, Message, PostTime';
     }    
     
     protected function getFromTable() {
-        return ' FROM Posts ';
+        return 'Posts';
     }
     
     protected function getPkName() {

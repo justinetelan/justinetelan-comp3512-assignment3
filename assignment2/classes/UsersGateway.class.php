@@ -13,12 +13,12 @@ class UsersGateway extends MainGateway {
         return 'SELECT UserID, FirstName,LastName, Address, City, Region, Country, Postal, Phone, Email FROM Users';
     }
     
-    protected function getKeys() {
-        return '';
+    protected function getContents() {
+        return 'Users.UserID';
     }
     
     protected function getFromTable() {
-        return '';
+        return 'Users';
     }    
     
     protected function getPkName() {
