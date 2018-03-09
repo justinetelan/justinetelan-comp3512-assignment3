@@ -14,11 +14,22 @@
         // retrieve table name
         abstract protected function getSelectStatement();
         
+        // retrieve keys from table
+        abstract protected function getKeys();
+        
+        // get FROM clause
+        abstract protected function getFromTable();
+        
         // define sort order (is this needed or nah)
         // abstract protected function getOrder();
         
         // primary keys in db
         abstract protected function getPkName();
+        
+        // get data from joined tables
+        public function joinTables($table) {
+            return 'JOIN ' . $table;
+        }
         
         public function getAll($sortFields=null) {
             $sql = $this -> getSelectStatement(); // retrieve select function

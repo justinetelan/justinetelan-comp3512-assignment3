@@ -38,6 +38,36 @@ foreach($result as $row) {
 
 echo '<hr>';
 
+
+// USERSGATEWAY TEST
+$db = new UsersGateway($connection);
+$result = $db -> getById(1);
+echo '<h3>Sample Post (id=1)</h3>';
+echo $result['UserID'] . ' ' . $result['FirstName'] . ' ' . $result['LastName'];
+        
+$result = $db -> getAll();
+echo '<h3>UsersGateway</h3>';
+foreach($result as $row) {
+    echo '<br>'. $row['UserID'] . ' ' . $row['FirstName'] . ' ' . $row['LastName'] . '<br>';
+}
+
+echo '<hr>';
+
+
+// USERSGATEWAY TEST
+$db = new CountriesGateway($connection);
+$result = $db -> getById("AL");
+echo '<h3>Sample Post (id=AL)</h3>';
+echo $result['ISO'] . ' ' . $result['CountryName'] . ' ' . $result['Capital'];
+        
+$result = $db -> getAll();
+echo '<h3>CountriesGateway</h3>';
+foreach($result as $row) {
+    echo '<br>'. $row['ISO'] . ' ' . $row['CountryName'] . ' ' . $row['Capital'] . '<br>';
+}
+
+echo '<hr>';
+
 ?>
 </body>
 </html>

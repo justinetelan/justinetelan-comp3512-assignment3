@@ -8,6 +8,13 @@ class DatabaseHelp {
         $user = $values[1];
         $password = $values[2];
         
+        // error redirection
+        // $id = $_GET['id'];
+    
+        // if(!isset($id) || empty($id)) {
+        //     header('Location: error.php');
+        // }
+        
         $pdo = new PDO($connString, $user, $password);
         $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;

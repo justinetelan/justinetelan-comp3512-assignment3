@@ -10,12 +10,22 @@ class PostsGateway extends MainGateway {
     }
     
     protected function getSelectStatement() {
-        return 'SELECT PostID, MainPostImage, Message, PostTime FROM Posts';
+        return 'SELECT ' . PostsGateway::getKeys() . PostsGateway::getFromTable(); //PostID, UserID, MainPostImage, Message, PostTime FROM Posts';
+    }
+    
+    protected function getKeys() {
+        return 'PostID, UserID, MainPostImage, Message, PostTime';
+    }    
+    
+    protected function getFromTable() {
+        return ' FROM Posts ';
     }
     
     protected function getPkName() {
         return 'PostID';
     }
+    
+    
 }
 
 ?>

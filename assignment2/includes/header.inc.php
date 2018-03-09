@@ -36,7 +36,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="browse-countries.php">Countries</a></li>
                                 <li><a href="browse-images.php">Images</a></li>
-                                <li><a href="browse-users.php">Posts</a></li>
+                                <li><a href="Posts.php">Posts</a></li>
                             </ul>
                         </li>
                     </ul>
