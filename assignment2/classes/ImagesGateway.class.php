@@ -11,13 +11,18 @@ class ImagesGateway extends MainGateway {
     
     protected function getSelectStatement() {
         return 'SELECT ImageID, Title, Path FROM ImageDetails';
+        // return 'SELECT ';
     }
     
-    protected function getContents() {
-        return 'ImageID, ImageDetails.Title, Path';
+    // store fields into an array
+    protected function getData() {
+        $data[0] = "ImageID"; $data[1] = "UserID"; $data[2] = "ImageDetails.Title"; $data[3] = "Description";
+        $data[4] = "CityCode"; $data[5] = "CountryCodeISO"; $data[6] = "Path";
+        
+        return $data;
     }
     
-    protected function getFromTable() { 
+    protected function getFromClause() { 
         return 'ImageDetails'; 
     }
     

@@ -13,17 +13,23 @@ class UsersGateway extends MainGateway {
         return 'SELECT UserID, FirstName,LastName, Address, City, Region, Country, Postal, Phone, Email FROM Users';
     }
     
-    protected function getContents() {
-        return 'Users.UserID';
+    // store fields into an array
+    protected function getData() {
+        $data[0] = "FirstName"; $data[1] = "LastName"; $data[2] = "Address"; $data[3] = "City";
+        $data[4] = "Region"; $data[5] = "Country"; $data[6] = "Postal"; $data[7] = "Phone";
+        $data[8] = "Phone"; $data[9] = "Email"; $data[10] = "Privacy";
+        
+        return $data;
     }
     
-    protected function getFromTable() {
-        return 'Users';
-    }    
+    protected function getFromClause() { 
+        return 'Users'; 
+    }
     
     protected function getPkName() {
         return 'UserID';
     }
+    
 }
 
 ?>

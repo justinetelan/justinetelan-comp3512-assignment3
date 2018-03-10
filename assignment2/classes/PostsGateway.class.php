@@ -9,14 +9,19 @@ class PostsGateway extends MainGateway {
     }
     
     protected function getSelectStatement() {
-        return 'SELECT PostID, UserID, MainPostImage, Message, PostTime FROM Posts';
+        return 'SELECT PostID, UserID, Title, MainPostImage, Message, PostTime FROM Posts';
+        // return 'SELECT ';
     }
     
-    protected function getContents() {
-        return 'PostID, MainPostImage, Message, PostTime';
+    // store fields into an array
+    protected function getData() {
+        $data[0] = "PostID"; $data[1] = "Posts.UserID"; $data[2] = "MainPostImage";
+        $data[3] = "Title"; $data[4] = "Message"; $data[5] = "PostTime";
+        
+        return $data;
     }    
     
-    protected function getFromTable() {
+    protected function getFromClause() {
         return 'Posts';
     }
     

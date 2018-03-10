@@ -12,11 +12,16 @@ class CountriesGateway extends MainGateway {
         return 'SELECT ISO, CountryName, Capital, Area, Population, Continent, CurrencyName, CountryDescription FROM Countries';
     }
     
-    protected function getContents() {
-        return '';
-    }
+    // store fields into an array
+    protected function getData() {
+        $data[0] = "ISO"; $data[1] = "ISONumeric"; $data[2] = "CountryName"; $data[3] = "Capital"; $data[4] = "CityCode";
+        $data[5] = "Area"; $data[6] = "Population"; $data[7] = "Continent"; $data[8] = "TopLevelDomain"; $data[9] = "CurrencyCode";
+        $data[10] = "CurrencyName"; $data[11] = "PhoneCountryCode"; $data[12] = "Languages"; $data[13] = "Neighbours"; $data[14] = "CountryDescription";
+        
+        return $data;
+    }    
     
-    protected function getFromTable() {
+    protected function getFromClause() {
         return 'Countries';
     }
     

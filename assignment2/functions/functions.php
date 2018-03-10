@@ -1,4 +1,27 @@
 <?php
+
+
+    //browse-posts.php
+foreach($result as $row) {
+    echo '<div class="row">
+                       
+                       <div class="col-md-4"></div>';
+                      echo' <div class="col-md-8"> 
+                          <h2>'. $row['PostTime'].'</h2>';
+                          echo 'Posted by </a><br/>';
+                            echo '<span class="pull-right"></span>';
+                            echo ' REVIEWS';
+                            
+                          
+                          echo '<p class="excerpt">
+                            
+                          </p>
+                          <p class="pull-left"><a href="post.php?id=1" class="btn btn-primary btn-sm">Read more</a></p>
+                       </div>
+                   </div>
+                   <hr/>'; 
+}
+
     
     // browse-countries.php
     function browseCountries($pdo) {
