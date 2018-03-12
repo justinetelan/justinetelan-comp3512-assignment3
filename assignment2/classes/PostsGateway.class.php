@@ -1,6 +1,6 @@
 <?php
 /*
-    Gateway class for Posts in Posts table.
+    Gateway class for  Posts table.
 */
 
 class PostsGateway extends MainGateway {

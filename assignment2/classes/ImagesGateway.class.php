@@ -1,6 +1,6 @@
 <?php
 /*
-    Gateway class for Images in ImageDetails table.
+    Gateway class for ImageDetails table.
 */
 
 class ImagesGateway extends MainGateway {

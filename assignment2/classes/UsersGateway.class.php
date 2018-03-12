@@ -1,6 +1,6 @@
 <?php
 /*
-    Gateway class for Users in Users table.
+    Gateway class for Users table.
 */
 
 class UsersGateway extends MainGateway {
