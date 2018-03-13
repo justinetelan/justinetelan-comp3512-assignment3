@@ -56,7 +56,7 @@
         
     }
     
-    // single-country.php
+    // single-country.php CHANGE INTO Gateways***
     function singleCountry($pdo) { 
         
         $statement = $pdo -> prepare('SELECT CountryName, Capital, Area, Population, CurrencyName, CountryDescription FROM Countries WHERE ISO =?');
@@ -92,7 +92,7 @@
         $pdo = null; // close connection
     }
     
-    // displays proper image header for single pages
+    // displays proper image header for single pages CHANGE INTO Gateways***
     function singleHeader($pdo, $type) {
         
         echo '<div class="panel panel-info">';
@@ -120,7 +120,7 @@
         
     }
     
-    // calls another function to show appropriate images via query string for single page
+    // calls another function to show appropriate images via query string for single page CHANGE INTO Gateways
     function identifyType($pdo, $type) {
         
         if($type == "countries") {
@@ -317,7 +317,7 @@
         
     }
     
-    // displays the images for the single pages and browse-images
+    // displays the images for the single pages and browse-images CHANGE INTO Gateways*****
     function showImg($statement, $page) {
         
         while($img = $statement -> fetch()) {

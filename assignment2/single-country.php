@@ -1,6 +1,7 @@
 <?php
     
-    require_once('config.php'); 
+    require_once('config.php');
+    // include 'functions/functions.php';
     include 'functions/functionsClass.php';
 
 ?>
@@ -10,7 +11,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Assignment 1 (Winter 2018)</title>
+        <title>Assignment 2 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
@@ -57,6 +58,10 @@
                     
                     <div class="col-md-4">
                         <h3>Related Images</h3>
+                        <?php
+                            relatedImg($connection);
+                            // singleHeader($connection, "countries");
+                        ?>
                     </div>
                 </div>
             </div>
@@ -80,7 +85,11 @@
             </div>
         </footer>
         
-        
+        <?php
+           
+            // simpleSearch($connection);
+            
+        ?>
         
     </body>
     

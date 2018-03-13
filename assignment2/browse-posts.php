@@ -8,7 +8,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Chapter 7</title>
+    <title>Assignment 2 (Winter 2018)</title>
 
       <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
@@ -44,7 +44,7 @@
                  <?php
                  
                 //  include 'test-posts.php';
-                    browse($connection);
+                    browsePosts($connection);
                  
                  ?>
                  </div>

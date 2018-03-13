@@ -44,9 +44,11 @@
 
                     <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search" name="imgTitle">
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <!--<a href="browse-images.php">-->
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <!--</a>-->
                     </form>
                 </div>
                 <!-- /.navbar-collapse -->
