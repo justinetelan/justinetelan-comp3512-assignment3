@@ -17,7 +17,7 @@ class UsersGateway extends MainGateway {
     protected function getData() {
         $data[0] = "FirstName"; $data[1] = "LastName"; $data[2] = "Address"; $data[3] = "City";
         $data[4] = "Region"; $data[5] = "Country"; $data[6] = "Postal"; $data[7] = "Phone";
-        $data[8] = "Phone"; $data[9] = "Email"; $data[10] = "Privacy";
+        $data[8] = "Email"; $data[9] = "Privacy" ; $data[10] = "Users.UserID";
         
         return $data;
     }

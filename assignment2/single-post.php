@@ -49,25 +49,30 @@
                 <div class="col-md-10">
                     <div class="row">
                         
-                        <?php singlePost($connection); ?>
+                        <?php 
                         
-                        <div class='btn-group btn-group-justified' role='group' aria-label='...'>
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button>
-                            </div>
+                            // singlePost($connection); 
+                            relatedImg($connection);
+                        
+                        ?>
+                        
+                        <!--<div class='btn-group btn-group-justified' role='group' aria-label='...'>-->
+                        <!--    <div class='btn-group' role='group'>-->
+                        <!--        <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button>-->
+                        <!--    </div>-->
                             
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-save' aria-hidden='true'></span></button>
-                            </div>
+                        <!--    <div class='btn-group' role='group'>-->
+                        <!--        <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-save' aria-hidden='true'></span></button>-->
+                        <!--    </div>-->
                             
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>
-                            </div>
+                        <!--    <div class='btn-group' role='group'>-->
+                        <!--        <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>-->
+                        <!--    </div>-->
                             
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-comment' aria-hidden='true'></span></button>
-                            </div>
-                        </div> <!-- close button class -->
+                        <!--    <div class='btn-group' role='group'>-->
+                        <!--        <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-comment' aria-hidden='true'></span></button>-->
+                        <!--    </div>-->
+                        <!--</div> <!-- close button class -->
                         
                         </div> <!-- close div col-md-4 within singleImage() -->                  
                             

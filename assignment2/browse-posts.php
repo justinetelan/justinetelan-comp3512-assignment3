@@ -1,3 +1,8 @@
+<?php
+    require_once('config.php');
+    include 'functions/functionsClass.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +29,7 @@
     <main class="container">
         <div class="row">
             
-            
+             <?php include 'includes/left.inc.php'; ?>
             
             <div class="col-md-10">
 
@@ -38,8 +43,8 @@
                  <div class="postlist">
                  <?php
                  
-                 include 'test-posts.php';
-                 browse();
+                //  include 'test-posts.php';
+                    browse($connection);
                  
                  ?>
                  </div>

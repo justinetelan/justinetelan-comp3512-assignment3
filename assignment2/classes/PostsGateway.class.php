@@ -15,8 +15,8 @@ class PostsGateway extends MainGateway {
     
     // store fields into an array
     protected function getData() {
-        $data[0] = "PostID"; $data[1] = "Posts.UserID"; $data[2] = "MainPostImage";
-        $data[3] = "Title"; $data[4] = "Message"; $data[5] = "PostTime";
+        $data[0] = "PostID"; $data[1] = "UserID"; $data[2] = "MainPostImage";
+        $data[3] = "Posts.Title"; $data[4] = "Message"; $data[5] = "PostTime";
         
         return $data;
     }    
