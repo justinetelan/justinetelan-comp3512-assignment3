@@ -14,16 +14,16 @@
         $sql = 'SELECT ' . $postF . ', ' . $imgF . ', ' . $userF .
                 ' FROM ' . $dbPost -> getFrom() . ', ' . $dbImg -> getFrom() . ', ' . $dbUser -> getFrom() .
                 ' WHERE ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(2)) . ' = ' . $dbImg -> getFrom() . '.' . $dbImg -> getPk() .
-                ' AND ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(1)) . ' = ' . $dbUser -> getFrom() . '.' . $dbUser -> getPk() .
+                ' AND ' . $dbPost -> getFields(Array(1)) . ' = ' . $dbUser -> getFrom() . '.' . $dbUser -> getPk() .
                 ' AND ';
         
         $result = $dbPost -> getById($sql, $_GET['id']);
         
-        // echo '<br>';
+        echo '<br>';
         
-        // echo $sql;
+        echo $sql;
         
-        // echo '<br>'; echo '<br>';
+        echo '<br>'; echo '<br>';
         
         echo "<div class='col-md-8'>";
         
@@ -59,39 +59,57 @@
         
         // $postF = $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(0)); // PostID
         $imgF = $dbImg -> getFields(Array(6)); // Path
-        $imgID = $dbImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(0));
-        $postID = $dbPost -> getFrom() . '.' . $dbPostImg -> getFields(Array(1));
+        $imgID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(0));
+        $postID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(1));
         // $postImgF = $dbPostImg -> getFields(Array(0, 1));
         
-        $sql = 'SELECT ' . $imgF . ', ' . $imgID . ', ' . $postID .
+        $sql = 'SELECT ' . $imgF . ', ' . $imgID . ', ' . $postID . //$postF . ', ' . $imgF . ', ' . $postImgF .
                 ' FROM ' . $dbImg -> getFrom() . ' JOIN ' . $dbPostImg -> getFrom() .
-                ' USING(' . $dbImg -> getPk() . ') JOIN ' . $dbPost -> getFrom() .
-                ' USING(' . $dbPost -> getPk() . ')' .
-                ' WHERE '; //. $dbPost -> getPk() . ' = ' . $_GET['id'];
+                ' USING(' . $dbPostImg -> getFields(Array(0)) . ') ' .
+                ' WHERE ';
                 
         $result = $dbPost -> getById($sql, $_GET['id']);
         
-        // $result = $dbPost -> runQuery($sql, null, 1);
-        
         echo '<br>';
         
-        echo $sql;
-        
-        echo '<br>';
+        echo $sql;       
         
         foreach($result as $row) {
-            // echo '<div class="smallImg">';
+            echo '<div class="smallImg">';
             
-            //     echo '<img class="img-responsive" src="images/square-small/' . $result['Path'] . '">';
+                echo '<a href="single-image.php?id=' . $result['ImageID'] . '"><img src="images/square-small/' . $result['Path'] . '"></a>';
             
-            // echo '</div>'; // close images div
-            
-            echo $result['Path'];
-            echo '<br>';
-            // echo $result['ImageID'];
-            // echo "<h1>Fuck</h1>";
-        }     
+            echo '</div>'; // close images div               
+        }
         
+        // echo $result['Path'];
+        
+        // ADD A FOR LOOP HERE TO DISPLAY ALL IMAGES
+        // echo '<div class="smallImg">';
+        
+        //     echo '<a href="single-image.php?id=' . $result['ImageID'] . '"><img src="images/square-small/' . $result['Path'] . '"></a>';
+        
+        // echo '</div>'; // close images div        
+        
+    }
+    
+    function countryInfo($connection) {
+        $dbCountry = new CountriesGateway($connection);
+        
+        //CountryName, Capital, Area, Population, CurrencyName, CountryDescription
+        $countryF = $dbCountry -> getFields(Array(2, 3, 5, 6, 10, 14));
+        
+        $sqlInfo = 'SELECT ' . $countryF . ' FROM ' . $dbCountry -> getFrom() . ' WHERE ';
+        
+        $countryInfo = $dbCountry -> getById($sqlInfo, $_GET['id']);
+        
+        echo '<hr><p><strong>Country: </strong>' . $countryInfo['CountryName'] . '</p>';
+        echo '<p><strong>Capital: </strong>' . $countryInfo['Capital'] . '</p>';
+        echo '<p><strong>Area: </strong>' . number_format($countryInfo['Area']) . '</p>';
+        echo '<p><strong>Population: </strong>' . number_format($countryInfo['Population']) . '</p>';
+        echo '<p><strong>Currency Name: </strong>' . $countryInfo['CurrencyName'] . '</p>';
+        echo '<p>' . $countryInfo['CountryDescription'] . '</p>';
+
     }
     
     function browse($connection){
@@ -101,8 +119,8 @@
         $dbUser = new UsersGateway($connection);
         
         // get the fields you need here
-        $postF = $dbPost -> getFields(Array(0,1, 4)); // PostID, UserID, Message
-        $imgF = $dbImg -> getFields(Array(0, 2, 3, 6)); // ImageID, Title, Description, Path
+        $postF = $dbPost -> getFields(Array(0,1,3, 4)); // PostID, UserID,Posts.Title, Message
+        $imgF = $dbImg -> getFields(Array(0, 3, 6)); // ImageID, Description, Path
         $userF = $dbUser -> getFields(Array(0,1,10)); // FirstName, LastName, UserID
         //$userID = $dbUser -> getPk();
         
@@ -110,7 +128,7 @@
                 ' FROM ' . $dbPost->getFrom() .
                 ' JOIN ' . $dbUser->getFrom() .
                 ' ON ' . $dbUser->getFrom() . '.' .$dbUser->getPk() .
-                ' = ' . $dbPost->getFrom() . '.' .getFields(Array(1)) .
+                ' = ' .$dbPost ->getFields(Array(1)) .
                 ' JOIN ' . $dbImg->getFrom() .
                 ' ON ' . $dbImg->getFrom() . '.' .$dbImg->getPk() .
                 ' = ' . $dbPost->getFrom() . '.' .$dbPost -> getFields(Array(2));//$dbPost->getPk() ;

@@ -11,3 +11,21 @@
     display: inline-block;
     padding: 1em;
 }
+.cls {
+    visibility: hidden;
+}
+
+#map {
+    height: 390px;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    /*border-spacing: 5px;*/
+}
+
+th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}

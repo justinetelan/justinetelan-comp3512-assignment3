@@ -1,26 +1,6 @@
 <?php
 
 
-    //browse-posts.php
-foreach($result as $row) {
-    echo '<div class="row">
-                       
-                       <div class="col-md-4"></div>';
-                      echo' <div class="col-md-8"> 
-                          <h2>'. $row['PostTime'].'</h2>';
-                          echo 'Posted by </a><br/>';
-                            echo '<span class="pull-right"></span>';
-                            echo ' REVIEWS';
-                            
-                          
-                          echo '<p class="excerpt">
-                            
-                          </p>
-                          <p class="pull-left"><a href="post.php?id=1" class="btn btn-primary btn-sm">Read more</a></p>
-                       </div>
-                   </div>
-                   <hr/>'; 
-}
 
     
     // browse-countries.php
@@ -344,13 +324,33 @@ foreach($result as $row) {
         
             if($page == "singles") {
             
-                echo '<div class="smallImg">';
+                echo '<div class="smallImg" onmouseover="popOut('.$img['ImageID'].')" onmouseout="popIn('.$img['ImageID'].')">';
                 
                     echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '"></a>';
                 
                 echo '</div>'; // close images div
-            
                 
+                
+                echo '<div class="cls">
+                <div id='.$img['ImageID'].' >';// popover small image
+                    echo '<h6 >'.$img['Title'].'</h6>';
+                    echo '<img src="images/square-small/' . $img['Path'] . '">';
+                
+                echo '
+                </div>
+                </div>'; 
+                
+                ?>
+                <script>
+                    function popIn(x){
+                        document.getElementById(x).style.visibility="hidden";
+                    }
+                    function popOut(x){
+                        document.getElementById(x).style.visibility="visible";
+                    }
+                </script>
+            
+             <?php   
             } else if($page == "filtering") {
                 
                 echo '<li>';

@@ -1,32 +1,7 @@
 <?php
-
-    $country = $_GET['id'];
-
-    // if it doesn't exist or is empty
-    if(!isset($country) || empty($country)) {
-        header('Location: error.php');
-    }
     
     require_once('config.php'); 
-    try {
-      $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $checkCountry = "SELECT ISO FROM Countries WHERE ISO = :country";
-      $statement = $pdo -> prepare($checkCountry);
-      $statement -> bindValue(':country', $country);
-      $statement -> execute();
-      $res = $statement -> fetch();
-      
-      // if doesn't exist
-      if($res == null) {
-          header('Location: error.php');
-      }
-      
-    } catch (PDOException $e) {
-      die( $e->getMessage() );
-    }
-        
-    include 'functions/functions.php';
+    include 'functions/functionsClass.php';
 
 ?>
 
@@ -49,6 +24,7 @@
         <link rel="stylesheet" href="css/bootstrap-theme.css" />    
         
         <link rel="stylesheet" href="css/single-country.css" />   
+        <script src="js/single-country.js" type="text/JavaScript"></script>
     
     </head>
     
@@ -58,15 +34,38 @@
             <?php include 'includes/header.inc.php'; ?>
         </header>
         
+        
         <div class="container">
             
             <div class="jumbotron">
                 
-                <?php singleCountry($pdo); ?>
-                
+                <div class="row">
+                    
+                    <div class="col-md-8">
+                        
+                        <h3>Country Information</h3>
+                        <div id="map"></div>
+                        <script async defer
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIZnr66nMz2I-p9XM2Cl4bUA4fzVjMgwE&callback=initMap">
+                        </script>
+                        <?php
+                        
+                            countryInfo($connection);
+                            
+                        ?>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h3>Related Images</h3>
+                    </div>
+                </div>
             </div>
         
-            <?php singleHeader($pdo, "countries"); ?>
+            <?php 
+            
+                // singleHeader($pdo, "countries"); 
+                
+            ?>
         
             
         </div>

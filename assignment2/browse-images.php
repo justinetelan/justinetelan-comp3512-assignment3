@@ -48,7 +48,7 @@
           <div class="panel-body">
             <form action="browse-images.php" method="get" class="form-horizontal">
               <div class="form-inline">
-              <select name="continent" class="form-control">
+              <select name="continent" class="form-control" onchange="this.form.submit()">
                 <option value="0">Select Continent</option>
                 
                 /* display list of continents */
@@ -56,7 +56,7 @@
                 
               </select>     
               
-              <select name="country" class="form-control">
+              <select name="country" class="form-control" onchange="this.form.submit()">
                 <option value="0">Select Country</option>
                 
                 /* display list of countries */
@@ -64,7 +64,7 @@
                 
               </select>    
               
-              <select name="city" class="form-control">
+              <select name="city" class="form-control" onchange="this.form.submit()">
                 <option value="0">Select City</option>
                 
                 /* display list of cities */ 
@@ -73,10 +73,15 @@
               </select>    
               
               <input type="text"  placeholder="Search title" class="form-control" name=title>
-              <button type="submit" class="btn btn-primary">Filter</button>
               <button type="submit" value="Reset" class="btn btn-success">Clear</button>
               </div>
             </form>
+            <script>
+              
+              function showMenu() {
+    document.getElementById("continent").classList.toggle("show");
+        }
+            </script>
 
           </div>
         </div>     

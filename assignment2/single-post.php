@@ -51,8 +51,8 @@
                         
                         <?php 
                         
-                            // singlePost($connection); 
-                            relatedImg($connection);
+                            singlePost($connection); 
+                            // relatedImg($connection);
                         
                         ?>
                         
