@@ -68,6 +68,20 @@
                   <a href="browse-users.php">View Users</a>
               </div>
           </div>
+          
+          <div class="card">
+              <figure>
+                  <a href="browse-posts.php"><img src="images/misc/home_countries.jpg" alt="View Users" title="Users" /></a>
+              </figure>
+              <div class="desc">
+                  <h3>Posts</h3>
+                  <p>See posts submitted by our users.</p>
+              </div>
+              <hr>
+              <div class="desc">
+                  <a href="browse-posts.php">View Posts</a>
+              </div>
+          </div>
          
     
            

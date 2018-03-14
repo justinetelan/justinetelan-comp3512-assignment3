@@ -1,5 +1,6 @@
-<?php
 
+
+<?php
     function browsePosts($connection){
         
         $dbPost = new PostsGateway($connection);
@@ -119,7 +120,7 @@
         
         echo '<br>';
         
-        echo $sql;       
+        echo '<img src="images/square-small/' . $result['Path'] . '">';       
         
         
         
@@ -221,138 +222,159 @@
     //     $pdo = null; // close connection
     // }
     
-    
-    
-    
-    
-    /* */
-    
-    // single-country.php CHANGE INTO Gateways***
-    function singleCountry($pdo) { 
-        
-        $statement = $pdo -> prepare('SELECT CountryName, Capital, Area, Population, CurrencyName, CountryDescription FROM Countries WHERE ISO =?');
-        $statement -> bindValue(1, $_GET['id']);
-        $statement -> execute();
-        $countries = $statement -> fetch();
-        
-        echo '<h3>' . $countries['CountryName'] . '</h3>';
-        echo '<p>Capital: <span class="bold">' . $countries['Capital'] . '</span></p>';
-        echo '<p>Area: <span class="bold">' . number_format($countries['Area']) . '</span> sq km.</p>';    
-        echo '<p>Population: <span class="bold">' . number_format($countries['Population']) . '</span></p>';
-        echo '<p>Currency Name: <span class="bold">' . $countries['CurrencyName'] . '</span></p>';
-        echo '<p>' . $countries['CountryDescription'] . '</p>';
-            
-        $pdo = null; // close connection
-        
-    }
-    
-    function singleHeader($pdo, $type) {
+    function singleHeader($connection, $type) {
         
         echo '<div class="panel panel-info">';
         
         if($type == "countries") {
             
-            $headSql = "SELECT CountryName FROM Countries WHERE ISO = :country";
-            $statement = $pdo -> prepare($headSql);
-            $statement -> bindValue(':country', $_GET['id']);
-            $statement -> execute();
-            $singC = $statement -> fetch();
-            echo '<div class="panel-heading">Images from ' . $singC['CountryName'] . '</div>';
+            $dbCount = new CountriesGateway($connection);
+            $countF = $dbCount -> getFields(Array(2)); // CountryName
+            $sqlCount = 'SELECT ' . $countF . ' FROM ' . $dbCount -> getFrom() . ' WHERE ';
+            echo $sqlCount;
+            $countInfo = $dbCount -> getById($sqlCount, $_GET['id']);
             
-        } else if($type == "users") {
-            $headSql = "SELECT FirstName, LastName FROM Users WHERE UserID = :users";
-            $statement = $pdo -> prepare($headSql);
-            $statement -> bindValue(':users', $_GET['id']);
-            $statement -> execute();
-            $singC = $statement -> fetch();            
-            echo '<div class="panel-heading">Images by ' . $singC['FirstName'] . " " . $singC['LastName'] . '</div>';
+            echo '<div class="panel-heading">Images from ' . $countInfo['CountryName'] . '</div>';
             
-        }
+        } 
         
-        identifyType($pdo, $type);
+        // else if($type == "users") {
+            
+        //     $dbUse = new UsersGateway($connection);
+        //     $useF = $dbUse -> getFields(Array(0,1)); // FirstName, LastName
+        //     $sqlUse = 'SELECT ' . $useF . ' FROM ' . $dbUse -> getFrom() . ' WHERE ';
+        //     echo $sqlUse;
+        //     $useInfo = $dbUse -> getById($sqlUse, $_GET['id']);
+        //     echo '<div class="panel-heading">Images from ' . $useInfo['FirstName'].' ' . $useInfo['LastName']. '</div>';
+            
+        // }
+        
+        identifyType($connection, $type);
         
     }
     
     // calls another function to show appropriate images via query string for single page CHANGE INTO Gateways
-    function identifyType($pdo, $type) {
+    function identifyType($connection, $type) {
+        
+        $object = "";
         
         if($type == "countries") {
-            $statement = $pdo -> prepare('SELECT CountryName, ImageID, Title, Path FROM Countries JOIN ImageDetails
-                                        WHERE Countries.ISO = ImageDetails.CountryCodeISO AND Countries.ISO =?');
-                                        
-        } else if($type == "users") {
-            $statement = $pdo -> prepare('SELECT Users.UserID, FirstName, LastName, Path, ImageID FROM Users JOIN ImageDetails
-                                        WHERE Users.UserID = ImageDetails.UserID AND Users.UserID =?');
-                                        
-        }
+            
+            $dbCnty = new CountriesGateway($connection);
+            $dbIma = new ImagesGateway($connection);
+            
+            $cntyF = $dbCnty -> getFields(Array(2)); // CountryName
+            $imaF = $dbIma -> getFields(Array(0,2,6)); // ImageID, Title, Path
+            $sql1 = 'SELECT ' . $cntyF . ', ' . $imaF . 
+            ' FROM ' . $dbCnty -> getFrom() . ' JOIN ' . $dbIma -> getFrom() .
+            ' WHERE ' . $dbCnty -> getFrom(). '.' .$dbCnty -> getFields(Array(0)) .
+            ' = ' . $dbIma -> getFrom() . '.' . $dbIma -> getFields(Array(5)) . ' AND ' . $dbCnty -> getFrom() . '.';
+            // echo $sql1;
+            $object = $dbCnty -> getById($sql1, $_GET['id']);
+            
+                                     
+        } 
         
-        $statement -> bindValue(1, $_GET['id']);
-        $statement -> execute();
+        // else if($type == "users") {
+            
+        //     $dbUs = new UsersGateway($connection);
+        //     $usF = $dbUs -> getFields(Array(0,1,10)); // firstname, lastname, users.userid
+        //     $dbIma = new ImagesGateway($connection);
+        //     $imaF = $dbIma -> getFields(Array(0,1,2,6)); // ImageID, Title, Path
+        //     $sql2 = 'SELECT ' . $usF . ', ' . $imaF .
+        //     ' FROM ' . $dbUs -> getFrom() . 
+        //     ' JOIN ' . $dbIma -> getFrom() .
+        //     ' WHERE ' . $dbUs -> getFrom(). '.' .$dbUs -> getFields(Array(10)) .
+        //     ' = ' . $dbIma -> getFields(1);
+            
+        //     /*$statement = $pdo -> prepare('SELECT Users.UserID, FirstName, LastName, Path, ImageID FROM Users JOIN ImageDetails
+        //                                 WHERE Users.UserID = ImageDetails.UserID AND Users.UserID =?');*/
+        //         $object = $dbUs -> getById($sql2, $_GET['id']);
+                                       
+        // }
         
         
-        showImg($statement, "singles");
-        
+        // echo $object;
+        showImg("singles", $object); 
         echo '</div>'; // close panel-info
-        
-        $pdo = null; // close connection
-        
     }
-    
-    
-    function showImg($statement, $page) {
         
-        while($img = $statement -> fetch()) {
         
+    function showImg($page, $object) {
+        
+        // echo count($object) . ' ' . $object . '<br>';
+        
+        // echo $object['Path'] . '<br>';
+        // echo $object['ImageID'] . '<br>';
+       
+        
+        foreach($object as $key => $value) {
+            
+            // print_r($object) . '<br>';
+            
             if($page == "singles") {
-            
-                echo '<div class="smallImg" onmouseover="popOut('.$img['ImageID'].')" onmouseout="popIn('.$img['ImageID'].')">';
-                
-                    echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '"></a>';
-                
-                echo '</div>'; // close images div
-                
-                
-                echo '<div class="cls">
-                <div id='.$img['ImageID'].' >';// popover small image
-                    echo '<h6 >'.$img['Title'].'</h6>';
-                    echo '<img src="images/square-small/' . $img['Path'] . '">';
-                
-                echo '
-                </div>
-                </div>'; 
-                
-                ?>
-                <script>
-                    function popIn(x){
-                        document.getElementById(x).style.visibility="hidden";
-                    }
-                    function popOut(x){
-                        document.getElementById(x).style.visibility="visible";
-                    }
-                </script>
-            
-             <?php   
-            } else if($page == "filtering") {
-                
-                echo '<li>';
-                echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-medium/' . $img['Path'] . '">';
-                echo '<div class="caption">';
-                    echo '<div class="blur"></div>';
-                        echo '<div class="caption-text">';
-                            echo '<p>' . $img['Title'] . '</p>';
-                        echo '</div>'; // close caption-text
-                echo '</div></a>'; // close caption
-                echo '</li>';
-                
+                // echo 'works';
+                echo $value . ' ' ;
             }
             
         }
         
-        $pdo = null; // close connection
+        // $i = 0;
         
+        //foreach($object as $key => $info) {// while(empty($object)) {
+        
+            // echo $object['Path'];
+            
+            // $i++;
+        
+            // if($page == "singles") {
+                
+                // // echo '<div class="smallImg" onmouseover="popOut('.$print['ImageID'].')" onmouseout="popIn('.$print['ImageID'].')">';
+                // echo '<div class="smallImg">';
+                //     echo '<a href="single-image.php?id=' . $print['ImageID'] . '"><img src="images/square-small/' . $print['Path'] . '"></a>';
+                
+                // echo '</div>'; // close images div
+                
+                
+                // echo '<div class="cls">
+                // <div id='.$print['ImageID'].' >';// popover small image
+                //     echo '<h6 >'.$print['Title'].'</h6>';
+                //     echo '<img src="images/square-small/' . $print['Path'] . '">';
+                
+                // echo '
+                // </div>
+                // </div>'; 
+            // }
+                
+                // close php here
+                // <script>
+                //     function popIn(x){
+                //         document.getElementById(x).style.visibility="hidden";
+                //     }
+                //     function popOut(x){
+                //         document.getElementById(x).style.visibility="visible";
+                //     }
+                // </script>
+            
+             // open php here again
+            // } else if($page == "filtering") {
+                
+            //     echo '<li>';
+            //     echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-medium/' . $img['Path'] . '">';
+            //     echo '<div class="caption">';
+            //         echo '<div class="blur"></div>';
+            //             echo '<div class="caption-text">';
+            //                 echo '<p>' . $img['Title'] . '</p>';
+            //             echo '</div>'; // close caption-text
+            //     echo '</div></a>'; // close caption
+            //     echo '</li>';
+                
+            // }
+            
+        
+        // } // close loop
+    
+    
     }
-    
-    
-    
     
 ?>

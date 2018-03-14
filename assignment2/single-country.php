@@ -1,7 +1,6 @@
 <?php
     
     require_once('config.php');
-    // include 'functions/functions.php';
     include 'functions/functionsClass.php';
 
 ?>
@@ -46,6 +45,7 @@
                         
                         <h3>Country Information</h3>
                         <div id="map"></div>
+                        
                         <script async defer
                             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIZnr66nMz2I-p9XM2Cl4bUA4fzVjMgwE&callback=initMap">
                         </script>
@@ -59,8 +59,8 @@
                     <div class="col-md-4">
                         <h3>Related Images</h3>
                         <?php
-                            relatedImg($connection);
-                            // singleHeader($connection, "countries");
+                            //relatedImg($connection);
+                             singleHeader($connection, "countries");
                         ?>
                     </div>
                 </div>

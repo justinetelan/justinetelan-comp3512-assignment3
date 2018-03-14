@@ -13,6 +13,7 @@
 }
 .cls {
     visibility: hidden;
+    position: 90px;
 }
 
 #map {

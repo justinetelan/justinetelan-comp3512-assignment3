@@ -42,6 +42,7 @@
                     <li class="list-group-item"><a href="https://github.com/rconnolly/comp3512-w2018-chapter14">Github Project (Chapter 14)</a></li>
                     <li class="list-group-item"><a href="https://github.com/mru-comp3512-archive/comp3512-f2017-chapter17">Github Project (Chapter 17)</a></li>
                     <li class="list-group-item"><a href="https://github.com/justinetelan">Github Account (Justine Telan)</a></li>
+                    <li class="list-group-item"><a href="https://www.htmlgoodies.com/beyond/javascript/article.php/3902606/How-To-Use-JavaScript-To-Auto-Submit-Dropdowns-With-No-Submit-Button.htm?myfield=Coffee">HTML Goodies (JS Auto-Submit)</a></li>
                     <li class="list-group-item"><a href="http://php.net/">PHP: Hypertext Preprocessor</a></li>
                 </ul>
                     

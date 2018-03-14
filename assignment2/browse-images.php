@@ -72,7 +72,7 @@
                 
               </select>    
               
-              <input type="text"  placeholder="Search title" class="form-control" name=title>
+              
               <button type="submit" value="Reset" class="btn btn-success">Clear</button>
               </div>
             </form>

@@ -93,7 +93,7 @@
     }
     
     // displays proper image header for single pages CHANGE INTO Gateways***
-    function singleHeader($pdo, $type) {
+    /*function singleHeader($pdo, $type) {
         
         echo '<div class="panel panel-info">';
         
@@ -118,7 +118,7 @@
         
         identifyType($pdo, $type);
         
-    }
+    }*/
     
     // calls another function to show appropriate images via query string for single page CHANGE INTO Gateways
     function identifyType($pdo, $type) {
@@ -318,7 +318,7 @@
     }
     
     // displays the images for the single pages and browse-images CHANGE INTO Gateways*****
-    function showImg($statement, $page) {
+    /*function showImg($statement, $page) {
         
         while($img = $statement -> fetch()) {
         
@@ -369,6 +369,6 @@
         
         $pdo = null; // close connection
         
-    }
+    }*/
     
 ?>
