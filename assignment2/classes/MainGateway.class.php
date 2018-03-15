@@ -71,9 +71,6 @@
             }
             
             return $sql;
-            
-            // $statement = DatabaseHelp::runQuery($this->connection, $sql, null);
-            // return $statement -> fetch();
         }
         
         public function getFrom() {
@@ -105,6 +102,10 @@
                 $sql = $sql . ' ORDER BY ' . $this -> getOrder();
             } else if($type == "groupBy") {
                 $sql = $sql . ' GROUP BY ' . $this -> getOrder();
+            } else if($type == "both") {
+                $sql = $sql . ' GROUP BY ' . $this -> getOrder() .
+                        ' ORDER BY ' . $this -> getOrder();
+                // echo '<option>' . $sql . '</option>';
             }
             
             // $this -> runQuery($sql, null, 0);

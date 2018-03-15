@@ -175,48 +175,6 @@
         
     }
     
-    
-    
-    // function browseImg($connection, $type){
-    //     if($type == "continent") {
-          
-    //      $dbContinents = new ContinentsGateway($connection);
-        
-    //     $postF = $dbContinents -> getFields(Array(0, 1));
-    //     $result = $dbContinents -> runQuery($sql, null, 0);
-          
-    //       foreach ($conti = $statement -> fetch()) {     
-    //         echo '<option value="' . $conti['ContinentCode'] . '">' . $conti['ContinentName'] . '</option>';
-    //       }
-          
-    //     } else if($type == "country") {
-          
-    //       $countrySql = 'SELECT CountryName, ISO FROM Countries JOIN ImageDetails
-    //                       WHERE Countries.ISO = ImageDetails.CountryCodeISO GROUP BY ISO';
-    //       $statement = $pdo -> prepare($countrySql);
-    //       $statement -> execute();
-          
-          
-    //       while($countries = $statement -> fetch()) {
-    //           echo '<option value="' . $countries['ISO'] . '">' . $countries['CountryName'] . '</option>'; 
-    //       }
-          
-    //     } else if($type == "city") {
-          
-    //       $citySql = 'SELECT AsciiName, Cities.CityCode FROM Cities JOIN ImageDetails
-    //                       WHERE Cities.CityCode = ImageDetails.CityCode GROUP BY AsciiName ORDER BY AsciiName';
-    //       $statement = $pdo -> prepare($citySql);
-    //       $statement -> execute();
-          
-    //       while($city = $statement -> fetch()) {
-    //           echo '<option value="' . $city['CityCode'] . '">' . $city['AsciiName'] . '</option>'; 
-    //       }
-          
-    //     }
-        
-    //     $pdo = null; // close connection
-    // }
-    
     function singleHeader($connection, $type) {
         
         echo '<div class="panel panel-info">';
@@ -294,8 +252,6 @@
     
     function dropdown($connection, $type) {
         
-        // echo '<h1>fuck</h1>';
-        
         if($type == "continent") {
             
             $dbCont = new ContinentsGateway($connection);
@@ -310,7 +266,7 @@
             
             
         } else if($type == "country") {
-                          
+            
             $dbCount = new CountriesGateway($connection);
             $dbImg = new ImagesGateway($connection);
             $countF = $dbCount -> getFields(Array(0, 2)); // Countries.ISO, CountryName
@@ -323,11 +279,99 @@
             
             foreach($result as $cntry) {
                 echo '<option value="' . $cntry['ISO'] . '">' . $cntry['CountryName'] . '</option>';
-            }            
+            }
+            
+        } else if($type == "city") {
+                          
+            $dbCity = new CitiesGateway($connection);
+            $dbImg = new ImagesGateway($connection);
+            $cityF = $dbCity -> getFields(Array(0, 7)); // AsciiName, Cities.CityCode
+            
+            $sqlCity = 'SELECT ' . $cityF . ' FROM ' . $dbCity -> getFrom() .
+                        ' JOIN ' . $dbImg -> getFrom() .
+                        ' WHERE ' . $dbCity -> getFields(Array(7)) . ' = ' . 
+                        $dbImg -> getFrom() . '.' . $dbImg -> getFields(Array(4));
+            $result = $dbCity -> findAllSorted($sqlCity, "both"); // ORDER BY AsciiName
+            
+            foreach($result as $city) {
+                echo '<option value="' . $city['CityCode'] . '">' . $city['AsciiName'] . '</option>';
+            }
         }
         
     }
+    
+    function filterHeader($connection) {
         
+        echo '<div class="panel panel-default">';
+        echo '<div class="panel-heading">Images ';
+        
+        if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['title'] == "")) {
+                
+                echo "[All]";
+                
+            } else if(isset($_GET['continent']) && $_GET['continent'] != "0") {
+                
+                echo "[Continent=" . $_GET['continent'] . "]";
+                
+            } else if(isset($_GET['country']) && $_GET['country'] != "0") {
+                
+                echo "[Country=" . $_GET['country'] . "]";
+            
+            } else if(isset($_GET['city']) && $_GET['city'] != "0") {
+                
+                echo "[City=" . $_GET['city'] . "]";
+                
+            } else if(isset($_GET['title']) && $_GET['title'] != "0") {
+                
+                echo "[Title=" . $_GET['title'] . "]";
+            }
+            
+            echo '</div>';
+            
+                echo '<div class="panel-body">';
+                
+                    filterImg($connection); // calls to retrieve what has been filtered
+                    
+                echo '</div>';
+            
+        echo '</div>'; // close panel-default
+        
+    }
+    
+    function filterImg($connection) {
+        
+        if($_SERVER["REQUEST_METHOD"] == "GET") {
+            
+            $dbImg = new ImagesGateway($connection);
+            $startSql = 'SELECT ' . $dbImg -> getFields(Array(0, 2, 6)) . ' FROM '; // ImageID, Title, Path
+            // echo $startSql;
+            $sql = ""; $result = "";
+            
+            if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['title'] == "")) {
+                $sql = $startSql . $dbImg -> getFrom();
+                // echo $sql;
+                $result = $dbImg -> runQuery($sql, null, 0);
+            } else if(isset($_GET['continent']) && $_GET['continent'] != "0") {
+                
+                $dbCont = new ContinentsGateway($connection);
+                
+                
+                $sql = $startSql . $dbCont -> getFrom() . ' JOIN ' . $dbImg -> getFrom() .
+                        ' USING(' . $dbCont -> getFields(Array(0)) . ')' .
+                        ' WHERE ' . $dbCont -> getFrom() . '.';
+                        
+                $result = $dbCont -> getById($sql, $_GET['continent'], 1);
+                
+                // echo $sql;
+                
+            }
+            
+            // echo $result;
+            showImg("filtering", $result);
+            
+        }
+        
+    }   
         
     function showImg($page, $object) {
         
@@ -369,33 +413,19 @@
             
              <?php   
                
+            } else if($page == "filtering") {
+                
+                echo '<li>';
+                echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-medium/' . $img['Path'] . '">';
+                echo '<div class="caption">';
+                    echo '<div class="blur"></div>';
+                        echo '<div class="caption-text">';
+                            echo '<p>' . $img['Title'] . '</p>';
+                        echo '</div>'; // close caption-text
+                echo '</div></a>'; // close caption
+                echo '</li>';
+                
             }
-            
-                
-                // close php here
-                // <script>
-                //     function popIn(x){
-                //         document.getElementById(x).style.visibility="hidden";
-                //     }
-                //     function popOut(x){
-                //         document.getElementById(x).style.visibility="visible";
-                //     }
-                // </script>
-            
-             // open php here again
-            // } else if($page == "filtering") {
-                
-            //     echo '<li>';
-            //     echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-medium/' . $img['Path'] . '">';
-            //     echo '<div class="caption">';
-            //         echo '<div class="blur"></div>';
-            //             echo '<div class="caption-text">';
-            //                 echo '<p>' . $img['Title'] . '</p>';
-            //             echo '</div>'; // close caption-text
-            //     echo '</div></a>'; // close caption
-            //     echo '</li>';
-                
-            // }
             
         
         } // close loop

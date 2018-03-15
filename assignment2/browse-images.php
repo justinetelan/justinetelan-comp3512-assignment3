@@ -10,7 +10,7 @@
       die( $e->getMessage() );
     }
     
-    include 'functions/functions.php';
+    // include 'functions/functions.php';
     include 'functions/functionsClass.php';
     
 ?>
@@ -80,6 +80,7 @@
                 <?php 
                 
                   // dropdown($pdo, "city"); 
+                  dropdown($connection, "city");
                 
                 ?>
                 
@@ -102,7 +103,7 @@
 
 		<ul class="caption-style-2">
 		    
-		     <?php filterHeader($pdo); ?> 
+		     <?php filterHeader($connection); ?> 
 	    	  
         </ul>   
     
