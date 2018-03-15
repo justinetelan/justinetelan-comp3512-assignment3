@@ -14,7 +14,7 @@ class CountriesGateway extends MainGateway {
     
     // store fields into an array
     protected function getData() {
-        $data[0] = "ISO"; $data[1] = "ISONumeric"; $data[2] = "CountryName"; $data[3] = "Capital"; $data[4] = "CityCode";
+        $data[0] = "Countries.ISO"; $data[1] = "ISONumeric"; $data[2] = "CountryName"; $data[3] = "Capital"; $data[4] = "CityCode";
         $data[5] = "Area"; $data[6] = "Population"; $data[7] = "Continent"; $data[8] = "TopLevelDomain"; $data[9] = "CurrencyCode";
         $data[10] = "CurrencyName"; $data[11] = "PhoneCountryCode"; $data[12] = "Languages"; $data[13] = "Neighbours"; $data[14] = "CountryDescription";
         

@@ -93,7 +93,7 @@
     }
     
     // displays proper image header for single pages CHANGE INTO Gateways***
-    /*function singleHeader($pdo, $type) {
+    function singleHeaderF($pdo, $type) {
         
         echo '<div class="panel panel-info">';
         
@@ -118,10 +118,10 @@
         
         identifyType($pdo, $type);
         
-    }*/
+    }
     
     // calls another function to show appropriate images via query string for single page CHANGE INTO Gateways
-    function identifyType($pdo, $type) {
+    function identifyTypeF($pdo, $type) {
         
         if($type == "countries") {
             $statement = $pdo -> prepare('SELECT CountryName, ImageID, Title, Path FROM Countries JOIN ImageDetails

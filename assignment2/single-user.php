@@ -26,6 +26,7 @@
     }
     
     include 'functions/functions.php';
+    include 'functions/functionsClass.php';
 
 ?>
 
@@ -34,7 +35,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Assignment 1 (Winter 2018)</title>
+        <title>Assignment 2 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
@@ -61,11 +62,11 @@
             
             <div class="jumbotron">
                 
-                <?php singleUser($pdo); ?>
+                <?php singleUser($connection); ?>
                 
             </div>
         
-            <?php singleHeader($pdo, "users"); ?>
+            <?php singleHeader($connection, "users"); ?>
         
             
         </div>

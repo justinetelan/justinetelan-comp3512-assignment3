@@ -2,6 +2,7 @@
     
     require_once('config.php');
     include 'functions/functionsClass.php';
+   //include 'map.php';
 
 ?>
 
@@ -25,6 +26,7 @@
         
         <link rel="stylesheet" href="css/single-country.css" />   
         <script src="js/single-country.js" type="text/JavaScript"></script>
+        <script src="map.js" type="text/JavaScript"></script>
     
     </head>
     
@@ -44,11 +46,14 @@
                     <div class="col-md-8">
                         
                         <h3>Country Information</h3>
-                        <div id="map"></div>
+                        <div id="googleMap" style="width:95%;height:400px;"></div>
+                            
+                         <?php  mapp($connection); ?>
+                            
+                            
+                        </div>
                         
-                        <script async defer
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIZnr66nMz2I-p9XM2Cl4bUA4fzVjMgwE&callback=initMap">
-                        </script>
+                        
                         <?php
                         
                             countryInfo($connection);

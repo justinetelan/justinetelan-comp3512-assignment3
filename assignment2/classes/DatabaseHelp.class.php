@@ -33,6 +33,9 @@ class DatabaseHelp {
             // use a prepared statement if parameters
             $statement = $connection -> prepare($sql);
             $executedOk = $statement -> execute($parameters);
+            
+            // print_r($statement);
+            
             if(!$executedOk) {
                 throw new PDOException;
             }

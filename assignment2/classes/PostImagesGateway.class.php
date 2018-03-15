@@ -25,7 +25,7 @@ class PostImagesGateway extends MainGateway {
     
     // FIX THIS - has two primary keys
     protected function getPkName() {
-        return 'ImageID';
+        return 'PostID';
     }
     
     

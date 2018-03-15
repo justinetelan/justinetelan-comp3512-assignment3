@@ -107,12 +107,16 @@
         }
         
         // returns data for specified ID
-        public function getById($sql, $id) {
+        public function getById($sql, $id, $fetch) {
             $sql = $sql . $this -> getPkName() . '=:id';
-            // $sql = $this -> getSelectStatement() . ' WHERE ' . $this -> getPkName() . '=:id';
-            // $this -> runQuery($sql, Array(':id' => $id), 1);
+            
             $statement = DatabaseHelp::runQuery($this->connection, $sql, Array(':id' => $id)); // UNSURE WHY ARRAY
-            return $statement -> fetch();
+            
+            if($fetch == 0) {
+                return $statement -> fetch();
+            } else if($fetch == 1) {
+                return $statement -> fetchAll();
+            }
             // echo $sql;
         }
     }

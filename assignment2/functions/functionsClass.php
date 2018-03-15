@@ -65,13 +65,9 @@
                 ' AND ' . $dbPost -> getFields(Array(1)) . ' = ' . $dbUser -> getFrom() . '.' . $dbUser -> getPk() .
                 ' AND ';
         
-        $result = $dbPost -> getById($sql, $_GET['id']);
+        $result = $dbPost -> getById($sql, $_GET['id'], 0);
         
-        echo '<br>';
-        
-        echo $sql;
-        
-        echo '<br>'; echo '<br>';
+        // echo $sql;
         
         echo "<div class='col-md-8'>";
         
@@ -84,7 +80,7 @@
         
         echo "<div class='col-md-4'>";
         
-        echo "<h2>" . $result['Title'] . "</h2>";
+        echo "<h1>" . $result['Title'] . "</h1>";
         
         echo "<div class='panel panel-default'>";
             echo "<div class='panel-body'>";
@@ -95,43 +91,42 @@
             echo "</div>";
         echo "</div>";
         
-        relatedImg($connection);
+        relatedImgPost($connection);
         
     }
     
-    function relatedImg($connection) {
+    function singleU() {
+        
+    }
+    
+    function relatedImgPost($connection) {
         
         $dbPost = new PostsGateway($connection);
         $dbImg = new ImagesGateway($connection);
         $dbPostImg = new PostImagesGateway($connection);
         
-        // $postF = $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(0)); // PostID
+        
         $imgF = $dbImg -> getFields(Array(6)); // Path
         $imgID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(0));
         $postID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(1));
-        // $postImgF = $dbPostImg -> getFields(Array(0, 1));
+        
         
         $sql = 'SELECT ' . $imgF . ', ' . $imgID . ', ' . $postID . //$postF . ', ' . $imgF . ', ' . $postImgF .
                 ' FROM ' . $dbImg -> getFrom() . ' JOIN ' . $dbPostImg -> getFrom() .
                 ' USING(' . $dbPostImg -> getFields(Array(0)) . ') ' .
-                ' WHERE ';
+                ' WHERE ' . $dbPostImg -> getFrom() . '.';
                 
-        $result = $dbPost -> getById($sql, $_GET['id']);
+        $result = $dbPost -> getById($sql, $_GET['id'], 1);
         
-        echo '<br>';
-        
-        echo '<img src="images/square-small/' . $result['Path'] . '">';       
-        
-        
-        
-        // echo $result['Path'];
-        
-        // ADD A FOR LOOP HERE TO DISPLAY ALL IMAGES
-        // echo '<div class="smallImg">';
-        
-        //     echo '<a href="single-image.php?id=' . $result['ImageID'] . '"><img src="images/square-small/' . $result['Path'] . '"></a>';
-        
-        // echo '</div>'; // close images div        
+        foreach($result as $row) {
+            
+            // LINK IMG TO SINGLE-IMAGE OR NAH
+            
+            // echo '<div id="smallImg">';
+              echo '<img src="images/square-small/' . $row['Path'] . '">';
+            // echo '</div>';
+            
+        }   
         
     }
     
@@ -143,7 +138,7 @@
         
         $sqlInfo = 'SELECT ' . $countryF . ' FROM ' . $dbCountry -> getFrom() . ' WHERE ';
         
-        $countryInfo = $dbCountry -> getById($sqlInfo, $_GET['id']);
+        $countryInfo = $dbCountry -> getById($sqlInfo, $_GET['id'], 0);
         
         echo '<hr><p><strong>Country: </strong>' . $countryInfo['CountryName'] . '</p>';
         echo '<p><strong>Capital: </strong>' . $countryInfo['Capital'] . '</p>';
@@ -232,22 +227,20 @@
             $countF = $dbCount -> getFields(Array(2)); // CountryName
             $sqlCount = 'SELECT ' . $countF . ' FROM ' . $dbCount -> getFrom() . ' WHERE ';
             echo $sqlCount;
-            $countInfo = $dbCount -> getById($sqlCount, $_GET['id']);
+            $countInfo = $dbCount -> getById($sqlCount, $_GET['id'], 0);
             
             echo '<div class="panel-heading">Images from ' . $countInfo['CountryName'] . '</div>';
             
-        } 
-        
-        // else if($type == "users") {
+        } else if($type == "users") {
             
-        //     $dbUse = new UsersGateway($connection);
-        //     $useF = $dbUse -> getFields(Array(0,1)); // FirstName, LastName
-        //     $sqlUse = 'SELECT ' . $useF . ' FROM ' . $dbUse -> getFrom() . ' WHERE ';
-        //     echo $sqlUse;
-        //     $useInfo = $dbUse -> getById($sqlUse, $_GET['id']);
-        //     echo '<div class="panel-heading">Images from ' . $useInfo['FirstName'].' ' . $useInfo['LastName']. '</div>';
+            $dbUse = new UsersGateway($connection);
+            $useF = $dbUse -> getFields(Array(0,1)); // FirstName, LastName
+            $sqlUse = 'SELECT ' . $useF . ' FROM ' . $dbUse -> getFrom() . ' WHERE ';
+            // echo $sqlUse;
+            $useInfo = $dbUse -> getById($sqlUse, $_GET['id'], 0);
+            echo '<div class="panel-heading">Images from ' . $useInfo['FirstName'].' ' . $useInfo['LastName']. '</div>';
             
-        // }
+        }
         
         identifyType($connection, $type);
         
@@ -265,36 +258,36 @@
             
             $cntyF = $dbCnty -> getFields(Array(2)); // CountryName
             $imaF = $dbIma -> getFields(Array(0,2,6)); // ImageID, Title, Path
-            $sql1 = 'SELECT ' . $cntyF . ', ' . $imaF . 
-            ' FROM ' . $dbCnty -> getFrom() . ' JOIN ' . $dbIma -> getFrom() .
-            ' WHERE ' . $dbCnty -> getFrom(). '.' .$dbCnty -> getFields(Array(0)) .
-            ' = ' . $dbIma -> getFrom() . '.' . $dbIma -> getFields(Array(5)) . ' AND ' . $dbCnty -> getFrom() . '.';
-            // echo $sql1;
-            $object = $dbCnty -> getById($sql1, $_GET['id']);
+            $sql1 = 'SELECT ' . $cntyF . ', ' . $imaF . ' FROM ' . $dbCnty -> getFrom() . 
+            ' JOIN ' . $dbIma -> getFrom() .
+            ' WHERE ' . $dbCnty -> getFields(Array(0)) . 
+            ' = ' . $dbIma -> getFields(Array(5)) . ' AND '; 
+            // echo $sql1 . '<br>';
+            $object = $dbCnty -> getById($sql1, $_GET['id'], 1);
             
                                      
-        } 
-        
-        // else if($type == "users") {
+        } else if($type == "users") {
             
-        //     $dbUs = new UsersGateway($connection);
-        //     $usF = $dbUs -> getFields(Array(0,1,10)); // firstname, lastname, users.userid
-        //     $dbIma = new ImagesGateway($connection);
-        //     $imaF = $dbIma -> getFields(Array(0,1,2,6)); // ImageID, Title, Path
-        //     $sql2 = 'SELECT ' . $usF . ', ' . $imaF .
-        //     ' FROM ' . $dbUs -> getFrom() . 
-        //     ' JOIN ' . $dbIma -> getFrom() .
-        //     ' WHERE ' . $dbUs -> getFrom(). '.' .$dbUs -> getFields(Array(10)) .
-        //     ' = ' . $dbIma -> getFields(1);
+        'SELECT Users.UserID, FirstName, LastName, Path, ImageID FROM Users JOIN ImageDetails
+                    WHERE Users.UserID = ImageDetails.UserID AND Users.UserID =?';
             
-        //     /*$statement = $pdo -> prepare('SELECT Users.UserID, FirstName, LastName, Path, ImageID FROM Users JOIN ImageDetails
-        //                                 WHERE Users.UserID = ImageDetails.UserID AND Users.UserID =?');*/
-        //         $object = $dbUs -> getById($sql2, $_GET['id']);
+            $dbUs = new UsersGateway($connection);
+            $dbIma = new ImagesGateway($connection);
+            
+            $usF = $dbUs -> getFields(Array(0,1,10)); // FirstName, LastName, Users.UserID
+            $imaF = $dbIma -> getFields(Array(0,2,6)); // ImageID, Title, Path
+            $sql2 = 'SELECT ' . $usF . ', ' . $imaF . ' FROM ' . $dbUs -> getFrom() . 
+            ' JOIN ' . $dbIma -> getFrom() .
+            ' WHERE ' . $dbUs -> getFields(Array(10)) .
+            ' = ' . $dbIma -> getFields(Array(1)) . ' AND ' . $dbUs -> getFrom() . '.';
+            
+            // echo $sql2;
+            
+            $object = $dbUs -> getById($sql2, $_GET['id'], 1);
                                        
-        // }
+        }
         
         
-        // echo $object;
         showImg("singles", $object); 
         echo '</div>'; // close panel-info
     }
@@ -302,49 +295,18 @@
         
     function showImg($page, $object) {
         
-        // echo count($object) . ' ' . $object . '<br>';
-        
-        // echo $object['Path'] . '<br>';
-        // echo $object['ImageID'] . '<br>';
-       
-        
-        foreach($object as $key => $value) {
-            
-            // print_r($object) . '<br>';
+        foreach($object as $img) {
             
             if($page == "singles") {
-                // echo 'works';
-                echo $value . ' ' ;
+               
+                echo '<div class="smallImg">';
+                    
+                    echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '"></a>';
+                
+                echo '</div>'; // close images div               
+               
             }
             
-        }
-        
-        // $i = 0;
-        
-        //foreach($object as $key => $info) {// while(empty($object)) {
-        
-            // echo $object['Path'];
-            
-            // $i++;
-        
-            // if($page == "singles") {
-                
-                // // echo '<div class="smallImg" onmouseover="popOut('.$print['ImageID'].')" onmouseout="popIn('.$print['ImageID'].')">';
-                // echo '<div class="smallImg">';
-                //     echo '<a href="single-image.php?id=' . $print['ImageID'] . '"><img src="images/square-small/' . $print['Path'] . '"></a>';
-                
-                // echo '</div>'; // close images div
-                
-                
-                // echo '<div class="cls">
-                // <div id='.$print['ImageID'].' >';// popover small image
-                //     echo '<h6 >'.$print['Title'].'</h6>';
-                //     echo '<img src="images/square-small/' . $print['Path'] . '">';
-                
-                // echo '
-                // </div>
-                // </div>'; 
-            // }
                 
                 // close php here
                 // <script>
@@ -372,9 +334,56 @@
             // }
             
         
-        // } // close loop
+        } // close loop
     
     
     }
+    
+    
+    function mapp($connection){
+            require_once('config.php');
+            $dbCoun = new CountriesGateway($connection);
+            $counInfo = $dbCoun -> getFields(Array(0,2)); // ISO
+            $dbIm = new ImagesGateway($connection);
+            $imInfo = $dbIm -> getFields(Array(5,7,8)); // CountryCodeISO, Longtitude, Latitude
+            
+            
+            $sqlCoun = ' SELECT ' . $imInfo . ' , ' . $counInfo. 
+                        ' FROM ' . $dbIm -> getFrom() . 
+                        ' JOIN ' . $dbCoun->getFrom() .
+                        ' ON ' . $dbCoun -> getFields(Array(0)) .
+                         ' = ' . $dbIm -> getFields(Array(5)) .
+                         ' WHERE ';
+                        $coordinates = $dbIm -> getById($sqlCoun, $_GET['id'], 0);
+            echo $sqlCoun;
+                        
+                        // $fee = 66;
+                        // echo $fee;
+                        
+                       $lat = $coordinates['Latitude'];
+                        $long = $coordinates['Longitude'];
+                        
+?>
+<script>
+
+function myMap() {
+    
+    var long = 20;
+    
+    var lat = 20;
+    
+    var mapProp= {
+    
+    center:new google.maps.LatLng(long,lat),
+    zoom:4,
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtFhIrvtqf7fVR4am3VBYbQmxRi8AuGVo&callback=myMap"></script>
+<?php
+}
+    
     
 ?>

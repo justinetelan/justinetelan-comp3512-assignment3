@@ -17,7 +17,7 @@ class ImagesGateway extends MainGateway {
     // store fields into an array
     protected function getData() {
         $data[0] = "ImageID"; $data[1] = "ImageDetails.UserID"; $data[2] = "ImageDetails.Title"; $data[3] = "Description";
-        $data[4] = "CityCode"; $data[5] = "CountryCodeISO"; $data[6] = "Path";
+        $data[4] = "CityCode"; $data[5] = "ImageDetails.CountryCodeISO"; $data[6] = "Path"; $data[7] = "Longitude"; $data[8] = "Latitude";
         
         return $data;
     }
