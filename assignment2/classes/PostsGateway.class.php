@@ -25,6 +25,10 @@ class PostsGateway extends MainGateway {
         return 'Posts';
     }
     
+    protected function getOrder() {
+        return 'PostID';
+    }    
+    
     protected function getPkName() {
         return 'PostID';
     }

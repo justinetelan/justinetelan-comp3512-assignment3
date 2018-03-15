@@ -25,6 +25,10 @@ class CountriesGateway extends MainGateway {
         return 'Countries';
     }
     
+    protected function getOrder() {
+        return 'CountryName';
+    }
+    
     protected function getPkName() {
         return 'ISO';
     }

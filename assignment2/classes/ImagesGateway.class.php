@@ -26,6 +26,10 @@ class ImagesGateway extends MainGateway {
         return 'ImageDetails'; 
     }
     
+    protected function getOrder() {
+        return 'Title';
+    }    
+    
     protected function getPkName() {
         return 'ImageID';
     }

@@ -291,6 +291,42 @@
         showImg("singles", $object); 
         echo '</div>'; // close panel-info
     }
+    
+    function dropdown($connection, $type) {
+        
+        // echo '<h1>fuck</h1>';
+        
+        if($type == "continent") {
+            
+            $dbCont = new ContinentsGateway($connection);
+            $contF = $dbCont -> getFields(Array(0, 1)); // ContinentCode, ContinentName
+            
+            $sqlCont = 'SELECT ' . $contF . ' FROM ' . $dbCont -> getFrom();
+            $result = $dbCont -> findAllSorted($sqlCont, "orderBy"); // ORDER BY ContinentName
+            
+            foreach($result as $conti) {
+                echo '<option value="' . $conti['ContinentCode'] . '">' . $conti['ContinentName'] . '</option>';
+            }
+            
+            
+        } else if($type == "country") {
+                          
+            $dbCount = new CountriesGateway($connection);
+            $dbImg = new ImagesGateway($connection);
+            $countF = $dbCount -> getFields(Array(0, 2)); // Countries.ISO, CountryName
+            
+        
+            $sqlCount = 'SELECT ' . $countF . ' FROM ' . $dbCount -> getFrom() .
+                        ' JOIN ' . $dbImg -> getFrom() .
+                        ' WHERE ' . $dbCount -> getFields(Array(0)) . ' = ' . $dbImg -> getFields(Array(5));
+            $result = $dbCount -> findAllSorted($sqlCount, "groupBy"); // GROUP BY ISO
+            
+            foreach($result as $cntry) {
+                echo '<option value="' . $cntry['ISO'] . '">' . $cntry['CountryName'] . '</option>';
+            }            
+        }
+        
+    }
         
         
     function showImg($page, $object) {
@@ -299,11 +335,39 @@
             
             if($page == "singles") {
                
-                echo '<div class="smallImg">';
+                echo '<div class="smallImg" onmouseover="popIn('.$img['ImageID'].')" onmouseout="popOut('.$img['ImageID'].')">';
                     
                     echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '"></a>';
                 
-                echo '</div>'; // close images div               
+                echo '</div>'; // close images div 
+                
+                 echo '
+                <div class="popS" id='.$img['ImageID'].' >';// popover small image
+                    echo '<h6 >'.$img['Title'].'</h6>';
+                    echo '<img src="images/square-small/' . $img['Path'] . '">';
+                
+                echo '
+                
+                </div>'; 
+                
+                ?>
+                <script>
+                    function popIn(c){
+                        var x = event.clientX;
+                        var y = event.clientY;
+                        var snowball = document.getElementById(c);
+                         snowball.style.visibility="visible";
+                        snowball.style.position = "absolute";
+                        snowball.style.right = x + 'px';
+                        snowball.style.top = y + 'px';
+                        
+                    }
+                    function popOut(p){
+                        document.getElementById(p).style.visibility="hidden";
+                    }
+                </script>
+            
+             <?php   
                
             }
             
@@ -341,7 +405,7 @@
     
     
     function mapp($connection){
-            require_once('config.php');
+            
             $dbCoun = new CountriesGateway($connection);
             $counInfo = $dbCoun -> getFields(Array(0,2)); // ISO
             $dbIm = new ImagesGateway($connection);
@@ -354,34 +418,36 @@
                         ' ON ' . $dbCoun -> getFields(Array(0)) .
                          ' = ' . $dbIm -> getFields(Array(5)) .
                          ' WHERE ';
-                        $coordinates = $dbIm -> getById($sqlCoun, $_GET['id'], 0);
-            echo $sqlCoun;
+                        $coordinates = $dbCoun -> getById($sqlCoun, $_GET['id'], 0);
+            //echo $sqlCoun;
                         
                         // $fee = 66;
                         // echo $fee;
                         
                        $lat = $coordinates['Latitude'];
                         $long = $coordinates['Longitude'];
+                       
+                        
                         
 ?>
 <script>
 
-function myMap() {
-    
-    var long = 20;
-    
-    var lat = 20;
-    
-    var mapProp= {
-    
-    center:new google.maps.LatLng(long,lat),
-    zoom:4,
-};
-var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtFhIrvtqf7fVR4am3VBYbQmxRi8AuGVo&callback=myMap"></script>
+function initMap() {
+        document.write("<div id='map' style='width:95%;height:400px;'></div>");
+        var uluru = {lat: <?php echo $lat; ?>, lng: <?php echo $long; ?>};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8izLDbgoSU5XQQhwjGI_c3L1OnnJ1lkU&callback=initMap">
+    </script>
 <?php
 }
     

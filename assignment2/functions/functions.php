@@ -188,7 +188,7 @@
         
     }
     
-    function dropdown($pdo, $type) {
+    function dropdownF($pdo, $type) {
     
         if($type == "continent") {
           

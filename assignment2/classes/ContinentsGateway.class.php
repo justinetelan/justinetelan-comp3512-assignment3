@@ -25,6 +25,10 @@ class ContinentsGateway extends MainGateway {
         return 'Continents'; 
     }
     
+    protected function getOrder() {
+        return 'ContinentName';
+    }    
+    
     protected function getPkName() {
         return 'ContinentCode';
     }

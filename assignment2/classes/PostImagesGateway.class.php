@@ -23,6 +23,10 @@ class PostImagesGateway extends MainGateway {
         return 'PostImages';
     }
     
+    protected function getOrder() {
+        return ' ';
+    }    
+    
     // FIX THIS - has two primary keys
     protected function getPkName() {
         return 'PostID';

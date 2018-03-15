@@ -11,10 +11,14 @@
     display: inline-block;
     padding: 1em;
 }
-.cls {
+.popS {
     visibility: hidden;
-    position: 90px;
+   top: 0px;
+   right: 0px;
 }
+
+
+
 
 #map {
     height: 390px;

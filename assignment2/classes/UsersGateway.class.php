@@ -26,6 +26,10 @@ class UsersGateway extends MainGateway {
         return 'Users'; 
     }
     
+    protected function getOrder() {
+        return 'UserID';
+    }    
+    
     protected function getPkName() {
         return 'UserID';
     }

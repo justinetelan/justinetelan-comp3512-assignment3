@@ -21,7 +21,7 @@
         abstract protected function getFromClause();
         
         // define sort order (is this needed or nah)
-        // abstract protected function getOrder();
+        abstract protected function getOrder();
         
         // primary keys in db
         abstract protected function getPkName();
@@ -99,11 +99,19 @@
         }
         
         // returns sorted data based on specified sort order
-        public function findAllSorted($sortOrder) {
-            $sql = $this -> getSelectStatement() . ' ORDER BY ' . $this -> getOrder();
+        public function findAllSorted($sql, $type) {//$sortOrder) {
+            
+            if($type == "orderBy") {
+                $sql = $sql . ' ORDER BY ' . $this -> getOrder();
+            } else if($type == "groupBy") {
+                $sql = $sql . ' GROUP BY ' . $this -> getOrder();
+            }
+            
             // $this -> runQuery($sql, null, 0);
             $statement = DatabaseHelp::runQuery($this->connection, $sql, null);
             return $statement -> fetchAll();
+            
+            // echo '<option>' . $sql . '</option>';
         }
         
         // returns data for specified ID

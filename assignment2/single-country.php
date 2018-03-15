@@ -2,7 +2,6 @@
     
     require_once('config.php');
     include 'functions/functionsClass.php';
-   //include 'map.php';
 
 ?>
 
@@ -26,7 +25,7 @@
         
         <link rel="stylesheet" href="css/single-country.css" />   
         <script src="js/single-country.js" type="text/JavaScript"></script>
-        <script src="map.js" type="text/JavaScript"></script>
+        \
     
     </head>
     
@@ -38,28 +37,28 @@
         
         
         <div class="container">
-            
             <div class="jumbotron">
-                
                 <div class="row">
                     
                     <div class="col-md-8">
                         
                         <h3>Country Information</h3>
-                        <div id="googleMap" style="width:95%;height:400px;"></div>
+                        
                             
                          <?php  mapp($connection); ?>
-                            
-                            
-                        </div>
-                        
-                        
+                         
                         <?php
                         
                             countryInfo($connection);
                             
                         ?>
-                    </div>
+                            
+                            
+                    </div> <!-- close col-md-8 -->
+                        
+                        
+
+                    <!--</div>-->
                     
                     <div class="col-md-4">
                         <h3>Related Images</h3>
@@ -67,9 +66,10 @@
                             //relatedImg($connection);
                              singleHeader($connection, "countries");
                         ?>
-                    </div>
-                </div>
-            </div>
+                    </div> <!-- close col-md-4 -->
+                    
+                </div> <!-- close row -->
+            </div> <!-- close jumbotron -->
         
             <?php 
             

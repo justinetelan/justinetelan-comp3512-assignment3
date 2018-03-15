@@ -11,7 +11,7 @@
     }
     
     include 'functions/functions.php';
-    
+    include 'functions/functionsClass.php';
     
 ?>
 
@@ -45,6 +45,7 @@
         <main class="container">
         <div class="panel panel-default">
           <div class="panel-heading">Filters</div>
+          
           <div class="panel-body">
             <form action="browse-images.php" method="get" class="form-horizontal">
               <div class="form-inline">
@@ -52,7 +53,10 @@
                 <option value="0">Select Continent</option>
                 
                 /* display list of continents */
-                <?php dropdown($pdo, "continent"); ?>
+                <?php 
+                  // dropdownF($pdo, "continent"); 
+                  dropdown($connection, "continent");
+                ?>
                 
               </select>     
               
@@ -60,7 +64,12 @@
                 <option value="0">Select Country</option>
                 
                 /* display list of countries */
-                <?php dropdown($pdo, "country"); ?>
+                <?php 
+                  
+                  // dropdown($pdo, "country"); 
+                  dropdown($connection, "country");
+                  
+                ?>
                 
               </select>    
               
@@ -68,7 +77,11 @@
                 <option value="0">Select City</option>
                 
                 /* display list of cities */ 
-                <?php dropdown($pdo, "city"); ?>
+                <?php 
+                
+                  // dropdown($pdo, "city"); 
+                
+                ?>
                 
               </select>    
               
