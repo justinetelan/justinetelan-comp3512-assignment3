@@ -24,8 +24,8 @@
         <link rel="stylesheet" href="css/bootstrap-theme.css" />    
         
         <link rel="stylesheet" href="css/single-country.css" />   
-        <script src="js/single-country.js" type="text/JavaScript"></script>
-        \
+        <script src="js/map.js" type="text/JavaScript"></script>
+        
     
     </head>
     
@@ -45,13 +45,9 @@
                         <h3>Country Information</h3>
                         
                             
-                         <?php  mapp($connection); ?>
+                        <?php  mapp($connection, "country"); ?>
                          
-                        <?php
-                        
-                            countryInfo($connection);
-                            
-                        ?>
+                        <?php countryInfo($connection); ?>
                             
                             
                     </div> <!-- close col-md-8 -->
@@ -64,7 +60,7 @@
                         <h3>Related Images</h3>
                         <?php
                             //relatedImg($connection);
-                             singleHeader($connection, "countries");
+                            singleHeader($connection, "countries");
                         ?>
                     </div> <!-- close col-md-4 -->
                     

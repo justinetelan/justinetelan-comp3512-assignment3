@@ -26,7 +26,7 @@
     }
     
     include 'functions/functions.php';
-    include 'functions/functionsClass.php';
+    // include 'functions/functionsClass.php';
 
 ?>
 
@@ -62,11 +62,19 @@
             
             <div class="jumbotron">
                 
-                <?php singleUser($connection); ?>
+                <?php 
+                
+                    // singleUser($connection); 
+                    singleUser($pdo); 
+                ?>
                 
             </div>
         
-            <?php singleHeader($connection, "users"); ?>
+            <?php 
+                
+                // singleHeader($connection, "users"); 
+                singleHeaderF($pdo, "users"); 
+            ?>
         
             
         </div>

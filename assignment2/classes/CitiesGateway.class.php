@@ -1,12 +1,3 @@
-CityCode       | int(11)      | NO   | PRI | NULL    |       |
-| AsciiName      | varchar(255) | YES  |     | NULL    |       |
-| CountryCodeISO | varchar(2)   | YES  | MUL | NULL    |       |
-| Latitude       | double       | YES  |     | NULL    |       |
-| Longitude      | double       | YES  |     | NULL    |       |
-| Population     | int(11)      | YES  |     | NULL    |       |
-| Elevation      | int(11)      | YES  |     | NULL    |       |
-| TimeZone       | varchar(255) | YES  |     | NULL    
-
 <?php
 /*
     Gateway class for Cities table.

@@ -99,6 +99,58 @@
         
     }
     
+    function singleImg($connection) {
+        
+        $dbImg = new ImagesGateway($connection);
+        $mainImg = 'SELECT ' . $dbImg -> getFields(Array(2, 3, 6)) . ' FROM ' . $dbImg -> getFrom() . ' WHERE '; // Title, Description, Path
+        $image = $dbImg -> getById($mainImg, $_GET['id'], 0);
+        // echo $mainImg;
+        // echo $image;
+        
+        echo "<div class='col-md-8'>";
+        echo "<img class='img-responsive' ";
+        
+        echo "src='images/medium/" . $image['Path'] . "' alt='" . $image['Title'] . "'>";
+        echo "<p class='description'>" . $image['Description'] . "</p>";
+    
+        echo "</div>"; // close col-md-8
+        
+        sideInfo($connection);
+        
+    }
+    
+    function sideInfo($connection) {
+        
+        $dbImg = new ImagesGateway($connection); $dbUser = new UsersGateway($connection);
+        $dbCount = new CountriesGateway($connection); $dbCity = new CitiesGateway($connection);
+        
+        $imgF = $dbImg -> getFields(Array(2)); $userF = $dbUser -> getFields(Array(0, 1, 10)); // Title, FirstName, LastName, UserID
+        $countF = $dbCount -> getFields(Array(0, 2)); $cityF = $dbCity -> getFields(Array(0)); // ISO, CountryName, AsciiName
+        
+        $info = 'SELECT ' . $imgF . ', ' . $userF . ', ' . $countF . ', ' . $cityF .
+                ' FROM ' . $dbImg -> getFrom() . ', ' . $dbUser -> getFrom() . ', ' . $dbCount -> getFrom() . ', ' . $dbCity -> getFrom() .
+                ' WHERE ' . $dbImg -> getFields(Array(1)) . ' = ' . $dbUser -> getFields(Array(10)) .
+                ' AND ' . $dbImg -> getFields(Array(5)) . ' = ' . $dbCount -> getFields(Array(0)) .
+                ' AND ' . $dbImg -> getFrom() . '.' . $dbImg -> getFields(Array(4)) . ' = ' . $dbCity -> getFields(Array(7)) . ' AND ';
+        $sideInfo = $dbImg -> getById($info, $_GET['id'], 0);
+        // echo $info;
+        
+        echo "<div class='col-md-4'>";
+        
+        echo "<h2>" . $sideInfo['Title'] . "</h2>";
+        
+        echo "<div class='panel panel-default'>";
+            echo "<div class='panel-body'>";
+                echo "<ul class='details-list'>";
+                    echo "<li>By: <a href='single-user.php?id=" . $sideInfo['UserID'] . "'>" . $sideInfo['FirstName'] . " " . $sideInfo['LastName'] . "</a></li>";
+                    echo "<li>Country: <a href='single-country.php?id=" . $sideInfo['ISO'] . "'>" . $sideInfo['CountryName'] . "</a></li>";
+                    echo "<li>City: " . $sideInfo['AsciiName'] . "</li>";
+                echo "</ul>";
+            echo "</div>";
+        echo "</div>"; // close col-md-4
+        
+    }
+    
     function relatedImgPost($connection) {
         
         $dbPost = new PostsGateway($connection);
@@ -348,22 +400,38 @@
             $sql = ""; $result = "";
             
             if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['title'] == "")) {
+                
                 $sql = $startSql . $dbImg -> getFrom();
                 // echo $sql;
                 $result = $dbImg -> runQuery($sql, null, 0);
+                
             } else if(isset($_GET['continent']) && $_GET['continent'] != "0") {
                 
                 $dbCont = new ContinentsGateway($connection);
-                
-                
                 $sql = $startSql . $dbCont -> getFrom() . ' JOIN ' . $dbImg -> getFrom() .
                         ' USING(' . $dbCont -> getFields(Array(0)) . ')' .
                         ' WHERE ' . $dbCont -> getFrom() . '.';
                         
                 $result = $dbCont -> getById($sql, $_GET['continent'], 1);
-                
                 // echo $sql;
                 
+            } else if(isset($_GET['country']) && $_GET['country'] != "0") {
+             
+                $dbCount = new CountriesGateway($connection);
+                $sql = $startSql . $dbCount -> getFrom() . ' JOIN ' . $dbImg -> getFrom() .
+                        ' WHERE ' . $dbCount -> getFields(Array(0)) . ' = ' . $dbImg -> getFields(Array(5)) . ' AND ';
+                $result = $dbCount -> getById($sql, $_GET['country'], 1);
+                // echo $sql;
+                
+            } else if(isset($_GET['city']) && $_GET['city'] != "0") {
+                
+                $dbCity = new CitiesGateway($connection);
+                $sql = $startSql . $dbCity -> getFrom() . ' JOIN ' . $dbImg -> getFrom() .
+                        ' USING(' . $dbCity -> getPk() . ')' .
+                        ' WHERE ';
+                $result = $dbCity -> getById($sql, $_GET['city'], 1);
+                // echo $sql;
+               
             }
             
             // echo $result;
@@ -388,7 +456,7 @@
                  echo '
                 <div class="popS" id='.$img['ImageID'].' >';// popover small image
                     echo '<h6 >'.$img['Title'].'</h6>';
-                    echo '<img src="images/square-small/' . $img['Path'] . '">';
+                    echo '<img src="images/square-small/' . $img['Path'] . '" >';
                 
                 echo '
                 
@@ -411,7 +479,7 @@
                     }
                 </script>
             
-             <?php   
+            <?php // open php tag again   
                
             } else if($page == "filtering") {
                 
@@ -430,56 +498,65 @@
         
         } // close loop
     
+    }
     
+    function mapp($connection, $type) {
+        
+        $dbCoun = new CountriesGateway($connection);
+        $dbIm = new ImagesGateway($connection);
+        $counInfo = $dbCoun -> getFields(Array(0,2)); // ISO
+        $imInfo = $dbIm -> getFields(Array(5,7,8)); // CountryCodeISO, Longtitude, Latitude
+        
+        $sqlCoun = ' SELECT ' . $imInfo . ', ' . $counInfo . ' FROM ' . $dbIm -> getFrom() . 
+                    ' JOIN ' . $dbCoun->getFrom() . ' ON ' . $dbCoun -> getFields(Array(0)) .
+                     ' = ' . $dbIm -> getFields(Array(5)) . ' WHERE ';
+        
+        if($type == "country") {
+            $coordinates = $dbCoun -> getById($sqlCoun, $_GET['id'], 0);
+        } else if($type == "image") {
+            $coordinates = $dbIm -> getById($sqlCoun, $_GET['id'], 0);
+        }
+                    
+        $lat = $coordinates['Latitude'];
+        $long = $coordinates['Longitude'];
+        
+        echo '<br>';
+        
+        // echo "<div id='map' style='width:95%;height:400px;'></div>";
+        
+        // call script here <script> initMap() </script> maybe
+        // echo "<script> initMap() </script>";
+        
+        // echo '<script 
+        //         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8izLDbgoSU5XQQhwjGI_c3L1OnnJ1lkU&callback=initMap">
+        //     </script>';
+        
+    // } // close mapp
+  
+?> <!-- close php -->
+
+    <script>
+    
+    function initMap() {
+            document.write("<div id='map' style='width:95%;height:400px;'></div>");
+            var uluru = {lat: <?php echo $lat; ?>, lng: <?php echo $long; ?>};
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 4,
+              center: uluru
+            });
+            var marker = new google.maps.Marker({
+              position: uluru,
+              map: map
+            });
+    }
+    </script>
+    
+    <script 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8izLDbgoSU5XQQhwjGI_c3L1OnnJ1lkU&callback=initMap">
+    </script>
+    <?php
     }
     
     
-    function mapp($connection){
-            
-            $dbCoun = new CountriesGateway($connection);
-            $counInfo = $dbCoun -> getFields(Array(0,2)); // ISO
-            $dbIm = new ImagesGateway($connection);
-            $imInfo = $dbIm -> getFields(Array(5,7,8)); // CountryCodeISO, Longtitude, Latitude
-            
-            
-            $sqlCoun = ' SELECT ' . $imInfo . ' , ' . $counInfo. 
-                        ' FROM ' . $dbIm -> getFrom() . 
-                        ' JOIN ' . $dbCoun->getFrom() .
-                        ' ON ' . $dbCoun -> getFields(Array(0)) .
-                         ' = ' . $dbIm -> getFields(Array(5)) .
-                         ' WHERE ';
-                        $coordinates = $dbCoun -> getById($sqlCoun, $_GET['id'], 0);
-            //echo $sqlCoun;
-                        
-                        // $fee = 66;
-                        // echo $fee;
-                        
-                       $lat = $coordinates['Latitude'];
-                        $long = $coordinates['Longitude'];
-                       
-                        
-                        
 ?>
-<script>
 
-function initMap() {
-        document.write("<div id='map' style='width:95%;height:400px;'></div>");
-        var uluru = {lat: <?php echo $lat; ?>, lng: <?php echo $long; ?>};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-    </script>
-    <script 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8izLDbgoSU5XQQhwjGI_c3L1OnnJ1lkU&callback=initMap">
-    </script>
-<?php
-}
-    
-    
-?>

@@ -7,25 +7,26 @@
     }
     
     require_once('config.php'); 
-    try {
-      $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $checkImg = "SELECT ImageID FROM ImageDetails WHERE ImageID = :image";
-      $statement = $pdo -> prepare($checkImg);
-      $statement -> bindValue(':image', $img);
-      $statement -> execute();
-      $res = $statement -> fetch();
+    // try {
+    //   $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
+    //   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //   $checkImg = "SELECT ImageID FROM ImageDetails WHERE ImageID = :image";
+    //   $statement = $pdo -> prepare($checkImg);
+    //   $statement -> bindValue(':image', $img);
+    //   $statement -> execute();
+    //   $res = $statement -> fetch();
       
-      if($res == null) {
-          header('Location: error.php');   
-      }
+    //   if($res == null) {
+    //       header('Location: error.php');   
+    //   }
       
-    }
-    catch (PDOException $e) {
-      die( $e->getMessage() );
-    }
+    // }
+    // catch (PDOException $e) {
+    //   die( $e->getMessage() );
+    // }
     
-    include 'functions/functions.php';
+    // include 'functions/functions.php';
+    include 'functions/functionsClass.php';
 
 ?>
 
@@ -34,7 +35,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Assignment 1 (Winter 2018)</title>
+        <title>Assignment 2 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
@@ -64,7 +65,11 @@
                 <div class="col-md-10">
                     <div class="row">
                         
-                        <?php singleImage($pdo); ?>
+                        <?php 
+                        
+                            // singleImage($pdo); 
+                            singleImg($connection);
+                        ?>
                         
                         <div class='btn-group btn-group-justified' role='group' aria-label='...'>
                             <div class='btn-group' role='group'>
@@ -83,6 +88,12 @@
                                 <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-comment' aria-hidden='true'></span></button>
                             </div>
                         </div> <!-- close button class -->
+                        
+                        <!--<div id='map' style='width:95%;height:400px;'></div>-->
+                        
+                        <?php mapp($connection, "image"); ?>
+                        
+                        
                         
                         </div> <!-- close div col-md-4 within singleImage() -->                  
                             

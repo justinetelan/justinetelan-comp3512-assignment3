@@ -30,11 +30,11 @@
             
             if($fetch == 0) {
                 $statement = DatabaseHelp::runQuery($this->connection, $sql, $arr);
-                echo 'works fetch all' . '<br>';
+                // echo 'works fetch all' . '<br>';
                 return $statement -> fetchAll();
             } else if($fetch == 1) {
                 $statement = DatabaseHelp::runQuery($this->connection, $sql, $arr);
-                echo 'works fetch' . '<br>';
+                // echo 'works fetch' . '<br>';
                 return $statement -> fetch();
             }
         }

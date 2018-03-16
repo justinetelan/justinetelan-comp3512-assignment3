@@ -86,7 +86,6 @@
                 
               </select>    
               
-              
               <button type="submit" value="Reset" class="btn btn-success">Clear</button>
               </div>
             </form>

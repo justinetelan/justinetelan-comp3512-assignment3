@@ -116,7 +116,7 @@
             
         }
         
-        identifyType($pdo, $type);
+        identifyTypeF($pdo, $type);
         
     }
     
@@ -137,7 +137,7 @@
         $statement -> execute();
         
         
-        showImg($statement, "singles");
+        showImgF($statement, "singles");
         
         echo '</div>'; // close panel-info
         
@@ -311,14 +311,14 @@
              
             $statement -> execute(); 
             
-            showImg($statement, "filtering"); // calls the appropriate filtered images
+            showImgF($statement, "filtering"); // calls the appropriate filtered images
          
-        }      
+        }    
         
     }
     
     // displays the images for the single pages and browse-images CHANGE INTO Gateways*****
-    /*function showImg($statement, $page) {
+    function showImgF($statement, $page) {
         
         while($img = $statement -> fetch()) {
         
@@ -369,6 +369,6 @@
         
         $pdo = null; // close connection
         
-    }*/
+    }
     
 ?>
