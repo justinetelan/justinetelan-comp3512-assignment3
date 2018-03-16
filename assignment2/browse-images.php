@@ -10,7 +10,7 @@
       die( $e->getMessage() );
     }
     
-    // include 'functions/functions.php';
+   // include 'functions/functions.php';
     include 'functions/functionsClass.php';
     
 ?>
@@ -79,12 +79,12 @@
                 /* display list of cities */ 
                 <?php 
                 
-                  // dropdown($pdo, "city"); 
-                  dropdown($connection, "city");
+                  dropdown($connection, "city"); 
                 
                 ?>
                 
               </select>    
+              
               
               <button type="submit" value="Reset" class="btn btn-success">Clear</button>
               </div>
@@ -92,8 +92,8 @@
             <script>
               
               function showMenu() {
-    document.getElementById("continent").classList.toggle("show");
-        }
+                document.getElementById("continent").classList.toggle("show");
+              }
             </script>
 
           </div>

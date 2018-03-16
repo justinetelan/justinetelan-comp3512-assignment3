@@ -1,3 +1,22 @@
+<?php
+    
+    require_once('config.php');
+    include 'functions/functionsClass.php';
+    
+    $searchImg = $_GET['imgTitle'];
+    
+    echo isset($searchImg) . ' ' . $searchImg;
+    
+    // if(isset($searchImg) && $searchImg != "") {
+        
+    //     header('Location: browse-images.php?imgTitle=' . $_GET['imgTitle']);
+    //     // simpleSearch($connection);  
+    //     filterHeader($connection);
+        
+    // }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     
@@ -86,6 +105,12 @@
     
            
        </section>
+       
+       <?php 
+            // simpleSearch($connection); 
+            // filterImg($connection);   
+            filterHeader($connection);
+        ?>
         
         
         <footer>

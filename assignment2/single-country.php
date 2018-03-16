@@ -44,10 +44,7 @@
                         
                         <h3>Country Information</h3>
                         
-                            
-                        <?php  mapp($connection, "country"); ?>
-                         
-                        <?php countryInfo($connection); ?>
+                        <?php  mapp($connection, "country"); countryInfo($connection); ?>
                             
                             
                     </div> <!-- close col-md-8 -->
@@ -60,18 +57,15 @@
                         <h3>Related Images</h3>
                         <?php
                             //relatedImg($connection);
-                            singleHeader($connection, "countries");
+                            //singleHeader($connection, "countries");
+                            identifyType($connection, "countries");
                         ?>
                     </div> <!-- close col-md-4 -->
                     
                 </div> <!-- close row -->
             </div> <!-- close jumbotron -->
         
-            <?php 
-            
-                // singleHeader($pdo, "countries"); 
-                
-            ?>
+            <?php // singleHeader($pdo, "countries"); ?>
         
             
         </div>

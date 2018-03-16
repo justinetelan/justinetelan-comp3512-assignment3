@@ -27,7 +27,7 @@
         abstract protected function getPkName();
         
         public function runQuery($sql, $arr, $fetch) {
-            
+            // echo $sql;
             if($fetch == 0) {
                 $statement = DatabaseHelp::runQuery($this->connection, $sql, $arr);
                 // echo 'works fetch all' . '<br>';

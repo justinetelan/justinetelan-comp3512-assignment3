@@ -1,32 +1,17 @@
 <?php
 
-    // $user = $_GET['id'];
+    // $post = $_GET['id'];
     
-    // if(!isset($user) || empty($user)) {
+    // if(!isset($post) || empty($post)) {
     //     header('Location: error.php');
     // }
     
     require_once('config.php'); 
-    // try {
-    //   $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-    //   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //   $checkUser = "SELECT UserID FROM Users WHERE UserID = :user";
-    //   $statement = $pdo -> prepare($checkUser);
-    //   $statement -> bindValue(':user', $user);
-    //   $statement -> execute();
-    //   $res = $statement -> fetch();
-      
-    //   if($res == null) {
-    //       header('Location: error.php');
-    //   }
-      
-    // }
-    // catch (PDOException $e) {
-    //   die( $e->getMessage() );
-    // }
     
-    // include 'functions/functions.php';
+    // don't need to put pdo here because it's already in the DatabaseHelp class
+    
     include 'functions/functionsClass.php';
+    
 
 ?>
 
@@ -48,7 +33,6 @@
         <link rel="stylesheet" href="css/captions.css" />
         <link rel="stylesheet" href="css/bootstrap-theme.css" />    
         
-        <link rel="stylesheet" href="css/single-country.css" />   
     
     </head>
     
@@ -58,25 +42,26 @@
             <?php include 'includes/header.inc.php'; ?>
         </header>
         
-        <div class="container">
-            
-            <div class="jumbotron">
-                
-                <?php 
-                
-                    singleUser($connection); 
-                    // singleUser($pdo); 
-                ?>
-                
-            </div>
+        <main class="container">
+            <form action="user.php" method="post">
+  
+
+  <div class="jumbotron">
+      <div class="row"></div>
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
         
-            <?php
-            
-                singleHeader($connection, "users"); 
-            ?>
-        
-            
-        </div>
+    <button type="submit">Login</button>
+    
+  </div>
+
+  
+  </div>
+</form>
+        </main>
         
         
         <footer>

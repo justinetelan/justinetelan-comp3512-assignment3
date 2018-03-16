@@ -47,7 +47,41 @@
                <hr/>';
          }
     }
-
+   
+    /*function faveArray($postTitle, $postImg){
+         $arry = array();
+        array_push($arry, $postTitle,$postImg);
+        print_r($arry);
+        echo sizeOf($arry);
+    }*/
+    
+     function addFavePost($connection, $arry) {
+         $dbPost = new PostsGateway($connection);
+        $dbImg = new ImagesGateway($connection);
+        
+        // get UserID from Posts instead OR Users
+        $postF = $dbPost -> getFields(Array(2, 3, 4, 5)); // MainPostImage, Title, Message, PostTime
+        $imgF = $dbImg -> getFields(Array(0, 6)); // UserID, Path
+        
+        
+        $sql = 'SELECT ' . $postF . ', ' . $imgF  .
+                ' FROM ' . $dbPost -> getFrom() . ', ' . $dbImg -> getFrom() .
+                ' WHERE ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(2)) . ' = ' . $dbImg -> getFrom() . '.' . $dbImg -> getPk() .
+                
+                ' AND ';
+        echo $sql;
+        $results = $dbPost -> getById($sql, $_GET['id'], 0);
+        
+        $postTitle = $results['Title'];
+        $postImg = $results['Path'];
+        
+        
+        array_push($arry, $postTitle,$postImg);
+        print_r($arry);
+        echo sizeOf($arry);
+        
+    }
+    
     function singlePost($connection) { // USED COMMA JOIN
         
         $dbPost = new PostsGateway($connection);
@@ -95,8 +129,20 @@
         
     }
     
-    function singleU() {
+    function singleUser($connection) {
         
+        $dbUser = new UsersGateway($connection);
+        // FirstName, LastName, Address, City, Country, Postal, Phone, Email
+        $userF = $dbUser -> getFields(Array(0, 1, 2, 3, 5, 6, 7, 8)); 
+        
+        $sql = 'SELECT ' . $userF . ' FROM ' . $dbUser -> getFrom() . ' WHERE ';
+        $users = $dbUser -> getById($sql, $_GET['id'], 0);
+        
+        echo "<h3>" . $users['FirstName'] . " " . $users['LastName'] . "</h3>";
+        echo "<p>" . $users['Address'] . "</p>";
+        echo "<p>" . $users['City'] . ", " . $users['Postal'] . ", " . $users['Country'] . "</p>";
+        echo "<p>" . $users['Phone'] . "</p>";
+        echo "<p>" . $users['Email'] . "</p>";
     }
     
     function singleImg($connection) {
@@ -108,6 +154,9 @@
         // echo $image;
         
         echo "<div class='col-md-8'>";
+        
+        mapp($connection, "country");
+        
         echo "<img class='img-responsive' ";
         
         echo "src='images/medium/" . $image['Path'] . "' alt='" . $image['Title'] . "'>";
@@ -204,26 +253,33 @@
     function simpleSearch($connection) {
         
         $dbImg = new ImagesGateway($connection);
+        $result = "";
         
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             
-            $sql = 'SELECT ' . $dbImg -> getFields(Array(0, 2, 6)) . // ImageID, Title, Path
+            $startSql = 'SELECT ' . $dbImg -> getFields(Array(0, 2, 6)) . // ImageID, Title, Path
                     ' FROM ' . $dbImg -> getFrom(); 
             // $sql = 'SELECT ' . $startSql . ' FROM ';
             
             // header('Location: browse-images.php');
             
-            echo $sql;
+            // echo $sql;
             
-            // if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
-            //     $search = $_GET['imgTitle'];
-            //     $sql = $startSql . ' WHERE Title LIKE :title';
-            //     $statement = $dbImg -> runQuery($sql, null, 0);
-            //     $search = "%" . $search . "%";
-            //     $statement -> bindParam(':title', $search);
-            //     // header('Location: browse-images.php?title=')
-            // }
+            if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
+                $search = $_GET['imgTitle'];
+                $search = '"%' . $search . '%"';
+                $sql = $startSql . ' WHERE Title LIKE ' . $search;// :title';
+                $result = $dbImg -> runQuery($sql, null, 0);
+                
+                // foreach($result as $row) {
+                //     echo $row['ImageID'] . ' ' . $row['Title'] . '<br>';
+                // }
+                showImg("filtering", $result);
+                
+                
+            }
         }
+        // showImg("filtering", $result);
         
     }
     
@@ -357,7 +413,9 @@
         echo '<div class="panel panel-default">';
         echo '<div class="panel-heading">Images ';
         
-        if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['title'] == "")) {
+        // echo $_GET['imgTitle'] . '<br>' . isset($_GET['imgTitle']) . '<br>';
+        
+        if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['imgTitle'] == "")) {
                 
                 echo "[All]";
                 
@@ -373,9 +431,9 @@
                 
                 echo "[City=" . $_GET['city'] . "]";
                 
-            } else if(isset($_GET['title']) && $_GET['title'] != "0") {
+            } else if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
                 
-                echo "[Title=" . $_GET['title'] . "]";
+                echo "[Title=" . $_GET['imgTitle'] . "]";
             }
             
             echo '</div>';
@@ -394,12 +452,14 @@
         
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             
+            echo $_GET['imgTitle'] . ' ' . isset($_GET['imgTitle']) . '<br>';
+            
             $dbImg = new ImagesGateway($connection);
             $startSql = 'SELECT ' . $dbImg -> getFields(Array(0, 2, 6)) . ' FROM '; // ImageID, Title, Path
             // echo $startSql;
             $sql = ""; $result = "";
             
-            if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['title'] == "")) {
+            if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['imgTitle'] == "")) {
                 
                 $sql = $startSql . $dbImg -> getFrom();
                 // echo $sql;
@@ -429,12 +489,30 @@
                 $sql = $startSql . $dbCity -> getFrom() . ' JOIN ' . $dbImg -> getFrom() .
                         ' USING(' . $dbCity -> getPk() . ')' .
                         ' WHERE ';
+                // echo '<br>' . $sql;
+                
                 $result = $dbCity -> getById($sql, $_GET['city'], 1);
                 // echo $sql;
                
-            }
+            } 
+            
+            // else if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
+            //     $search = $_GET['imgTitle'];
+            //     $search = '"%' . $search . '%"';
+            //     $sql = $startSql . ' WHERE Title LIKE ' . $search;// :title';
+            //     $result = $dbImg -> runQuery($sql, null, 0);
+                
+            //     echo $startSql;
+                
+            //     // echo $startSql;// . ' ' . $sql;
+                
+            //     // foreach($result as $row) {
+            //     //     echo $row['ImageID'] . ' ' . $row['Title'];
+            //     // }
+            // }
             
             // echo $result;
+            // echo $sql;
             showImg("filtering", $result);
             
         }
@@ -479,7 +557,7 @@
                     }
                 </script>
             
-            <?php // open php tag again   
+             <?php   
                
             } else if($page == "filtering") {
                 
@@ -498,9 +576,10 @@
         
         } // close loop
     
+    
     }
     
-    function mapp($connection, $type) {
+    function mapp($connection, $type){
         
         $dbCoun = new CountriesGateway($connection);
         $dbIm = new ImagesGateway($connection);
@@ -522,19 +601,16 @@
         
         echo '<br>';
         
-        // echo "<div id='map' style='width:95%;height:400px;'></div>";
-        
-        // call script here <script> initMap() </script> maybe
-        // echo "<script> initMap() </script>";
+        // call script here <script> initMap() </script>
+        // echo '<script> initMap() </script>';
         
         // echo '<script 
         //         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8izLDbgoSU5XQQhwjGI_c3L1OnnJ1lkU&callback=initMap">
         //     </script>';
-        
-    // } // close mapp
-  
-?> <!-- close php -->
-
+                       
+                        
+                        
+?>
     <script>
     
     function initMap() {
@@ -559,4 +635,3 @@
     
     
 ?>
-
