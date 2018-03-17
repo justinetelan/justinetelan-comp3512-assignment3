@@ -1,7 +1,6 @@
 <?php
-session_start();
-
-?>
+            session_start();
+            ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,32 +25,33 @@ session_start();
     
     <body>
         
-        
-        
-        
         <header>
             <?php include 'includes/header.inc.php'; ?>
         </header>
-        <main class="container">
-            <form action="session.php" method="post">
-  
-
-  <div class="jumbotron">
-      
-      <div class="row"></div>
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
         
-    <button type="submit">Login</button>
-    
-  </div>
-
-  
-  </div>
-</form>
+        <main class="container">
+            <?php
+            
+            // echo "User is: ". $_SESSION['user']. '</br>';
+            // echo "User is: ". $_SESSION['ids'];
+            // echo "User is: ". $_SESSION['ln'];
+            
+                echo 'User: '.$_SESSION['user']. '</br>';
+                echo 'ID: '.$_SESSION['ids']. '</br>';
+                echo 'FirstName: '.$_SESSION['first']. '</br>';
+                echo 'LastName: '.$_SESSION['last']. '</br>';
+                echo 'Address: '.$_SESSION['address']. '</br>';
+                echo 'City: '.$_SESSION['city']. '</br>';
+                echo 'Region: '.$_SESSION['region']. '</br>';
+                echo 'Postal: '.$_SESSION['postal']. '</br>';
+                echo 'Phone: '.$_SESSION['phone']. '</br>';
+                echo 'Email: '.$_SESSION['email']. '</br>';
+            
+            
+            
+            
+            
+?>
         </main>
         
         

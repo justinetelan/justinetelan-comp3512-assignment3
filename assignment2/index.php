@@ -5,15 +5,15 @@
     
     $searchImg = $_GET['imgTitle'];
     
-    echo isset($searchImg) . ' ' . $searchImg;
+    // echo isset($searchImg) . ' ' . $searchImg;
     
-    // if(isset($searchImg) && $searchImg != "") {
+    session_start();
+    
+    if(isset($searchImg) && $searchImg != "") {
         
-    //     header('Location: browse-images.php?imgTitle=' . $_GET['imgTitle']);
-    //     // simpleSearch($connection);  
-    //     filterHeader($connection);
+        header('Location: browse-images.php?imgTitle=' . $_GET['imgTitle']);
         
-    // }
+    }
 
 ?>
 
@@ -25,9 +25,12 @@
         <title>Assignment 2 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
+          
+          <!-- FONTS = Main: Actor, Text: Advent Pro -->
+          
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    
+        
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         
         
@@ -107,9 +110,11 @@
        </section>
        
        <?php 
+            // DONT THINK THIS IS NEEDED SINCE IT'S REDIRECTING ANYWAY
+            
             // simpleSearch($connection); 
             // filterImg($connection);   
-            filterHeader($connection);
+            // filterHeader($connection);
         ?>
         
         

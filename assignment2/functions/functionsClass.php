@@ -410,39 +410,39 @@
     
     function filterHeader($connection) {
         
+        echo isset($_GET['imgTitle']) . $_GET['imgTitle'];
+        
         echo '<div class="panel panel-default">';
         echo '<div class="panel-heading">Images ';
         
-        // echo $_GET['imgTitle'] . '<br>' . isset($_GET['imgTitle']) . '<br>';
-        
         if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['imgTitle'] == "")) {
                 
-                echo "[All]";
-                
-            } else if(isset($_GET['continent']) && $_GET['continent'] != "0") {
-                
-                echo "[Continent=" . $_GET['continent'] . "]";
-                
-            } else if(isset($_GET['country']) && $_GET['country'] != "0") {
-                
-                echo "[Country=" . $_GET['country'] . "]";
+            echo "[All]";
             
-            } else if(isset($_GET['city']) && $_GET['city'] != "0") {
-                
-                echo "[City=" . $_GET['city'] . "]";
-                
-            } else if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
-                
-                echo "[Title=" . $_GET['imgTitle'] . "]";
-            }
+        } else if(isset($_GET['continent']) && $_GET['continent'] != "0") {
             
+            echo "[Continent=" . $_GET['continent'] . "]";
+            
+        } else if(isset($_GET['country']) && $_GET['country'] != "0") {
+            
+            echo "[Country=" . $_GET['country'] . "]";
+        
+        } else if(isset($_GET['city']) && $_GET['city'] != "0") {
+            
+            echo "[City=" . $_GET['city'] . "]";
+            
+        } else if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
+            
+            echo "[Title=" . $_GET['imgTitle'] . "]";
+        }
+        
+        echo '</div>';
+        
+            echo '<div class="panel-body">';
+            
+                filterImg($connection); // calls to retrieve what has been filtered
+                
             echo '</div>';
-            
-                echo '<div class="panel-body">';
-                
-                    filterImg($connection); // calls to retrieve what has been filtered
-                    
-                echo '</div>';
             
         echo '</div>'; // close panel-default
         
@@ -452,7 +452,7 @@
         
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             
-            echo $_GET['imgTitle'] . ' ' . isset($_GET['imgTitle']) . '<br>';
+            // echo $_GET['imgTitle'] . ' ' . isset($_GET['imgTitle']) . '<br>';
             
             $dbImg = new ImagesGateway($connection);
             $startSql = 'SELECT ' . $dbImg -> getFields(Array(0, 2, 6)) . ' FROM '; // ImageID, Title, Path
@@ -496,20 +496,20 @@
                
             } 
             
-            // else if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
-            //     $search = $_GET['imgTitle'];
-            //     $search = '"%' . $search . '%"';
-            //     $sql = $startSql . ' WHERE Title LIKE ' . $search;// :title';
-            //     $result = $dbImg -> runQuery($sql, null, 0);
+            else if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
+                $search = $_GET['imgTitle'];
+                $search = '"%' . $search . '%"';
+                $sql = $startSql . ' WHERE Title LIKE ' . $search;// :title';
+                $result = $dbImg -> runQuery($sql, null, 0);
                 
-            //     echo $startSql;
+                echo $startSql;
                 
-            //     // echo $startSql;// . ' ' . $sql;
+                // echo $startSql;// . ' ' . $sql;
                 
-            //     // foreach($result as $row) {
-            //     //     echo $row['ImageID'] . ' ' . $row['Title'];
-            //     // }
-            // }
+                // foreach($result as $row) {
+                //     echo $row['ImageID'] . ' ' . $row['Title'];
+                // }
+            }
             
             // echo $result;
             // echo $sql;

@@ -4,7 +4,8 @@
                 <div class="pull-right">
                     <ul class="list-inline">
                         <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        <li><a href="userProfile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                         <li><a href="fave.php"><span class="glyphicon glyphicon-star"></span> Favorites</a></li>
                     </ul>
                 </div>
@@ -44,7 +45,7 @@
 
                     <form class="navbar-form navbar-right" role="search" action="browse-images.php" method="get"> <!--action="browse-images.php" method="get">-->
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search" name="imgTitle">
+                            <input type="text" class="form-control" placeholder="Search Images" name="imgTitle">
                         </div>
                         <!--<a href="browse-images.php">-->
                             <button type="submit" class="btn btn-primary">Submit</button>

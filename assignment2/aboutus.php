@@ -6,6 +6,9 @@
         <title>Assignment 2 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- FONTS = Main: Actor, Text: Advent Pro -->
+        
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     

@@ -16,7 +16,7 @@ class UsersLoginGateway extends MainGateway {
     
     // store fields into an array
     protected function getData() {
-        $data[0] = "UserID"; $data[1] = "UserName"; $data[2] = "Password"; $data[3] = "Salt";
+        $data[0] = "UsersLogin.UserID"; $data[1] = "UserName"; $data[2] = "Password"; $data[3] = "Salt";
         
         return $data;
     }
