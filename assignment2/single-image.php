@@ -70,12 +70,13 @@
                         
                             // singleImage($pdo); 
                             singleImg($connection);
-                            echo $_SESSION['ids'];
+                            // echo $_SESSION['ids'];
                         ?>
                         
                         <div class='btn-group btn-group-justified' role='group' aria-label='...'>
                             <div class='btn-group' role='group'>
-                                <a href='addToFave.php?id= <?php $_SESSION['ids']; ?>'><button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>
+                                <!--<a href='addToFave.php?id= <?php /*$_SESSION['ids'];*/ ?>'><button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>-->
+                                <?php addFavePost($connection, "singleImg"); ?>
                             </div>
                             
                             <div class='btn-group' role='group'>

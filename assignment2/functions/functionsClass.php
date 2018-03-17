@@ -66,20 +66,23 @@
             echo "<h3>Please log in first, my dude.</h3>";
         } else {
             
-            echo 'Welcome to your favourites list, ' . $user . '.';
+            echo 'Welcome to your favourites list, ' . $user . '.' . '<br>';
+            
+            $item = $_SESSION['fave'];
+            
+            // print_r($item);
+            
+            $hello = $item -> viewAll("img");
+            // print_r($disp);
+            
             // display favourites here
             
         }
     }
     
      function addFavePost($connection, $faveType) {//, $arry) {
-     
-        // <a href="addToCart.php?id=37">Add to Cart</a>
-
-
-        // echo "<a href='
         
-            // <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button>";
+        echo "<a href='addToFave.php?id=" . $_GET['id']/*$_SESSION['ids']*/ . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
         
         // echo $_SESSION['ids'];
         

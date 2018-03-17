@@ -3,19 +3,19 @@
     Class for favourites list of users.
 */
 
-    class FaveItem extends Favourites {
+    class FaveItem {
         
-        public function __construct($connect) {
-            parent::__construct($connection)
+        public function __construct($id) {
+            $this -> id = $id;
         }
     
-        protected function addToFave() {
+        // protected function addToFave() {
             
-        }
+        // }
         
-        protected function removeFrFave() {
+        // protected function removeFrFave() {
             
-        }
+        // }
     
 }
 

@@ -1,21 +1,35 @@
 <?php
-
-	if( !isset($_SESSION['id']) ) {
-	    $_SESSION['cart'] = new ShoppingCart();
+    
+    require_once('config.php');
+    session_start();
+    include 'functions/functionsClass.php';
+    
+    // echo 'this is: ' . $_SESSION['ids'] . '<br>';
+    // echo 'session set: ' . isset($_SESSION['ids']) . '<br>';
+    
+	if( !isset($_SESSION['ids']) ) {
+	    $_SESSION['fave'] = new Favourites();
+	   // echo 'hello';
 	}
 	
-	$cart = $_SESSION['cart'];
+	$faveI = new Favourites();//$_SESSION['fave'];
 	
 	if( isset($_GET['id']) ) {  
 		// create cart item
-		$item = new CartItem($_GET['id'], 1);
-		$cart -> addItem($item);
+		$item = new FaveItem($_GET['id']);
+		
+		print_r($item);
+		echo '<br>';
+		
+		// get all info from this item (image or post)
+		
+		$faveI -> addToFave($connection, $item);
 		
 		// *save updated cart into sesh
-		$_SESSION['cart'] = $cart;
+		$_SESSION['fave'] = $faveI;
 		
 		// redirect to view cart
-		header( 'Location: viewCart.php' );
+		header( 'Location: favourites.php' );
     }
 
 ?>
