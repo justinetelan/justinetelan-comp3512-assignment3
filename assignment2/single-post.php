@@ -7,11 +7,8 @@
     // }
     
     require_once('config.php'); 
-    
-    // don't need to put pdo here because it's already in the DatabaseHelp class
-    
     include 'functions/functionsClass.php';
-    
+    session_start();
 
 ?>
 
@@ -52,38 +49,39 @@
                         
                         <?php 
                         
+                            singlePost($connection);
                         
-                         $dbPost = new PostsGateway($connection);
-                         $dbImg = new ImagesGateway($connection);
-                         $dbUser = new UsersGateway($connection);
+        //                  $dbPost = new PostsGateway($connection);
+        //                  $dbImg = new ImagesGateway($connection);
+        //                  $dbUser = new UsersGateway($connection);
         
-        // get UserID from Posts instead OR Users
-                        $postF = $dbPost -> getFields(Array(2, 3, 4, 5)); // MainPostImage, Title, Message, PostTime
-                        $imgF = $dbImg -> getFields(Array(0, 6)); // UserID, Path
-                        $userF = $dbUser -> getFields(Array(0, 1, 10)); // FirstName, LastName
+        // // get UserID from Posts instead OR Users
+        //                 $postF = $dbPost -> getFields(Array(2, 3, 4, 5)); // MainPostImage, Title, Message, PostTime
+        //                 $imgF = $dbImg -> getFields(Array(0, 6)); // UserID, Path
+        //                 $userF = $dbUser -> getFields(Array(0, 1, 10)); // FirstName, LastName
         
-                        $sql = 'SELECT ' . $postF . ', ' . $imgF . ', ' . $userF .
-                ' FROM ' . $dbPost -> getFrom() . ', ' . $dbImg -> getFrom() . ', ' . $dbUser -> getFrom() .
-                ' WHERE ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(2)) . ' = ' . $dbImg -> getFrom() . '.' . $dbImg -> getPk() .
-                ' AND ' . $dbPost -> getFields(Array(1)) . ' = ' . $dbUser -> getFrom() . '.' . $dbUser -> getPk() .
-                ' AND ';
+        //                 $sql = 'SELECT ' . $postF . ', ' . $imgF . ', ' . $userF .
+        //         ' FROM ' . $dbPost -> getFrom() . ', ' . $dbImg -> getFrom() . ', ' . $dbUser -> getFrom() .
+        //         ' WHERE ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(2)) . ' = ' . $dbImg -> getFrom() . '.' . $dbImg -> getPk() .
+        //         ' AND ' . $dbPost -> getFields(Array(1)) . ' = ' . $dbUser -> getFrom() . '.' . $dbUser -> getPk() .
+        //         ' AND ';
         
-        $result = $dbPost -> getById($sql, $_GET['id'], 0);
+        // $result = $dbPost -> getById($sql, $_GET['id'], 0);
         
         
                         
                         
                         
                         
-                            $faveArry = array();
-                            singlePost($connection); 
-                            addFavePost($connection, $faveArry);
+        //                     $faveArry = array();
+        //                     singlePost($connection); 
+        //                     addFavePost($connection, $faveArry);
                         
                         ?>
                         
                         <div class='btn-group btn-group-justified' role='group' aria-label='...'>
                             <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button>
+                                <?php addFavePost($connection, "singlePost"); ?><!--<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button>-->
                             </div>
                             
                             <div class='btn-group' role='group'>

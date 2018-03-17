@@ -7,11 +7,9 @@
         $dbImg = new ImagesGateway($connection);
         $dbUser = new UsersGateway($connection);
         
-        // get the fields you need here
         $postF = $dbPost -> getFields(Array(0,1,3, 4)); // PostID, UserID,Posts.Title, Message
         $imgF = $dbImg -> getFields(Array(0, 3, 6)); // ImageID, Description, Path
         $userF = $dbUser -> getFields(Array(0,1,10)); // FirstName, LastName, UserID
-        //$userID = $dbUser -> getPk();
         
         $sql = 'SELECT ' . $postF . ', ' . $userF . ','   .$imgF .
                 ' FROM ' . $dbPost->getFrom() .
@@ -55,40 +53,68 @@
         echo sizeOf($arry);
     }*/
     
-     function addFavePost($connection, $arry) {
-         $dbPost = new PostsGateway($connection);
-        $dbImg = new ImagesGateway($connection);
+    function viewFaves($connection) {
         
-        // get UserID from Posts instead OR Users
-        $postF = $dbPost -> getFields(Array(2, 3, 4, 5)); // MainPostImage, Title, Message, PostTime
-        $imgF = $dbImg -> getFields(Array(0, 6)); // UserID, Path
+        $dbUser = new UsersGateway($connection);
+        
+        $checkUser = $_SESSION['ids'];
+        $user = $_SESSION['first'] . ' ' . $_SESSION['last'];
+        // echo '<a href="addFavePost.php?id='; 
+        
+        if(!isset($checkUser) || empty($checkUser)) {
+            // header('Location: error.php');
+            echo "<h3>Please log in first, my dude.</h3>";
+        } else {
+            
+            echo 'Welcome to your favourites list, ' . $user . '.';
+            // display favourites here
+            
+        }
+    }
+    
+     function addFavePost($connection, $faveType) {//, $arry) {
+     
+        // <a href="addToCart.php?id=37">Add to Cart</a>
+
+
+        // echo "<a href='
+        
+            // <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button>";
+        
+        // echo $_SESSION['ids'];
+        
+        // $dbPost = new PostsGateway($connection);
+        // $dbImg = new ImagesGateway($connection);
+        
+        // // get UserID from Posts instead OR Users
+        // $postF = $dbPost -> getFields(Array(2, 3, 4, 5)); // MainPostImage, Title, Message, PostTime
+        // $imgF = $dbImg -> getFields(Array(0, 6)); // UserID, Path
         
         
-        $sql = 'SELECT ' . $postF . ', ' . $imgF  .
-                ' FROM ' . $dbPost -> getFrom() . ', ' . $dbImg -> getFrom() .
-                ' WHERE ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(2)) . ' = ' . $dbImg -> getFrom() . '.' . $dbImg -> getPk() .
+        // $sql = 'SELECT ' . $postF . ', ' . $imgF  .
+        //         ' FROM ' . $dbPost -> getFrom() . ', ' . $dbImg -> getFrom() .
+        //         ' WHERE ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(2)) . ' = ' . $dbImg -> getFrom() . '.' . $dbImg -> getPk() .
                 
-                ' AND ';
-        echo $sql;
-        $results = $dbPost -> getById($sql, $_GET['id'], 0);
+        //         ' AND ';
+        // echo $sql;
+        // $results = $dbPost -> getById($sql, $_GET['id'], 0);
         
-        $postTitle = $results['Title'];
-        $postImg = $results['Path'];
+        // $postTitle = $results['Title'];
+        // $postImg = $results['Path'];
         
         
-        array_push($arry, $postTitle,$postImg);
-        print_r($arry);
-        echo sizeOf($arry);
+        // array_push($arry, $postTitle,$postImg);
+        // print_r($arry);
+        // echo sizeOf($arry);
         
     }
     
-    function singlePost($connection) { // USED COMMA JOIN
+    function singlePost($connection) {
         
         $dbPost = new PostsGateway($connection);
         $dbImg = new ImagesGateway($connection);
         $dbUser = new UsersGateway($connection);
         
-        // get UserID from Posts instead OR Users
         $postF = $dbPost -> getFields(Array(2, 3, 4, 5)); // MainPostImage, Title, Message, PostTime
         $imgF = $dbImg -> getFields(Array(0, 6)); // UserID, Path
         $userF = $dbUser -> getFields(Array(0, 1, 10)); // FirstName, LastName
@@ -122,10 +148,41 @@
                     echo "<li>By: <a href='single-user.php?id=" . $result['UserID'] . "'>" . $result['FirstName'] . " " . $result['LastName'] . "</a></li>";
                     echo "<li>" . $result['PostTime'] . "</li>";
                 echo "</ul>";
+                relatedImgPost($connection);
             echo "</div>";
         echo "</div>";
         
-        relatedImgPost($connection);
+        
+        
+    }
+    
+    function relatedImgPost($connection) {
+        
+        $dbPost = new PostsGateway($connection);
+        $dbImg = new ImagesGateway($connection);
+        $dbPostImg = new PostImagesGateway($connection);
+        
+        
+        $imgF = $dbImg -> getFields(Array(0, 6)); // ImageID, Path
+        $imgID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(0));
+        $postID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(1));
+        
+        
+        $sql = 'SELECT ' . $imgF . ', ' . $imgID . ', ' . $postID .
+                ' FROM ' . $dbImg -> getFrom() . ' JOIN ' . $dbPostImg -> getFrom() .
+                ' USING(' . $dbPostImg -> getFields(Array(0)) . ') ' .
+                ' WHERE ' . $dbPostImg -> getFrom() . '.';
+                
+        $result = $dbPost -> getById($sql, $_GET['id'], 1);
+        
+        foreach($result as $row) {
+            
+            // echo '<div id="smallImg">';
+              echo '<a href="single-image.php?id=' . $row['ImageID'] . '">
+                    <img src="images/square-small/' . $row['Path'] . '"></a>';
+            // echo '</div>';
+            
+        }   
         
     }
     
@@ -197,37 +254,6 @@
                 echo "</ul>";
             echo "</div>";
         echo "</div>"; // close col-md-4
-        
-    }
-    
-    function relatedImgPost($connection) {
-        
-        $dbPost = new PostsGateway($connection);
-        $dbImg = new ImagesGateway($connection);
-        $dbPostImg = new PostImagesGateway($connection);
-        
-        
-        $imgF = $dbImg -> getFields(Array(6)); // Path
-        $imgID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(0));
-        $postID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(1));
-        
-        
-        $sql = 'SELECT ' . $imgF . ', ' . $imgID . ', ' . $postID . //$postF . ', ' . $imgF . ', ' . $postImgF .
-                ' FROM ' . $dbImg -> getFrom() . ' JOIN ' . $dbPostImg -> getFrom() .
-                ' USING(' . $dbPostImg -> getFields(Array(0)) . ') ' .
-                ' WHERE ' . $dbPostImg -> getFrom() . '.';
-                
-        $result = $dbPost -> getById($sql, $_GET['id'], 1);
-        
-        foreach($result as $row) {
-            
-            // LINK IMG TO SINGLE-IMAGE OR NAH
-            
-            // echo '<div id="smallImg">';
-              echo '<img src="images/square-small/' . $row['Path'] . '">';
-            // echo '</div>';
-            
-        }   
         
     }
     
@@ -631,7 +657,6 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8izLDbgoSU5XQQhwjGI_c3L1OnnJ1lkU&callback=initMap">
     </script>
     <?php
-    }
-    
+    } // close mapp function
     
 ?>

@@ -1,10 +1,10 @@
 <?php
 
-    $img = $_GET['id'];
+    // $img = $_GET['id'];
     
-    if(!isset($img) || empty($img)) {
-        header('Location: error.php');
-    }
+    // if(!isset($img) || empty($img)) {
+    //     header('Location: error.php');
+    // }
     
     require_once('config.php'); 
     // try {
@@ -27,6 +27,7 @@
     
     // include 'functions/functions.php';
     include 'functions/functionsClass.php';
+    session_start();
 
 ?>
 
@@ -69,11 +70,12 @@
                         
                             // singleImage($pdo); 
                             singleImg($connection);
+                            echo $_SESSION['ids'];
                         ?>
                         
                         <div class='btn-group btn-group-justified' role='group' aria-label='...'>
                             <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button>
+                                <a href='addToFave.php?id= <?php $_SESSION['ids']; ?>'><button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>
                             </div>
                             
                             <div class='btn-group' role='group'>
