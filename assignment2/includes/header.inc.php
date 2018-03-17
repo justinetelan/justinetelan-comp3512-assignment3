@@ -43,7 +43,7 @@
                     </ul>
 
 
-                    <form class="navbar-form navbar-right" role="search" action="browse-images.php" method="get"> <!--action="browse-images.php" method="get">-->
+                    <form class="navbar-form navbar-right" role="search" action="browse-images.php" method="get">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search Images" name="imgTitle">
                         </div>

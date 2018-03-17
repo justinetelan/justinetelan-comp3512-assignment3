@@ -8,12 +8,6 @@
     // echo isset($searchImg) . ' ' . $searchImg;
     
     session_start();
-    
-    if(isset($searchImg) && $searchImg != "") {
-        
-        header('Location: browse-images.php?imgTitle=' . $_GET['imgTitle']);
-        
-    }
 
 ?>
 
@@ -108,15 +102,6 @@
     
            
        </section>
-       
-       <?php 
-            // DONT THINK THIS IS NEEDED SINCE IT'S REDIRECTING ANYWAY
-            
-            // simpleSearch($connection); 
-            // filterImg($connection);   
-            // filterHeader($connection);
-        ?>
-        
         
         <footer>
             <div class="container-fluid">

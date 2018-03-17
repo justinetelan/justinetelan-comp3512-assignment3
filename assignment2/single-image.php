@@ -73,6 +73,9 @@
                             // echo $_SESSION['ids'];
                         ?>
                         
+                        <!-- USE JS TO SHOW TEMP MESSAGE ONCE ADDED -->
+                        <div class="hiddenAdd"></div>
+                        
                         <div class='btn-group btn-group-justified' role='group' aria-label='...'>
                             <div class='btn-group' role='group'>
                                 <!--<a href='addToFave.php?id= <?php /*$_SESSION['ids'];*/ ?>'><button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>-->

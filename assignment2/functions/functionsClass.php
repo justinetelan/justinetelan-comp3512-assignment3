@@ -72,7 +72,7 @@
             
             // print_r($item);
             
-            $hello = $item -> viewAll("img");
+            // $hello = $item -> viewAll("img");
             // print_r($disp);
             
             // display favourites here
@@ -82,7 +82,12 @@
     
      function addFavePost($connection, $faveType) {//, $arry) {
         
-        echo "<a href='addToFave.php?id=" . $_GET['id']/*$_SESSION['ids']*/ . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
+        if($faveType == "singleImg") {
+            echo "<a href='addFaveImg.php?id=" . $_GET['id']/*$_SESSION['ids']*/ . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
+        } else if($faveType == "singlePost") {
+            
+        }
+        
         
         // echo $_SESSION['ids'];
         
@@ -279,39 +284,6 @@
 
     }
     
-    function simpleSearch($connection) {
-        
-        $dbImg = new ImagesGateway($connection);
-        $result = "";
-        
-        if($_SERVER["REQUEST_METHOD"] == "GET") {
-            
-            $startSql = 'SELECT ' . $dbImg -> getFields(Array(0, 2, 6)) . // ImageID, Title, Path
-                    ' FROM ' . $dbImg -> getFrom(); 
-            // $sql = 'SELECT ' . $startSql . ' FROM ';
-            
-            // header('Location: browse-images.php');
-            
-            // echo $sql;
-            
-            if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
-                $search = $_GET['imgTitle'];
-                $search = '"%' . $search . '%"';
-                $sql = $startSql . ' WHERE Title LIKE ' . $search;// :title';
-                $result = $dbImg -> runQuery($sql, null, 0);
-                
-                // foreach($result as $row) {
-                //     echo $row['ImageID'] . ' ' . $row['Title'] . '<br>';
-                // }
-                showImg("filtering", $result);
-                
-                
-            }
-        }
-        // showImg("filtering", $result);
-        
-    }
-    
     function singleHeader($connection, $type) {
         
         echo '<div class="panel panel-info">';
@@ -439,12 +411,14 @@
     
     function filterHeader($connection) {
         
-        echo isset($_GET['imgTitle']) . $_GET['imgTitle'];
-        
         echo '<div class="panel panel-default">';
         echo '<div class="panel-heading">Images ';
         
-        if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['imgTitle'] == "")) {
+        if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
+            
+            echo "[Title=" . $_GET['imgTitle'] . "]";
+            
+        } else if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0")) {
                 
             echo "[All]";
             
@@ -460,10 +434,7 @@
             
             echo "[City=" . $_GET['city'] . "]";
             
-        } else if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
-            
-            echo "[Title=" . $_GET['imgTitle'] . "]";
-        }
+        } 
         
         echo '</div>';
         
@@ -481,14 +452,18 @@
         
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             
-            // echo $_GET['imgTitle'] . ' ' . isset($_GET['imgTitle']) . '<br>';
-            
             $dbImg = new ImagesGateway($connection);
             $startSql = 'SELECT ' . $dbImg -> getFields(Array(0, 2, 6)) . ' FROM '; // ImageID, Title, Path
-            // echo $startSql;
             $sql = ""; $result = "";
             
-            if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['imgTitle'] == "")) {
+            if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
+                
+                $search = $_GET['imgTitle'];
+                $search = '"%' . $search . '%"';
+                $sql = $startSql . ' ImageDetails WHERE Title LIKE ' . $search;
+                $result = $dbImg -> runQuery($sql, null, 0);
+                
+            } else if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['imgTitle'] == "")) {
                 
                 $sql = $startSql . $dbImg -> getFrom();
                 // echo $sql;
@@ -525,23 +500,6 @@
                
             } 
             
-            else if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
-                $search = $_GET['imgTitle'];
-                $search = '"%' . $search . '%"';
-                $sql = $startSql . ' WHERE Title LIKE ' . $search;// :title';
-                $result = $dbImg -> runQuery($sql, null, 0);
-                
-                echo $startSql;
-                
-                // echo $startSql;// . ' ' . $sql;
-                
-                // foreach($result as $row) {
-                //     echo $row['ImageID'] . ' ' . $row['Title'];
-                // }
-            }
-            
-            // echo $result;
-            // echo $sql;
             showImg("filtering", $result);
             
         }

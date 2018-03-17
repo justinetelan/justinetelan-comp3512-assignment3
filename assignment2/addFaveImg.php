@@ -18,18 +18,18 @@
 		// create cart item
 		$item = new FaveItem($_GET['id']);
 		
-		print_r($item);
+// 		print_r($item);
 		echo '<br>';
 		
 		// get all info from this item (image or post)
-		
-		$faveI -> addToFave($connection, $item);
+		$imgArr = [];
+		$faveI -> addToFave($connection, $item, "img", $imgArr);
 		
 		// *save updated cart into sesh
 		$_SESSION['fave'] = $faveI;
 		
 		// redirect to view cart
-		header( 'Location: favourites.php' );
+// 		header( 'Location: favourites.php' );
     }
 
 ?>
