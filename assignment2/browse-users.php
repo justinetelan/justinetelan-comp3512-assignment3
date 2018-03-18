@@ -1,6 +1,7 @@
 <?php 
 
     require_once('config.php'); 
+    session_start();
     try {
       $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -40,7 +41,16 @@
     <body>
         
         <header>
-            <?php include 'includes/header.inc.php'; ?>
+            <?php 
+            
+            if(isset($_SESSION['user'])){
+                include 'includes/headerLogout.inc.php'; 
+                
+            }else if (!isset($_SESSION['user'])){
+                include 'includes/header.inc.php'; 
+            }
+            
+            ?>
         </header>
         
         <main class="container">
@@ -48,8 +58,15 @@
             <div class="row">
                
                 <div class="col-md-12">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Users</div>
+                    <div> <!--class="panel panel-info">-->
+                        <div>
+                            <ul id="users">
+                                <li id="image"><img src="images/misc/browse_users.jpg" class="img-circle" alt="View Countries" title="View Countries" /></li>
+                                <li id="title">Users</li>
+                                <!--<h2>Countries</h2>-->
+                            </ul>
+                            
+                        </div>
                         
                         <?php browseUsers($pdo); ?>
                         

@@ -49,10 +49,10 @@ $pw =  $_POST['psw'];
             }
             
             
-          }// else {
-        //      $_SESSION['error'] = "";
-        //      header("Location: login.php");
-        // }
+           }else {
+             $_SESSION['error'] = "";
+             header("Location: checkLogin.php");
+        }
         
          }
          

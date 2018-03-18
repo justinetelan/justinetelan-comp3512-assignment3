@@ -1,0 +1,16 @@
+ul {
+    list-style-type: none;
+}
+
+li {
+    display: inline;
+}
+
+#image {
+    margin-bottom: 400px;
+}
+
+#title {
+    font-size: 20pt;
+    font-weight: bold;
+}

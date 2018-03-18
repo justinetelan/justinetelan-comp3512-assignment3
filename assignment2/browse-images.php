@@ -1,6 +1,7 @@
 <?php 
 
     require_once('config.php'); 
+    session_start();
     // try {
     //   $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
     //   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -46,7 +47,16 @@
     <body>
         
         <header>
-            <?php include 'includes/header.inc.php'; ?>
+            <?php 
+            
+            if(isset($_SESSION['user'])){
+                include 'includes/headerLogout.inc.php'; 
+                
+            }else if (!isset($_SESSION['user'])){
+                include 'includes/header.inc.php'; 
+            }
+            
+            ?>
         </header>
         
         

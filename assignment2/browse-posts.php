@@ -1,6 +1,7 @@
 <?php
     require_once('config.php');
     include 'functions/functionsClass.php';
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -21,15 +22,24 @@
 
 <body>
     <header>
-       <?php  include 'includes/header.inc.php'; ?>
-    </header>
+       <?php 
+            
+            if(isset($_SESSION['user'])){
+                include 'includes/headerLogout.inc.php'; 
+                
+            }else if (!isset($_SESSION['user'])){
+                include 'includes/header.inc.php'; 
+            }
+            
+            ?>
+            </header>
 
 
     <!-- Page Content -->
     <main class="container">
         <div class="row">
             
-             <?php include 'includes/left.inc.php'; ?>
+             
             
             <div class="col-md-10">
 

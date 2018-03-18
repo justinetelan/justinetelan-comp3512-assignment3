@@ -3,7 +3,7 @@
             <div class="container">
                 <div class="pull-right">
                     <ul class="list-inline">
-                        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         <li><a href="checkLogin.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                         <li><a href="favourites.php"><span class="glyphicon glyphicon-star"></span> Favorites</a></li>
                     </ul>

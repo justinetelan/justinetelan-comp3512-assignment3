@@ -1,5 +1,6 @@
 <?php
             session_start();
+            include 'functions/functionsClass.php';
             ?>
 
 <!DOCTYPE html>
@@ -26,26 +27,53 @@
     <body>
         
         <header>
-            <?php include 'includes/header.inc.php'; ?>
+            <?php 
+            
+            if(isset($_SESSION['user'])){
+                include 'includes/headerLogout.inc.php'; 
+                
+            }else if (!isset($_SESSION['user'])){
+                include 'includes/header.inc.php'; 
+            }
+            
+            ?>
         </header>
         
         <main class="container">
+            <div class="jumbotron">
+                <div class="row">
+                    
+                    <div class="col-md-8">
+                        
+                        
+                        
+                        <?php
+                        userProfile();
+                    ?>        
+                            
+                    </div> <!-- close col-md-8 -->
+                        
+                        
+
+                    <!--</div>-->
+                    
+                    
+                    
+                </div> <!-- close row -->
+            </div> <!-- close jumbotron -->
             <?php
             
             // echo "User is: ". $_SESSION['user']. '</br>';
             // echo "User is: ". $_SESSION['ids'];
             // echo "User is: ". $_SESSION['ln'];
             
-                echo 'User: '.$_SESSION['user']. '</br>';
-                echo 'ID: '.$_SESSION['ids']. '</br>';
-                echo 'FirstName: '.$_SESSION['first']. '</br>';
-                echo 'LastName: '.$_SESSION['last']. '</br>';
-                echo 'Address: '.$_SESSION['address']. '</br>';
-                echo 'City: '.$_SESSION['city']. '</br>';
-                echo 'Region: '.$_SESSION['region']. '</br>';
-                echo 'Postal: '.$_SESSION['postal']. '</br>';
-                echo 'Phone: '.$_SESSION['phone']. '</br>';
-                echo 'Email: '.$_SESSION['email']. '</br>';
+            
+            
+            
+            
+            
+            
+               
             
             
             

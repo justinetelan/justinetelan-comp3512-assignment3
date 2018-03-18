@@ -1,6 +1,21 @@
 
 
 <?php
+    
+    function browseCountries($connection) {
+        $countrySql = 'SELECT CountryName, ISO FROM Countries JOIN ImageDetails
+                WHERE Countries.ISO = ImageDetails.CountryCodeISO GROUP BY ISO ORDER BY CountryName';
+                
+        $dbCountry = new CountriesGateway($connection);
+        $dbImg = new ImagesGateway($connection);
+        $countryF = $dbCountry -> getFields(Array(0, 2)); // ISO, CountryName
+        
+        $sql = 'SELECT ' . $countryF . ' FROM ' . $dbCountry -> getFrom() .
+                ' JOIN ' . $dbImg -> getFrom() . ' WHERE ' . $dbCountry -> getFields(Array(0)) .
+                ' = ' . $dbImg -> getFields(Array(5));
+        echo $sql;
+    }
+    
     function browsePosts($connection){
         
         $dbPost = new PostsGateway($connection);
@@ -20,9 +35,6 @@
                 ' ON ' . $dbImg->getFrom() . '.' .$dbImg->getPk() .
                 ' = ' . $dbPost->getFrom() . '.' .$dbPost -> getFields(Array(2));//$dbPost->getPk() ;
         
-        //echo $sql . '<br>';
-        
-        echo $sql;
         
         $result = $dbPost -> runQuery($sql, null, 0);
         
@@ -38,7 +50,7 @@
                         
                         
                       
-                      echo '<p class="excerpt">'.$row['Description'].'</p>
+                      echo '<p class="excerpt">'.substr($row['Description'], 0, 150).'</p>
                             <p class="pull-left"><a href="single-post.php?id=' . $row['PostID'] . '" class="btn btn-primary btn-sm">Read more</a></p>
                    </div>
                </div>
@@ -351,7 +363,7 @@
             // echo $sql2;
             
             $object = $dbUs -> getById($sql2, $_GET['id'], 1);
-                                       
+            
         }
         
         
@@ -619,5 +631,17 @@
     </script>
     <?php
     } // close mapp function
+    
+    function userProfile()
+    {
+        echo '<h3>'. $_SESSION['first'] . ' ' . $_SESSION['last'] .'</h3>';
+        echo '<hr><h4>User Information:</h4>';
+        echo '<p><strong>Address: </strong>' . $_SESSION['address'] . '</p>';
+        echo '<p><strong>City: </strong>' . $_SESSION['city'] . '</p>';
+        echo '<p><strong>Region: </strong>' . $_SESSION['region'] . '</p>';
+        echo '<p><strong>Postal: </strong>' . $_SESSION['postal'] . '</p>';
+        echo '<p><strong>Phone: </strong>' . $_SESSION['phone'] . '</p>';
+        echo '<p><strong>Email: </strong>' . $_SESSION['email'] . '</p>';
+    }
     
 ?>

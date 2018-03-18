@@ -36,7 +36,16 @@
     <body>
         
         <header>
-            <?php include 'includes/header.inc.php'; ?>
+            <?php 
+            
+            if(isset($_SESSION['user'])){
+                include 'includes/headerLogout.inc.php'; 
+                
+            }else if (!isset($_SESSION['user'])){
+                include 'includes/header.inc.php'; 
+            }
+            
+            ?>
         </header>
         
         <main class="container">

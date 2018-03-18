@@ -2,6 +2,7 @@
     
     require_once('config.php');
     include 'functions/functionsClass.php';
+    session_start();
 
 ?>
 
@@ -32,7 +33,16 @@
     <body>
         
         <header>
-            <?php include 'includes/header.inc.php'; ?>
+            <?php 
+            
+            if(isset($_SESSION['user'])){
+                include 'includes/headerLogout.inc.php'; 
+                
+            }else if (!isset($_SESSION['user'])){
+                include 'includes/header.inc.php'; 
+            }
+            
+            ?>
         </header>
         
         

@@ -11,7 +11,7 @@
         $statement = $pdo -> prepare($countrySql);
         $statement -> execute();
         
-                
+        echo '<div class="panel panel-info">';
         echo '<div class="row" style="padding:1.5em;">';
         
         while($countries = $statement -> fetch()) {
@@ -25,6 +25,7 @@
         }
         
         echo '</div>';
+        echo '</div>';
         
         $pdo = null; // close connection
         
@@ -36,7 +37,8 @@
         $usersSql = "SELECT UserID, FirstName, LastName FROM Users ORDER BY LastName";
         $statement = $pdo -> prepare($usersSql);
         $statement -> execute();
-                
+        
+        echo '<div class="panel panel-info">';
         echo '<div class="row" style="padding:1.5em;">';
         
             while($users = $statement -> fetch()) {
@@ -50,6 +52,7 @@
                 
             }
             
+        echo '</div>';
         echo '</div>';
         
         $pdo = null; // close connection
