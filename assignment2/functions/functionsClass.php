@@ -3,9 +3,7 @@
 <?php
     
     function browseCountries($connection) {
-        $countrySql = 'SELECT CountryName, ISO FROM Countries JOIN ImageDetails
-                WHERE Countries.ISO = ImageDetails.CountryCodeISO GROUP BY ISO ORDER BY CountryName';
-                
+        
         $dbCountry = new CountriesGateway($connection);
         $dbImg = new ImagesGateway($connection);
         $countryF = $dbCountry -> getFields(Array(0, 2)); // ISO, CountryName
@@ -13,7 +11,47 @@
         $sql = 'SELECT ' . $countryF . ' FROM ' . $dbCountry -> getFrom() .
                 ' JOIN ' . $dbImg -> getFrom() . ' WHERE ' . $dbCountry -> getFields(Array(0)) .
                 ' = ' . $dbImg -> getFields(Array(5));
-        echo $sql;
+        $cInfo = $dbCountry -> findAllSorted($sql, "both");
+        
+        // echo '<div class="panel panel-info">';
+        echo '<div class="row" style="padding:1.5em;">';
+        
+        foreach($cInfo as $countries) {
+            
+            echo '<div class="col-md-3">';
+            echo '<li class="list-group-item"><a href="single-country.php?id=' . $countries['ISO'] . '" class="list" value="' . $countries['ISO'] .'">' . $countries['CountryName'] . '</a></li>';
+            echo '</div>';
+            
+        }
+        
+        echo '</div>';
+        // echo '</div>'; // close panel panel-info
+    }
+    
+    function browseUsers($connection) {
+        $usersSql = "SELECT UserID, FirstName, LastName FROM Users ORDER BY LastName";
+        $dbUser = new UsersGateway($connection);
+        $userF = $dbUser -> getFields(Array(0, 1, 10)); // FirstName, LastName, ID
+        
+        $sql = 'SELECT ' . $userF . ' FROM ' . $dbUser -> getFrom();
+        $uInfo = $dbUser -> findAllSorted($sql, "orderBy");
+        
+        // echo '<div class="panel panel-info">';
+        echo '<div class="row" style="padding:1.5em;">';
+        
+        foreach($uInfo as $users) {
+                
+            echo '<div class="col-md-3">';
+            
+            echo '<li class="list-group-item"><a href="single-user.php?id=' . $users['UserID'] . '" class="list" value="' . $users['UserID'] .'">' 
+                    . $users['FirstName'] . " " . $users['LastName'] . '</a></li>';
+            
+            echo '</div>';
+            
+        }
+            
+        echo '</div>';
+        // echo '</div>';
     }
     
     function browsePosts($connection){
@@ -33,7 +71,7 @@
                 ' = ' .$dbPost ->getFields(Array(1)) .
                 ' JOIN ' . $dbImg->getFrom() .
                 ' ON ' . $dbImg->getFrom() . '.' .$dbImg->getPk() .
-                ' = ' . $dbPost->getFrom() . '.' .$dbPost -> getFields(Array(2));//$dbPost->getPk() ;
+                ' = ' . $dbPost->getFrom() . '.' .$dbPost -> getFields(Array(2));
         
         
         $result = $dbPost -> runQuery($sql, null, 0);
@@ -47,8 +85,6 @@
                       <h2>' . $row['Title'] . '</h2>';
                       echo 'Posted by <a href="single-user.php?id='.$row['UserID'].'">' . $row['FirstName'] .' ' .$row['LastName'] .' </a><br/>';
                         echo '<span class="pull-right"></span>';
-                        
-                        
                       
                       echo '<p class="excerpt">'.substr($row['Description'], 0, 150).'</p>
                             <p class="pull-left"><a href="single-post.php?id=' . $row['PostID'] . '" class="btn btn-primary btn-sm">Read more</a></p>

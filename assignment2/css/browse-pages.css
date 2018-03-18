@@ -6,6 +6,24 @@ li {
     display: inline;
 }
 
+.list {
+    color: rgba(66, 45, 45, 0.55);
+}
+
+.list-group-item {
+    background-color: rgba(240, 200, 199, 0.48);
+}
+
+.list-group-item:hover {
+    background-color: white;
+}
+
+.header {
+    border-style: solid;
+    border-color: rgba(66, 45, 45, 0.55);
+    background-color: rgba(240, 200, 199, 0.48);
+}
+
 #image {
     margin-bottom: 400px;
 }

@@ -42,7 +42,7 @@
                         
                         <p><strong>Tasks by Elijah Dilan</strong></p>
                         <ul class="list-group">
-                            <li class="list-group-item">Browse Posts</li>
+                            <li class="list-group-hover list-group-item">Browse Posts</li>
                             <li class="list-group-item">Browse Images</li>
                             <li class="list-group-item">List of Images</li>
                             <li class="list-group-item">Login</li>

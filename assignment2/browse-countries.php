@@ -60,19 +60,15 @@
                 <div class="col-md-12">
                     <div> <!--class="panel panel-info">-->
                         <div>
-                            <ul id="countries">
+                            <ul class="header">
                                 <li id="image"><img src="images/misc/browse_countries.jpg" class="img-circle" alt="View Countries" title="View Countries" /></li>
-                                <li id="title">Countries</li>
+                                <li id="title">List of Countries</li>
                                 <!--<h2>Countries</h2>-->
                             </ul>
                             
                         </div>
                         
-                        <?php 
-                        
-                            // browseCountries($pdo); 
-                            browseCountries($connection); 
-                        ?>
+                        <?php browseCountries($connection); ?>
                         
                     </div>
                 </div>

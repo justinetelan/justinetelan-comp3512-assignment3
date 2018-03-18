@@ -2,18 +2,16 @@
 
     require_once('config.php'); 
     session_start();
-    try {
-      $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // try {
+    //   $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
+    //   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       
-    }
-    catch (PDOException $e) {
-      die( $e->getMessage() );
-    }
+    // }
+    // catch (PDOException $e) {
+    //   die( $e->getMessage() );
+    // }
     
-    include 'functions/functions.php';
-    
-    
+    include 'functions/functionsClass.php';
 ?>
 
 <!DOCTYPE html>
@@ -60,15 +58,15 @@
                 <div class="col-md-12">
                     <div> <!--class="panel panel-info">-->
                         <div>
-                            <ul id="users">
+                            <ul class="header">
                                 <li id="image"><img src="images/misc/browse_users.jpg" class="img-circle" alt="View Countries" title="View Countries" /></li>
-                                <li id="title">Users</li>
+                                <li id="title">List of Users</li>
                                 <!--<h2>Countries</h2>-->
                             </ul>
                             
                         </div>
                         
-                        <?php browseUsers($pdo); ?>
+                        <?php browseUsers($connection); ?>
                         
                     </div>
                 </div>
