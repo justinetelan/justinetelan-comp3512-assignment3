@@ -50,7 +50,7 @@ session_start();
   <div class="jumbotron">
       <?php
       if(isset($_SESSION['error'])){
-        echo' <div class="alert alert-danger" id="error" role="alert" style="visibility:hidden">';
+        echo' <div class="alert alert-danger" id="error" role="alert" style="visibility:visible">';
              echo'  INVALID PASSWORD/USERNAME TRY AGAIN';
              echo' </div>';
              unset($_SESSION['error']);
@@ -60,13 +60,13 @@ session_start();
       ?>
       
       <script>
+      function err(){
         var a = document.getElementById("error");
         
-            a.style="visibility: visible";
             
-            setTimeout(function() {
             a.style="visibility: hidden";
-            }, 2000);
+            
+      }
         
         </script>
       
@@ -74,10 +74,10 @@ session_start();
       <div class="row">
       
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <input type="text" onkeydown="err()" placeholder="Enter Username" name="uname" required>
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input type="password" onkeydown="err()" placeholder="Enter Password" name="psw" required>
         
     <button type="submit">Login</button>
     

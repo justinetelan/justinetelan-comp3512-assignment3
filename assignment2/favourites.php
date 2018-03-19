@@ -50,12 +50,20 @@
         echo' <div class="alert alert-success" id="favePost" role="alert" style="visibility:hidden">';
              echo'   POST ADDED TO FAVOURITES';
              echo' </div>';
+             unset($_SESSION['faveP']);
+        
+        }
+        if(isset($_SESSION['faveI'])){
+        echo' <div class="alert alert-warning" id="favePost" role="alert" style="visibility:hidden">';
+             echo'   IMAGE ADDED TO FAVOURITES';
+             echo' </div>';
+             unset($_SESSION['faveI']);
         
         }
         ?>
         <div class="container">
             
-            <?php viewFaves($connection); ?>
+            <?php viewFaves(); ?>
             
         </div>
         

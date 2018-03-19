@@ -13,7 +13,7 @@
 	echo $sql . '<br>';
 	
 	$result = $dbImg -> getById($sql, $_GET['id'], 0);
-	$_SESSION['faveP'] = "";
+	$_SESSION['faveI'] = "";
 	$count = 1;
 	
 	if(count($_SESSION['faveImg']) != 0) {

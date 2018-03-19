@@ -95,18 +95,17 @@ session_start();
          }
     }
     
-    function viewFaves($connection) {
+    function viewFaves() {
         
-        // $checkUser = $_SESSION['ids'];
         $user = $_SESSION['first'];// . ' ' . $_SESSION['last'];
         
-        if(isset($_SESSION['faveP'])){
-        echo' <div class="alert alert-success" id="favePost" role="alert" style="visibility:hidden">';
-             echo'  ITEM ADDED TO FAVOURITES';
-             echo' </div>';
-             unset($_SESSION['faveP']);
+        // if(isset($_SESSION['faveP'])){
+        // echo' <div class="alert alert-success" id="favePost" role="alert" style="visibility:hidden">';
+        //      echo'  ITEM ADDED TO FAVOURITES';
+        //      echo' </div>';
+        //      
         
-        }
+        // }
         
         // if(isset($_SESSION['faveI'])){
         // echo' <div class="alert alert-success" id="faveImage" role="alert" style="visibility:hidden">';
@@ -123,7 +122,6 @@ session_start();
         echo '<h3>Images List</h3>';
          
         
-             
         ?>
         <script>
         var a = document.getElementById("favePost");
@@ -136,8 +134,6 @@ session_start();
         
         </script>
         
-        
-        
         <?php
         
         foreach($_SESSION['faveImg'] as $img) {
@@ -145,9 +141,14 @@ session_start();
             echo '<div>';
             echo 'Title: ' . $img['Title'] . '<br>';
             echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image"></a><br>';
-            echo '<a href="rmvFaveImg.php?id=' . $img['ImageID'] . '"><button name="rmv" type="submit" class="btn btn-danger btn-xs">Remove</button></a>';
+            echo '<a href="rmvFaveImg.php?id=' . $img['ImageID'] . '"><button name="rmv" type="submit" class="btn btn-info btn-xs">Remove</button></a>';
             echo '</div>';
         }
+        
+        if(count($_SESSION['faveImg']) != 0) {
+            echo '<a href="rmvAllImg.php?id=0"><button name="rmv" type="submit" class="btn btn-warning btn-xs">Remove All Favourite Images</button></a>';    
+        }
+        
         echo '</div>'; // close col-md-6 for IMAGES
         
         echo '<div class="col-md-6">';
@@ -158,9 +159,14 @@ session_start();
             echo '<div>';
             echo 'Title: ' . $post['Title'] . '<br>';
             echo '<a href="single-post.php?id=' . $post['PostID'] . '"><img src="images/square-small/' . $post['Path'] . '" alt="Favourite Image"></a><br>';
-            echo '<a href="rmvFavePost.php?id=' . $post['PostID'] . '"><button name="rmv" type="submit" class="btn btn-danger btn-xs">Remove</button></a>';
+            echo '<a href="rmvFavePost.php?id=' . $post['PostID'] . '"><button name="rmv" type="submit" class="btn btn-info btn-xs">Remove</button></a>';
             echo '</div>';
         }
+        
+        if(count($_SESSION['favePost']) != 0) {
+            echo '<a href="rmvAllImg.php?id=1"><button name="rmv" type="submit" class="btn btn-warning btn-xs">Remove All Favourite Images</button></a>';    
+        }
+        
         echo '</div>'; // close col-md-6 for POSTS
         
         echo '</div>'; // close row

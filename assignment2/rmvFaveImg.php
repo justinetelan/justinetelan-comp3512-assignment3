@@ -9,12 +9,9 @@
     foreach($imgList as $faveImgs) {
         
         if($faveImgs['ImageID'] == $_GET['id']) {
-            
             array_splice($imgList, $count, 1);
             $_SESSION['faveImg'] = $imgList;
-            
             header('Location: favourites.php');
-            
         }
 
         $count++;
