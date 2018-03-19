@@ -22,7 +22,8 @@
         
     
         <link rel="stylesheet" href="css/captions.css" />
-        <link rel="stylesheet" href="css/bootstrap-theme.css" />    
+        <link rel="stylesheet" href="css/bootstrap-new.css" />
+        <link rel="stylesheet" href="css/general.css" />
         
         <link rel="stylesheet" href="css/single-country.css" />   
         <script src="js/map.js" type="text/JavaScript"></script>
@@ -51,12 +52,6 @@
                 </div>            
             </div>
         </footer>
-        
-        <?php
-           
-            // simpleSearch($connection);
-            
-        ?>
         
     </body>
     

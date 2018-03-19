@@ -1,6 +1,17 @@
-.img {
-    opacity: 0.1;
+div a img:hover {
+    opacity: 0.7;
 }
+
+.desc {
+    /*display: none;*/
+    /*padding: 1em;*/
+    /*transition-timing-function: ease;*/
+}
+
+/* MAKE DESCRIPTION APPEAR ON HOVER */
+/*div a img:hover + .desc {*/
+/*    display: block;*/
+/*}*/
 
 .center {
     text-align: center;
@@ -13,8 +24,4 @@
     /*border-width: 1px;*/
     /*display: inline-block;*/
     /*margin: 1em;*/
-}
-
-.desc {
-    /*padding: 1em;*/
 }

@@ -22,9 +22,11 @@
         
     
         <link rel="stylesheet" href="css/captions.css" />
-        <link rel="stylesheet" href="css/bootstrap-theme.css" />    
+        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
+        <link rel="stylesheet" href="css/bootstrap-new.css" />
         
-        <link rel="stylesheet" href="css/single-country.css" />   
+        <link rel="stylesheet" href="css/information.css" />   
+        <link rel="stylesheet" href="css/general.css" /> 
         <script src="js/map.js" type="text/JavaScript"></script>
         
     
@@ -52,9 +54,9 @@
                     
                     <div class="col-md-8">
                         
-                        <h3>Country Information</h3>
+                        <!--<h3>Country Information</h3>-->
                         
-                        <?php  mapp($connection, "country"); countryInfo($connection); ?>
+                        <?php countryInfo($connection); ?>
                             
                             
                     </div> <!-- close col-md-8 -->

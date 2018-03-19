@@ -103,65 +103,49 @@
     
     function viewFaves($connection) {
         
-        $dbUser = new UsersGateway($connection);
+        // $dbUser = new UsersGateway($connection);
         
         $checkUser = $_SESSION['ids'];
         $user = $_SESSION['first'] . ' ' . $_SESSION['last'];
         // echo '<a href="addFavePost.php?id='; 
         
-        if(!isset($checkUser) || empty($checkUser)) {
-            // header('Location: error.php');
-            echo "<h3>Please log in first, my dude.</h3>";
-        } else {
-            
-            echo 'Welcome to your favourites list, ' . $user . '.' . '<br>';
-            
-            $item = $_SESSION['fave'];
-            
-            // print_r($item);
-            
-            // $hello = $item -> viewAll("img");
-            // print_r($disp);
-            
-            // display favourites here
-            
+        echo '<h2>Welcome to your favourites list, ' . $user . '.' . '</h2>';
+        // echo count($_SESSION['faveImg']);
+        
+        echo '<div class="row">';
+        echo '<div class="col-md-6">';
+        
+        echo '<h3>Images List</h3>';
+        
+        foreach($_SESSION['faveImg'] as $img) {
+            echo 'Title: ' . $img['Title'] . '<br>';
+            echo '<img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image"><br>';
         }
+        echo '</div>'; // close col-md-6 for IMAGES
+        
+        echo '<div class="col-md-6">';
+        
+        echo '<h3>Posts List</h3>';
+        
+        foreach($_SESSION['favePost'] as $post) {
+            echo 'Title: ' . $post['Title'] . '<br>';
+            echo '<img src="images/square-small/' . $post['Path'] . '" alt="Favourite Image"><br>';
+        }
+        echo '</div>'; // close col-md-6 for POSTS
+        
+        echo '</div>'; // close row
+        
+    
     }
     
      function addFavePost($connection, $faveType) {//, $arry) {
         
         if($faveType == "singleImg") {
-            echo "<a href='addFaveImg.php?id=" . $_GET['id']/*$_SESSION['ids']*/ . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
-        } else if($faveType == "singlePost") {
+            echo "<a href='addFaveImg.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
             
+        } else if($faveType == "singlePost") {
+            echo "<a href='addFavePost.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
         }
-        
-        
-        // echo $_SESSION['ids'];
-        
-        // $dbPost = new PostsGateway($connection);
-        // $dbImg = new ImagesGateway($connection);
-        
-        // // get UserID from Posts instead OR Users
-        // $postF = $dbPost -> getFields(Array(2, 3, 4, 5)); // MainPostImage, Title, Message, PostTime
-        // $imgF = $dbImg -> getFields(Array(0, 6)); // UserID, Path
-        
-        
-        // $sql = 'SELECT ' . $postF . ', ' . $imgF  .
-        //         ' FROM ' . $dbPost -> getFrom() . ', ' . $dbImg -> getFrom() .
-        //         ' WHERE ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(2)) . ' = ' . $dbImg -> getFrom() . '.' . $dbImg -> getPk() .
-                
-        //         ' AND ';
-        // echo $sql;
-        // $results = $dbPost -> getById($sql, $_GET['id'], 0);
-        
-        // $postTitle = $results['Title'];
-        // $postImg = $results['Path'];
-        
-        
-        // array_push($arry, $postTitle,$postImg);
-        // print_r($arry);
-        // echo sizeOf($arry);
         
     }
     
@@ -323,8 +307,11 @@
         
         $countryInfo = $dbCountry -> getById($sqlInfo, $_GET['id'], 0);
         
-        echo '<hr><p><strong>Country: </strong>' . $countryInfo['CountryName'] . '</p>';
-        echo '<p><strong>Capital: </strong>' . $countryInfo['Capital'] . '</p>';
+        echo '<h3>' . $countryInfo['CountryName'] . '</h3><hr>';
+        
+        mapp($connection, "country");
+        
+        echo '<br><p><strong>Capital: </strong>' . $countryInfo['Capital'] . '</p>';
         echo '<p><strong>Area: </strong>' . number_format($countryInfo['Area']) . '</p>';
         echo '<p><strong>Population: </strong>' . number_format($countryInfo['Population']) . '</p>';
         echo '<p><strong>Currency Name: </strong>' . $countryInfo['CurrencyName'] . '</p>';
@@ -668,10 +655,9 @@
     <?php
     } // close mapp function
     
-    function userProfile()
-    {
-        echo '<h3>'. $_SESSION['first'] . ' ' . $_SESSION['last'] .'</h3>';
-        echo '<hr><h4>User Information:</h4>';
+    function userProfile() {
+        echo '<h3>Hello, '. $_SESSION['first'] . ' ' . $_SESSION['last'] .'</h3>';
+        echo '<hr><h4>Here is your information</h4>';
         echo '<p><strong>Address: </strong>' . $_SESSION['address'] . '</p>';
         echo '<p><strong>City: </strong>' . $_SESSION['city'] . '</p>';
         echo '<p><strong>Region: </strong>' . $_SESSION['region'] . '</p>';

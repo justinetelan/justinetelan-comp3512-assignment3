@@ -47,8 +47,9 @@
         
     
         <link rel="stylesheet" href="css/captions.css" />
-        <link rel="stylesheet" href="css/bootstrap-theme.css" />    
-        
+        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
+        <link rel="stylesheet" href="css/bootstrap-new.css" />
+        <link rel="stylesheet" href="css/general.css" /> 
         <link rel="stylesheet" href="css/single-country.css" />   
     
     </head>
@@ -72,20 +73,14 @@
             
             <div class="jumbotron">
                 
-                <?php 
+                <?php singleUser($connection); ?>
                 
-                    singleUser($connection); 
-                    // singleUser($pdo); 
-                ?>
+                <!--<div id="userPic"><img src="images/design/single_user.jpg"></div>-->
                 
             </div>
         
-            <?php
-            
-                singleHeader($connection, "users"); 
-            ?>
+            <?php singleHeader($connection, "users"); ?>
         
-            
         </div>
         
         

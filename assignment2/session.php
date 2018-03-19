@@ -41,6 +41,10 @@ $pw =  $_POST['psw'];
                 $_SESSION['postal'] = $row['Postal'];
                 $_SESSION['phone'] = $row['Phone'];
                 $_SESSION['email'] = $row['Email'];
+                
+                $_SESSION['faveImg'] = array(); // TEMPORARY, TESTING THIS
+                $_SESSION['favePost'] = array(); // TEMPORARY, TESTING THIS
+                
               header("Location: userProfile.php");
                 
             }else {

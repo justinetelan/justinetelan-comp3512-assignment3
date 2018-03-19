@@ -19,8 +19,10 @@
         
     
         <link rel="stylesheet" href="css/captions.css" />
-        <link rel="stylesheet" href="css/bootstrap-theme.css" />    
-        
+        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
+        <link rel="stylesheet" href="css/bootstrap-new.css" />
+        <link rel="stylesheet" href="css/general.css" /> 
+        <link rel="stylesheet" href="css/information.css" /> 
     
     </head>
     
@@ -45,11 +47,7 @@
                     
                     <div class="col-md-8">
                         
-                        
-                        
-                        <?php
-                        userProfile();
-                    ?>        
+                        <?php userProfile(); ?>        
                             
                     </div> <!-- close col-md-8 -->
                         

@@ -31,8 +31,8 @@
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         
         <link rel="stylesheet" href="css/captions.css" />
-        <link rel="stylesheet" href="css/bootstrap-theme.css" />    
-        <!--<link rel="stylesheet" href="css/bootstrap-new.css" />-->
+        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />    -->
+        <link rel="stylesheet" href="css/bootstrap-new.css" />
         
         <link rel="stylesheet" href="css/index.css" />   
     
@@ -60,12 +60,10 @@
                   
                   <div class="col-md-6">
                       
-                      <div class="center">
-                          <figure>
-                              <a href="browse-countries.php"><img src="images/misc/new_countries.jpg" class="img-circle" alt="View Countries" title="View Countries" /></a>
-                          </figure>
+                      <div>
+                          <a href="browse-countries.php"><img src="images/misc/new_countries.jpg" class="img-circle" alt="View Countries" title="View Countries" /></a>
                           <div class="desc">
-                              <h4>See all countries for which we have images.</h4>
+                              <h4>See all countries with images.</h4>
                           <!--</div>-->
                           <!--<hr>-->
                           <!--<div class="desc">-->
@@ -79,9 +77,8 @@
                   <div class="col-md-6">
                       
                       <div>
-                          <figure>
-                              <a href="browse-images.php"><img src="images/misc/new_images.jpg" class="img-circle" alt="View Images" title="View Images" /></a>
-                          </figure>
+                          <a href="browse-images.php"><img src="images/misc/new_images.jpg" class="img-circle" alt="View Images" title="View Images" /></a>
+                       
                           <div class="desc">
                               <h4>See all of our travel images.</h4>
                           <!--</div>-->
@@ -101,11 +98,10 @@
                   <div class="col-md-6">
                       
                       <div>
-                          <figure>
-                              <a href="browse-users.php"><img src="images/misc/new_users.jpg" class="img-circle" alt="View Users" title="View Users" /></a>
-                          </figure>
+                          <a href="browse-users.php"><img src="images/misc/new_users.jpg" class="img-circle" alt="View Users" title="View Users" /></a>
+                          
                           <div class="desc">
-                              <h4>See information about our contributing users.</h4>
+                              <h4>See information about all users.</h4>
                           <!--</div>-->
                           <!--<hr>-->
                           <!--<div class="desc">-->
@@ -119,9 +115,8 @@
                   <div class="col-md-6">
                       
                       <div>
-                          <figure>
-                              <a href="browse-posts.php"><img src="images/misc/home_countries.jpg" class="img-circle" alt="View Posts" title="View Posts" /></a>
-                          </figure>
+                          <a href="browse-posts.php"><img src="images/misc/new_posts.jpg" class="img-circle" alt="View Posts" title="View Posts" /></a>
+                          
                           <div class="desc">
                               <h4>See posts submitted by our users.</h4>
                           <!--</div>-->

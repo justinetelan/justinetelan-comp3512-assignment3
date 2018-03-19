@@ -5,7 +5,7 @@
                     <ul class="list-inline">
                         <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                         <li><a href="checkLogin.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                        <li><a href="favourites.php"><span class="glyphicon glyphicon-star"></span> Favorites</a></li>
+                        <li><a href="checkLogin-fave.php"><span class="glyphicon glyphicon-star"></span> Favorites</a></li>
                     </ul>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#" style="font-family: 'Actor';">Share Your Travels</a>
+                    <a class="navbar-brand" href="index.php" style="font-family: 'Actor';">Share Your Travels</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->

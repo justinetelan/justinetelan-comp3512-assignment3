@@ -48,7 +48,8 @@
         
     
         <link rel="stylesheet" href="css/captions.css" />
-        <link rel="stylesheet" href="css/bootstrap-theme.css" />    
+        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
+        <link rel="stylesheet" href="css/bootstrap-new.css" />
         
     
     </head>

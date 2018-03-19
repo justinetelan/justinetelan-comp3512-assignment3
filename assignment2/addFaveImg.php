@@ -1,35 +1,25 @@
 <?php
-    
-    require_once('config.php');
-    session_start();
-    include 'functions/functionsClass.php';
-    
-    // echo 'this is: ' . $_SESSION['ids'] . '<br>';
-    // echo 'session set: ' . isset($_SESSION['ids']) . '<br>';
-    
-	if( !isset($_SESSION['ids']) ) {
-	    $_SESSION['fave'] = new Favourites();
-	   // echo 'hello';
-	}
+
+	require_once('config.php');
+	// include 'functions/functionsClass.php';
+	session_start();
 	
-	$faveI = new Favourites();//$_SESSION['fave'];
+	echo $_SESSION['ids'] . '<br>' . $_GET['id'] . '<br>';
 	
-	if( isset($_GET['id']) ) {  
-		// create cart item
-		$item = new FaveItem($_GET['id']);
-		
-// 		print_r($item);
-		echo '<br>';
-		
-		// get all info from this item (image or post)
-		$imgArr = [];
-		$faveI -> addToFave($connection, $item, "img", $imgArr);
-		
-		// *save updated cart into sesh
-		$_SESSION['fave'] = $faveI;
-		
-		// redirect to view cart
-// 		header( 'Location: favourites.php' );
-    }
+	$dbImg = new ImagesGateway($connection);
+	$imgF = $dbImg -> getFields(Array(0, 1, 2, 6)); // ImageID, UserID, Title, Path
+	
+	$sql = 'SELECT ' . $imgF . ' FROM ' . $dbImg -> getFrom() . ' WHERE ';
+	echo $sql . '<br>';
+	
+	$result = $dbImg -> getById($sql, $_GET['id'], 0);
+	// echo $result . '<br>';
+	
+	
+	echo $_SESSION['faveImg'] . '<br>';
+	// set($_SESSION['faveImg']);
+	array_push($_SESSION['faveImg'], $result);
+	echo count($_SESSION['faveImg']);
+	header('Location: favourites.php');
 
 ?>
