@@ -16,26 +16,32 @@
 	$_SESSION['faveI'] = "";
 	$count = 1;
 	
-	if(count($_SESSION['faveImg']) != 0) {
+	// check if user is logged in
+	if(isset($_SESSION['user'])) {
+		if(count($_SESSION['faveImg']) != 0) { // if there are already image favourites
 		
-		foreach($_SESSION['faveImg'] as $currFaveImg) {
+			foreach($_SESSION['faveImg'] as $currFaveImg) {
+			
+				if($currFaveImg['ImageID'] == $result['ImageID']) { // if it's already in favourites
+					
+					header('Location: single-image.php?id=' . $_GET['id']);
+					echo '<h1>this already exists</h1>'; // this isn't showing, FIX
+					
+				} else if($count == count($_SESSION['faveImg'])) {
+					array_push($_SESSION['faveImg'], $result);
+					header('Location: favourites.php');	
+				}
+				$count++;
+			}	
 		
-			if($currFaveImg['ImageID'] == $result['ImageID']) {
-				
-				header('Location: single-image.php?id=' . $_GET['id']);
-				echo '<h1>this already exists</h1>'; // this isn't showing, FIX
-				
-			} else if($count == count($_SESSION['faveImg'])) {
-				array_push($_SESSION['faveImg'], $result);
-				header('Location: favourites.php');	
-			}
-			$count++;
-		}	
-		
-		
-	} else {
-		array_push($_SESSION['faveImg'], $result);
-		header('Location: favourites.php');	
+		} else {
+			array_push($_SESSION['faveImg'], $result);
+			header('Location: favourites.php');	
+		}
+	} else if(!isset($_SESSION['user'])) {
+		header("Location: login.php");
 	}
+	
+	
 	
 ?>

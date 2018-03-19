@@ -119,7 +119,11 @@ session_start();
         echo '<div class="row">';
         echo '<div class="col-md-6">';
         
-        echo '<h3>Images List</h3>';
+        if(count($_SESSION['faveImg']) != 0) { 
+            echo '<h3>Images List</h3>';
+        } else {
+            echo '<h3>No favourite images</h3>';
+        }
          
         
         ?>
@@ -153,7 +157,11 @@ session_start();
         
         echo '<div class="col-md-6">';
         
-        echo '<h3>Posts List</h3>';
+        if(count($_SESSION['favePost']) != 0) { 
+            echo '<h3>Posts List</h3>';
+        } else {
+            echo '<h3>No favourite posts</h3>';
+        }
         
         foreach($_SESSION['favePost'] as $post) {
             echo '<div>';
@@ -227,8 +235,6 @@ session_start();
                 relatedImgPost($connection);
             echo "</div>";
         echo "</div>";
-        
-        
         
     }
     
@@ -483,27 +489,39 @@ session_start();
     function filterHeader($connection) {
         
         echo '<div class="panel panel-default">';
-        echo '<div class="panel-heading">Images ';
+        echo '<div class="panel-heading">';//Images ';
         
         if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
             
-            echo "[Title=" . $_GET['imgTitle'] . "]";
+            echo "Title = " . $_GET['imgTitle'];
             
         } else if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0")) {
                 
-            echo "[All]";
+            echo "All Images";
             
         } else if(isset($_GET['continent']) && $_GET['continent'] != "0") {
             
-            echo "[Continent=" . $_GET['continent'] . "]";
+            $dbCont = new ContinentsGateway($connection);
+            $contF = $dbCont -> getFields(Array(1)); // ContinentName
+            $sql = 'SELECT ' . $contF . ' FROM ' . $dbCont -> getFrom() . ' WHERE '; 
+            $continent = $dbCont -> getById($sql, $_GET['continent'], 0);
+            echo "Continent = " . $continent['ContinentName'];
             
         } else if(isset($_GET['country']) && $_GET['country'] != "0") {
             
-            echo "[Country=" . $_GET['country'] . "]";
+            $dbCount = new CountriesGateway($connection);
+            $countF = $dbCount -> getFields(Array(2)); // CountryName
+            $sql = 'SELECT ' . $countF . ' FROM ' . $dbCount -> getFrom() . ' WHERE '; 
+            $country = $dbCount -> getById($sql, $_GET['country'], 0);
+            echo "Country = " . $country['CountryName'];
         
         } else if(isset($_GET['city']) && $_GET['city'] != "0") {
             
-            echo "[City=" . $_GET['city'] . "]";
+            $dbCity = new CitiesGateway($connection);
+            $cityF = $dbCity -> getFields(Array(0)); // AsciiName
+            $sql = 'SELECT ' . $cityF . ' FROM ' . $dbCity -> getFrom() . ' WHERE '; 
+            $city = $dbCity -> getById($sql, $_GET['city'], 0);
+            echo "City = " . $city['AsciiName'];
             
         } 
         
@@ -590,24 +608,27 @@ session_start();
                 echo '</div>'; // close images div 
                 
                  echo '
-                <div class="popS" id='.$img['ImageID'].' >';// popover small image
-                    echo '<h6 >'.$img['Title'].'</h6>';
-                    echo '<img src="images/square-small/' . $img['Path'] . '" >';
+                  
+                <div class="popS"  id='.$img['ImageID'].' >';// popover small image
+                    echo '<h4>'.$img['Title'].'</h4>';
+                    echo '<img src="images/medium/' . $img['Path'] . '" >';
                 
                 echo '
-                
                 </div>'; 
                 
                 ?>
                 <script>
                     function popIn(c){
                         var x = event.clientX;
-                        var y = event.clientY;
+                        var y = event.clientY ;
+                        
+                        var v = Number(x) - 650;
+                        var z = Number(y) - 80;
                         var snowball = document.getElementById(c);
                          snowball.style.visibility="visible";
                         snowball.style.position = "absolute";
-                        snowball.style.right = x + 'px';
-                        snowball.style.top = y + 'px';
+                        snowball.style.right = v + 'px';
+                        snowball.style.top = z + 'px';
                         
                     }
                     function popOut(p){
@@ -620,7 +641,7 @@ session_start();
             } else if($page == "filtering") {
                 
                 echo '<li>';
-                echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-medium/' . $img['Path'] . '">';
+                echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-medium/' . $img['Path'] . '" class="img-circle" >';
                 echo '<div class="caption">';
                     echo '<div class="blur"></div>';
                         echo '<div class="caption-text">';

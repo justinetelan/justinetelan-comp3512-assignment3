@@ -2,7 +2,11 @@
     background-color: rgba(240, 200, 199, 0.48);
 }
 
-
+.popS {
+    position: absolute;
+    top: 5px;
+    left: 50px;
+}
 
 /*#userPic {*/
 /*    float: right;*/

@@ -17,7 +17,8 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
-    <link rel="stylesheet" href="css/bootstrap-new.css" />
+    <link rel="stylesheet" href="css/format.css" />
+    <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/general.css" /> 
 </head>
 

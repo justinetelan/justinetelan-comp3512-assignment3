@@ -18,12 +18,35 @@
 	echo $sql . '<br>';
 	
 	$result = $dbPost -> getById($sql, $_GET['id'], 0);
-	// echo $result . '<br>';
-	
 	$_SESSION['faveP'] = "";
-	echo $_SESSION['favePost'] . '<br>';
-	array_push($_SESSION['favePost'], $result);
-	// echo count($_SESSION['favePost']);
-	header('Location: favourites.php');
+	$count = 1;
+	
+	// check if user is logged in
+	if(isset($_SESSION['user'])) {
+		if(count($_SESSION['favePost']) != 0) { // if there are already post favourites
+			
+			foreach($_SESSION['favePost'] as $currFavePost) {
+				
+				if($currFavePost['PostID'] == $result['PostID']) { // if it's already in favourites
+					header('Location: single-post.php?id=' . $_GET['id']);
+				} else if($count == count($_SESSION['favePost'])) {
+					array_push($_SESSION['favePost'], $result);
+					header('Location: favourites.php');	
+				}
+				$count++;
+			}
+		} else {
+			array_push($_SESSION['favePost'], $result);
+			header('Location: favourites.php');	
+		}
+		
+	} else if(!isset($_SESSION['user'])) {
+		header("Location: login.php");
+	}
+	
+	// echo $_SESSION['favePost'] . '<br>';
+	// array_push($_SESSION['favePost'], $result);
+	// // echo count($_SESSION['favePost']);
+	// header('Location: favourites.php');
 
 ?>
