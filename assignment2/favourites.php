@@ -25,8 +25,8 @@
         <link rel="stylesheet" href="css/bootstrap-new.css" />
         <link rel="stylesheet" href="css/general.css" />
         
-        <link rel="stylesheet" href="css/single-country.css" />   
-        <script src="js/map.js" type="text/JavaScript"></script>
+        <!--<link rel="stylesheet" href="css/single-country.css" />   -->
+        <!--<script src="js/map.js" type="text/JavaScript"></script>-->
         
     
     </head>
@@ -34,9 +34,25 @@
     <body>
         
         <header>
-            <?php include 'includes/header.inc.php'; ?>
+            <?php 
+            
+            if(isset($_SESSION['user'])){
+                include 'includes/headerLogout.inc.php'; 
+                
+            }else if (!isset($_SESSION['user'])){
+                include 'includes/header.inc.php'; 
+            }
+            
+            ?>
         </header>
+        <?php
+        if(isset($_SESSION['faveP'])){
+        echo' <div class="alert alert-success" id="favePost" role="alert" style="visibility:hidden">';
+             echo'   POST ADDED TO FAVOURITES';
+             echo' </div>';
         
+        }
+        ?>
         <div class="container">
             
             <?php viewFaves($connection); ?>

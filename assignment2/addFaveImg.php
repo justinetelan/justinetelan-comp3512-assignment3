@@ -1,7 +1,7 @@
 <?php
 
 	require_once('config.php');
-	// include 'functions/functionsClass.php';
+	include 'functions/functionsClass.php';
 	session_start();
 	
 	echo $_SESSION['ids'] . '<br>' . $_GET['id'] . '<br>';
@@ -13,13 +13,29 @@
 	echo $sql . '<br>';
 	
 	$result = $dbImg -> getById($sql, $_GET['id'], 0);
-	// echo $result . '<br>';
+	$_SESSION['faveP'] = "";
+	$count = 1;
 	
+	if(count($_SESSION['faveImg']) != 0) {
+		
+		foreach($_SESSION['faveImg'] as $currFaveImg) {
+		
+			if($currFaveImg['ImageID'] == $result['ImageID']) {
+				
+				header('Location: single-image.php?id=' . $_GET['id']);
+				echo '<h1>this already exists</h1>'; // this isn't showing, FIX
+				
+			} else if($count == count($_SESSION['faveImg'])) {
+				array_push($_SESSION['faveImg'], $result);
+				header('Location: favourites.php');	
+			}
+			$count++;
+		}	
+		
+		
+	} else {
+		array_push($_SESSION['faveImg'], $result);
+		header('Location: favourites.php');	
+	}
 	
-	echo $_SESSION['faveImg'] . '<br>';
-	// set($_SESSION['faveImg']);
-	array_push($_SESSION['faveImg'], $result);
-	echo count($_SESSION['faveImg']);
-	header('Location: favourites.php');
-
 ?>

@@ -20,7 +20,7 @@
 	$result = $dbPost -> getById($sql, $_GET['id'], 0);
 	// echo $result . '<br>';
 	
-	
+	$_SESSION['faveP'] = "";
 	echo $_SESSION['favePost'] . '<br>';
 	array_push($_SESSION['favePost'], $result);
 	// echo count($_SESSION['favePost']);

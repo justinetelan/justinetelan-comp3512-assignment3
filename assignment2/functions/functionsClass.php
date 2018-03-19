@@ -1,6 +1,7 @@
 
 
 <?php
+session_start();
     
     function browseCountries($connection) {
         
@@ -93,33 +94,59 @@
                <hr/>';
          }
     }
-   
-    /*function faveArray($postTitle, $postImg){
-         $arry = array();
-        array_push($arry, $postTitle,$postImg);
-        print_r($arry);
-        echo sizeOf($arry);
-    }*/
     
     function viewFaves($connection) {
         
-        // $dbUser = new UsersGateway($connection);
+        // $checkUser = $_SESSION['ids'];
+        $user = $_SESSION['first'];// . ' ' . $_SESSION['last'];
         
-        $checkUser = $_SESSION['ids'];
-        $user = $_SESSION['first'] . ' ' . $_SESSION['last'];
-        // echo '<a href="addFavePost.php?id='; 
+        if(isset($_SESSION['faveP'])){
+        echo' <div class="alert alert-success" id="favePost" role="alert" style="visibility:hidden">';
+             echo'  ITEM ADDED TO FAVOURITES';
+             echo' </div>';
+             unset($_SESSION['faveP']);
+        
+        }
+        
+        // if(isset($_SESSION['faveI'])){
+        // echo' <div class="alert alert-success" id="faveImage" role="alert" style="visibility:hidden">';
+        //      echo'   IMAGE ADDED TO FAVOURITES';
+        //      echo' </div>';
+        
+        // }
         
         echo '<h2>Welcome to your favourites list, ' . $user . '.' . '</h2>';
-        // echo count($_SESSION['faveImg']);
         
         echo '<div class="row">';
         echo '<div class="col-md-6">';
         
         echo '<h3>Images List</h3>';
+         
+        
+             
+        ?>
+        <script>
+        var a = document.getElementById("favePost");
+        
+            a.style="visibility: visible";
+            
+            setTimeout(function() {
+            a.style="visibility: hidden";
+            }, 2000);
+        
+        </script>
+        
+        
+        
+        <?php
         
         foreach($_SESSION['faveImg'] as $img) {
+          
+            echo '<div>';
             echo 'Title: ' . $img['Title'] . '<br>';
-            echo '<img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image"><br>';
+            echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image"></a><br>';
+            echo '<a href="rmvFaveImg.php?id=' . $img['ImageID'] . '"><button name="rmv" type="submit" class="btn btn-danger btn-xs">Remove</button></a>';
+            echo '</div>';
         }
         echo '</div>'; // close col-md-6 for IMAGES
         
@@ -128,8 +155,11 @@
         echo '<h3>Posts List</h3>';
         
         foreach($_SESSION['favePost'] as $post) {
+            echo '<div>';
             echo 'Title: ' . $post['Title'] . '<br>';
-            echo '<img src="images/square-small/' . $post['Path'] . '" alt="Favourite Image"><br>';
+            echo '<a href="single-post.php?id=' . $post['PostID'] . '"><img src="images/square-small/' . $post['Path'] . '" alt="Favourite Image"></a><br>';
+            echo '<a href="rmvFavePost.php?id=' . $post['PostID'] . '"><button name="rmv" type="submit" class="btn btn-danger btn-xs">Remove</button></a>';
+            echo '</div>';
         }
         echo '</div>'; // close col-md-6 for POSTS
         

@@ -48,6 +48,28 @@ session_start();
   
 
   <div class="jumbotron">
+      <?php
+      if(isset($_SESSION['error'])){
+        echo' <div class="alert alert-danger" id="error" role="alert" style="visibility:hidden">';
+             echo'  INVALID PASSWORD/USERNAME TRY AGAIN';
+             echo' </div>';
+             unset($_SESSION['error']);
+        
+        }
+      
+      ?>
+      
+      <script>
+        var a = document.getElementById("error");
+        
+            a.style="visibility: visible";
+            
+            setTimeout(function() {
+            a.style="visibility: hidden";
+            }, 2000);
+        
+        </script>
+      
       
       <div class="row">
       

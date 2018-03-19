@@ -10,6 +10,8 @@ unset($_SESSION['region']);
 unset($_SESSION['postal']);
 unset($_SESSION['phone']);
 unset($_SESSION['email']);
+unset($_SESSION['error']);
+// unset($_SESSION['faveI']);
 
 unset($_SESSION['faveImg']); // TEMPORARY, TESTING THIS
 unset($_SESSION['favePost']); // TEMPORARY, TESTING THIS
