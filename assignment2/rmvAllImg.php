@@ -1,5 +1,5 @@
 <?php
-
+//THis page removes all the image posts in favourite page for images or posts
     session_start();
     
     $imgList = $_SESSION['faveImg']; $postList = $_SESSION['favePost'];

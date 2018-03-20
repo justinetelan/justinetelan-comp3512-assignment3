@@ -1,4 +1,5 @@
 <?php
+//This is the login page for the website
 session_start();
 
 ?>
@@ -19,7 +20,6 @@ session_start();
         
     
         <link rel="stylesheet" href="css/captions.css" />
-        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
         <link rel="stylesheet" href="css/format.css" />
         <link rel="stylesheet" href="css/theme.css" />
         
@@ -31,7 +31,7 @@ session_start();
         
         <header>
             <?php 
-            
+            // Changes login to logout button depending on whether user is logged in or not
             if(isset($_SESSION['user'])){
                 include 'includes/headerLogout.inc.php'; 
                 
@@ -47,6 +47,7 @@ session_start();
 
   <div class="jumbotron">
       <?php
+      //Displays invalid user/pass message if user types in wrong pass or username
       if(isset($_SESSION['error'])){
         echo' <div class="alert alert-danger" id="error" role="alert" style="visibility:visible">';
              echo'  INVALID PASSWORD/USERNAME TRY AGAIN';

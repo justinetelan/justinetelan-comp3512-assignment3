@@ -1,5 +1,5 @@
 <?php
-    
+    //Single Country Page 
     $country = $_GET['id'];
 
     // if it doesn't exist or is empty

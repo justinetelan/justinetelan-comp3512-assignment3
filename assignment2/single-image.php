@@ -1,5 +1,5 @@
 <?php
-
+//Single image page
     $img = $_GET['id'];
     
     if(!isset($img) || empty($img)) {

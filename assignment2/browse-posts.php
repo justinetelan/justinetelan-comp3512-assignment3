@@ -1,4 +1,5 @@
 <?php
+//This page allows for user to browse through post pages
     require_once('config.php');
     include 'functions/functionsClass.php';
     session_start();

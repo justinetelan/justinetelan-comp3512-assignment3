@@ -1,7 +1,7 @@
 <?php
 
+	// This page allows the process of adding a post to favourite list to occur
 	require_once('config.php');
-	// include 'functions/functionsClass.php';
 	session_start();
 	
 	echo $_SESSION['ids'] . '<br>' . $_GET['id'] . '<br>';
@@ -44,9 +44,5 @@
 		header("Location: login.php");
 	}
 	
-	// echo $_SESSION['favePost'] . '<br>';
-	// array_push($_SESSION['favePost'], $result);
-	// // echo count($_SESSION['favePost']);
-	// header('Location: favourites.php');
 
 ?>

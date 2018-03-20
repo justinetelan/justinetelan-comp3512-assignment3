@@ -1,25 +1,10 @@
 <?php 
 
     require_once('config.php'); 
+    
+    //This page allows for user to browse through image pages
     session_start();
-    // try {
-    //   $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-    //   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      
-    // }
-    // catch (PDOException $e) {
-    //   die( $e->getMessage() );
-    // }
     
-    // $searchImg = $_GET['imgTitle'];
-    
-    // if(isset($searchImg) && $searchImg != "") {
-        
-    //     header('Location: browse-images.php?imgTitle=' . $_GET['imgTitle']);
-        
-    // }
-    
-   // include 'functions/functions.php';
     include 'functions/functionsClass.php';
     
 ?>

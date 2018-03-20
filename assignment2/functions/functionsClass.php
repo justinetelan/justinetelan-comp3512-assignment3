@@ -1,6 +1,7 @@
 <?php
-session_start();
+    session_start();
     
+    // browse-countries.php
     function browseCountries($connection) {
         
         $dbCountry = new CountriesGateway($connection);
@@ -15,17 +16,16 @@ session_start();
         echo '<div class="row" style="padding:1.5em;">';
         
         foreach($cInfo as $countries) {
-            
             echo '<div class="col-md-3">';
             echo '<li class="list-group-item"><a href="single-country.php?id=' . $countries['ISO'] . '" class="list" value="' . $countries['ISO'] .'">' . $countries['CountryName'] . '</a></li>';
             echo '</div>';
-            
         }
         
-        echo '</div>';
+        echo '</div>'; // close row
         
     }
     
+    // browse-users.php
     function browseUsers($connection) {
         $usersSql = "SELECT UserID, FirstName, LastName FROM Users ORDER BY LastName";
         $dbUser = new UsersGateway($connection);
@@ -34,24 +34,19 @@ session_start();
         $sql = 'SELECT ' . $userF . ' FROM ' . $dbUser -> getFrom();
         $uInfo = $dbUser -> findAllSorted($sql, "orderBy");
         
-        // echo '<div class="panel panel-info">';
         echo '<div class="row" style="padding:1.5em;">';
         
         foreach($uInfo as $users) {
-                
             echo '<div class="col-md-3">';
-            
             echo '<li class="list-group-item"><a href="single-user.php?id=' . $users['UserID'] . '" class="list" value="' . $users['UserID'] .'">' 
                     . $users['FirstName'] . " " . $users['LastName'] . '</a></li>';
-            
             echo '</div>';
-            
         }
             
         echo '</div>';
-        // echo '</div>';
     }
     
+    // browse-posts.php
     function browsePosts($connection){
         
         $dbPost = new PostsGateway($connection);
@@ -92,36 +87,19 @@ session_start();
          }
     }
     
+    // view favourites in favourites.php
     function viewFaves() {
         
-        $user = $_SESSION['first'];// . ' ' . $_SESSION['last'];
-        
-        // if(isset($_SESSION['faveP'])){
-        // echo' <div class="alert alert-success" id="favePost" role="alert" style="visibility:hidden">';
-        //      echo'  ITEM ADDED TO FAVOURITES';
-        //      echo' </div>';
-        //      
-        
-        // }
-        
-        // if(isset($_SESSION['faveI'])){
-        // echo' <div class="alert alert-success" id="faveImage" role="alert" style="visibility:hidden">';
-        //      echo'   IMAGE ADDED TO FAVOURITES';
-        //      echo' </div>';
-        
-        // }
-        
-        echo '<h2>Welcome to your favourites list, ' . $user . '.' . '</h2>';
+        echo '<h2><strong>Welcome to your favourites list, ' . $_SESSION['first'] . '.' . '</strong></h2>';
         
         echo '<div class="row">';
         echo '<div class="col-md-6">';
         
-        if(count($_SESSION['faveImg']) != 0) { 
+        if(count($_SESSION['faveImg']) != 0) { // show appropriate heading - if no favourites or not
             echo '<h3>Images List</h3>';
         } else {
             echo '<h3>No favourite images</h3>';
         }
-         
         
         ?>
         <script>
@@ -138,9 +116,8 @@ session_start();
         <?php
         
         foreach($_SESSION['faveImg'] as $img) {
-          
             echo '<div>';
-            echo 'Title: ' . $img['Title'] . '<br>';
+            echo '<strong>' . $img['Title'] . '</strong><br>';
             echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image"></a><br>';
             echo '<a href="rmvFaveImg.php?id=' . $img['ImageID'] . '"><button name="rmv" type="submit" class="btn btn-info btn-xs">Remove</button></a>';
             echo '</div>';
@@ -162,7 +139,7 @@ session_start();
         
         foreach($_SESSION['favePost'] as $post) {
             echo '<div>';
-            echo 'Title: ' . $post['Title'] . '<br>';
+            echo '<strong>' . $post['Title'] . '</strong><br>';
             echo '<a href="single-post.php?id=' . $post['PostID'] . '"><img src="images/square-small/' . $post['Path'] . '" alt="Favourite Image"></a><br>';
             echo '<a href="rmvFavePost.php?id=' . $post['PostID'] . '"><button name="rmv" type="submit" class="btn btn-info btn-xs">Remove</button></a>';
             echo '</div>';
@@ -173,13 +150,12 @@ session_start();
         }
         
         echo '</div>'; // close col-md-6 for POSTS
-        
         echo '</div>'; // close row
         
-    
     }
     
-     function addFavePost($connection, $faveType) {//, $arry) {
+    // goes to appropriate php page based on what is being added
+    function addFavePost($connection, $faveType) {
         
         if($faveType == "singleImg") {
             echo "<a href='addFaveImg.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
@@ -190,6 +166,7 @@ session_start();
         
     }
     
+    // single-post.php
     function singlePost($connection) {
         
         $dbPost = new PostsGateway($connection);
@@ -205,24 +182,19 @@ session_start();
                 ' WHERE ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(2)) . ' = ' . $dbImg -> getFrom() . '.' . $dbImg -> getPk() .
                 ' AND ' . $dbPost -> getFields(Array(1)) . ' = ' . $dbUser -> getFrom() . '.' . $dbUser -> getPk() .
                 ' AND ';
-        
         $result = $dbPost -> getById($sql, $_GET['id'], 0);
-        
-        // echo $sql;
         
         echo "<div class='col-md-8'>";
         
         echo "<img class='img-responsive' ";
-        
         echo "src='images/medium/" . $result['Path'] . "' alt='" . $result['Title'] . "'>";
         echo "<p>" . $result['Message'] . "</p>";
-    
+        
         echo "</div>"; // close col-md-8
         
         echo "<div class='col-md-4'>";
         
         echo "<h1>" . $result['Title'] . "</h1>";
-        
         echo "<div class='panel panel-default'>";
             echo "<div class='panel-body'>";
                 echo "<ul class='details-list'>";
@@ -231,40 +203,32 @@ session_start();
                 echo "</ul>";
                 relatedImgPost($connection);
             echo "</div>";
-        echo "</div>";
+            
+        echo "</div>"; // close col-md-4
         
     }
     
+    // retrieves all related images for single-post.php
     function relatedImgPost($connection) {
         
         $dbPost = new PostsGateway($connection);
         $dbImg = new ImagesGateway($connection);
         $dbPostImg = new PostImagesGateway($connection);
         
-        
         $imgF = $dbImg -> getFields(Array(0, 6)); // ImageID, Path
         $imgID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(0));
         $postID = $dbPostImg -> getFrom() . '.' . $dbPostImg -> getFields(Array(1));
-        
         
         $sql = 'SELECT ' . $imgF . ', ' . $imgID . ', ' . $postID .
                 ' FROM ' . $dbImg -> getFrom() . ' JOIN ' . $dbPostImg -> getFrom() .
                 ' USING(' . $dbPostImg -> getFields(Array(0)) . ') ' .
                 ' WHERE ' . $dbPostImg -> getFrom() . '.';
-                
         $result = $dbPost -> getById($sql, $_GET['id'], 1);
         
         showImg("singles", $result);
-        // echo '<div>';
-        // foreach($result as $row) {
-        //     // echo '<div id=smallI>';
-        //     echo '<a href="single-image.php?id=' . $row['ImageID'] . '" id="img">
-        //         <img src="images/square-small/' . $row['Path'] . '"></a>';
-        //     // echo '</div>';
-        // } 
-        // echo '</div>';
     }
     
+    // single-user.php
     function singleUser($connection) {
         
         $dbUser = new UsersGateway($connection);
@@ -281,29 +245,27 @@ session_start();
         echo "<p>" . $users['Email'] . "</p>";
     }
     
+    // single-image.php
     function singleImg($connection) {
         
         $dbImg = new ImagesGateway($connection);
         $mainImg = 'SELECT ' . $dbImg -> getFields(Array(2, 3, 6)) . ' FROM ' . $dbImg -> getFrom() . ' WHERE '; // Title, Description, Path
         $image = $dbImg -> getById($mainImg, $_GET['id'], 0);
-        // echo $mainImg;
-        // echo $image;
         
         echo "<div class='col-md-8'>";
         
         mapp($connection, "country");
-        
         echo "<img class='img-responsive' ";
-        
         echo "src='images/medium/" . $image['Path'] . "' alt='" . $image['Title'] . "'>";
         echo "<p class='description'>" . $image['Description'] . "</p>";
     
         echo "</div>"; // close col-md-8
         
-        sideInfo($connection);
+        sideInfo($connection); // calls to display image information
         
     }
     
+    // single image information
     function sideInfo($connection) {
         
         $dbImg = new ImagesGateway($connection); $dbUser = new UsersGateway($connection);
@@ -318,7 +280,6 @@ session_start();
                 ' AND ' . $dbImg -> getFields(Array(5)) . ' = ' . $dbCount -> getFields(Array(0)) .
                 ' AND ' . $dbImg -> getFrom() . '.' . $dbImg -> getFields(Array(4)) . ' = ' . $dbCity -> getFields(Array(7)) . ' AND ';
         $sideInfo = $dbImg -> getById($info, $_GET['id'], 0);
-        // echo $info;
         
         echo "<div class='col-md-4'>";
         
@@ -336,19 +297,18 @@ session_start();
         
     }
     
+    // country information
     function countryInfo($connection) {
         $dbCountry = new CountriesGateway($connection);
         
         //CountryName, Capital, Area, Population, CurrencyName, CountryDescription
         $countryF = $dbCountry -> getFields(Array(2, 3, 5, 6, 10, 14));
-        
         $sqlInfo = 'SELECT ' . $countryF . ' FROM ' . $dbCountry -> getFrom() . ' WHERE ';
-        
         $countryInfo = $dbCountry -> getById($sqlInfo, $_GET['id'], 0);
         
         echo '<h3>' . $countryInfo['CountryName'] . '</h3><hr>';
         
-        mapp($connection, "country");
+       echo '<img width="600" src="https://maps.googleapis.com/maps/api/staticmap?autoscale=1&size=600x300&maptype=roadmap&key=AIzaSyDS6yY2WDxvBkoIlcC0tgE-fFhga7S54ic&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:1%7C'.$countryInfo['CountryName'].'" alt="Google Map of Albany, NY">';
         
         echo '<br><p><strong>Capital: </strong>' . $countryInfo['Capital'] . '</p>';
         echo '<p><strong>Area: </strong>' . number_format($countryInfo['Area']) . '</p>';
@@ -358,39 +318,8 @@ session_start();
 
     }
     
-    function singleHeader($connection, $type) {
-        
-        echo '<div class="panel panel-info">';
-        
-        if($type == "countries") {
-            
-            $dbCount = new CountriesGateway($connection);
-            $countF = $dbCount -> getFields(Array(2)); // CountryName
-            $sqlCount = 'SELECT ' . $countF . ' FROM ' . $dbCount -> getFrom() . ' WHERE ';
-            echo $sqlCount;
-            $countInfo = $dbCount -> getById($sqlCount, $_GET['id'], 0);
-            
-            echo '<div class="panel-heading">Images from ' . $countInfo['CountryName'] . '</div>';
-            
-        } else if($type == "users") {
-            
-            $dbUse = new UsersGateway($connection);
-            $useF = $dbUse -> getFields(Array(0,1)); // FirstName, LastName
-            $sqlUse = 'SELECT ' . $useF . ' FROM ' . $dbUse -> getFrom() . ' WHERE ';
-            // echo $sqlUse;
-            $useInfo = $dbUse -> getById($sqlUse, $_GET['id'], 0);
-            echo '<div class="panel-heading">Images from ' . $useInfo['FirstName'].' ' . $useInfo['LastName']. '</div>';
-            
-        }
-        
-        identifyType($connection, $type);
-        
-    }
-    
-    // calls another function to show appropriate images via query string for single page CHANGE INTO Gateways
+    // calls another function to show appropriate images via query string for single page
     function identifyType($connection, $type) {
-        
-        // $object = "";
         
         if($type == "countries") {
             
@@ -403,7 +332,6 @@ session_start();
             ' JOIN ' . $dbIma -> getFrom() .
             ' WHERE ' . $dbCnty -> getFields(Array(0)) . 
             ' = ' . $dbIma -> getFields(Array(5)) . ' AND '; 
-            // echo $sql1 . '<br>';
             $object = $dbCnty -> getById($sql1, $_GET['id'], 1);
 
         } else if($type == "users") {
@@ -421,12 +349,10 @@ session_start();
             $object = $dbUs -> getById($sql2, $_GET['id'], 1);
             
         }
-        
-        // echo '<div>';
         showImg("singles", $object); 
-        // echo '</div>';// echo '</div>'; // close panel-info
     }
     
+    // dropdown list for browse-images.php
     function dropdown($connection, $type) {
         
         if($type == "continent") {
@@ -477,10 +403,11 @@ session_start();
         
     }
     
+    // displays the appropriate header for browse-images
     function filterHeader($connection) {
         
         echo '<div class="panel panel-default">';
-        echo '<div class="panel-heading">';//Images ';
+        echo '<div class="panel-heading">';
         
         if(isset($_GET['imgTitle']) && $_GET['imgTitle'] != "") {
             
@@ -546,7 +473,6 @@ session_start();
             } else if((!isset($_GET['continent']) && !isset($_GET['country']) && !isset($_GET['city'])) || ($_GET['country'] == "0" && $_GET['continent'] == "0" && $_GET['city'] == "0" && $_GET['imgTitle'] == "")) {
                 
                 $sql = $startSql . $dbImg -> getFrom();
-                // echo $sql;
                 $result = $dbImg -> runQuery($sql, null, 0);
                 
             } else if(isset($_GET['continent']) && $_GET['continent'] != "0") {
@@ -555,9 +481,7 @@ session_start();
                 $sql = $startSql . $dbCont -> getFrom() . ' JOIN ' . $dbImg -> getFrom() .
                         ' USING(' . $dbCont -> getFields(Array(0)) . ')' .
                         ' WHERE ' . $dbCont -> getFrom() . '.';
-                        
                 $result = $dbCont -> getById($sql, $_GET['continent'], 1);
-                // echo $sql;
                 
             } else if(isset($_GET['country']) && $_GET['country'] != "0") {
              
@@ -565,7 +489,6 @@ session_start();
                 $sql = $startSql . $dbCount -> getFrom() . ' JOIN ' . $dbImg -> getFrom() .
                         ' WHERE ' . $dbCount -> getFields(Array(0)) . ' = ' . $dbImg -> getFields(Array(5)) . ' AND ';
                 $result = $dbCount -> getById($sql, $_GET['country'], 1);
-                // echo $sql;
                 
             } else if(isset($_GET['city']) && $_GET['city'] != "0") {
                 
@@ -573,10 +496,7 @@ session_start();
                 $sql = $startSql . $dbCity -> getFrom() . ' JOIN ' . $dbImg -> getFrom() .
                         ' USING(' . $dbCity -> getPk() . ')' .
                         ' WHERE ';
-                // echo '<br>' . $sql;
-                
                 $result = $dbCity -> getById($sql, $_GET['city'], 1);
-                // echo $sql;
                
             } 
             
@@ -585,8 +505,9 @@ session_start();
         }
         
     }   
-        
-   function showImg($page, $object) {
+    
+    // shows images from single pages and filter image
+    function showImg($page, $object) {
         
         foreach($object as $img) {
             
@@ -609,6 +530,8 @@ session_start();
                 
                 ?>
                 <script>
+                
+                // Generates image preview event
                     function popIn(c){
                         var x = event.clientX;
                         var y = event.clientY ;
@@ -620,8 +543,6 @@ session_start();
                         obj.style.position = "absolute";
                         obj.style.left = v + 'px';
                         obj.style.top = z + 'px';
-                        
-                        
                         
                     }
                     function popOut(p){
@@ -651,6 +572,7 @@ session_start();
     
     }
     
+    // generates the map for single-country.php and single-image.php
     function mapp($connection, $type){
         
         $dbCoun = new CountriesGateway($connection);
@@ -671,20 +593,10 @@ session_start();
         $lat = $coordinates['Latitude'];
         $long = $coordinates['Longitude'];
         
-        echo '<br>';
-        
-        // call script here <script> initMap() </script>
-        // echo '<script> initMap() </script>';
-        
-        // echo '<script 
-        //         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8izLDbgoSU5XQQhwjGI_c3L1OnnJ1lkU&callback=initMap">
-        //     </script>';
-                       
-                        
-                        
+        echo '<br>';    
 ?>
     <script>
-    
+    //Generates Google Map on single pages
     function initMap() {
             document.write("<div id='map' style='width:95%;height:400px;'></div>");
             var uluru = {lat: <?php echo $lat; ?>, lng: <?php echo $long; ?>};

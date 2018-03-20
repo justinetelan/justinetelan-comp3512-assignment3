@@ -1,5 +1,5 @@
 <?php
-    
+    //This page is dedicated towards the favourites functionality for the website
     require_once('config.php');
     include 'functions/functionsClass.php';
     session_start();
@@ -18,15 +18,11 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     
         <link rel="stylesheet" href="css/bootstrap.min.css" />
-        
-        
     
         <link rel="stylesheet" href="css/captions.css" />
-        <link rel="stylesheet" href="css/bootstrap-new.css" />
-        <link rel="stylesheet" href="css/general.css" />
-        
-        <!--<link rel="stylesheet" href="css/single-country.css" />   -->
-        <!--<script src="js/map.js" type="text/JavaScript"></script>-->
+        <link rel="stylesheet" href="css/theme.css" />
+        <link rel="stylesheet" href="css/format.css" />
+        <link rel="stylesheet" href="css/general.css" /> 
         
     
     </head>

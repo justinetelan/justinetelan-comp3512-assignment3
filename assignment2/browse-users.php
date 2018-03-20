@@ -1,5 +1,5 @@
 <?php 
-
+//This page allows for user to browse through user pages
     require_once('config.php'); 
     session_start();
     // try {

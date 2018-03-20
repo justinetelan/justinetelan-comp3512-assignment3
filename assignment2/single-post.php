@@ -1,5 +1,5 @@
 <?php
-
+//Single post page
     $post = $_GET['id'];
     
     if(!isset($post) || empty($post)) {

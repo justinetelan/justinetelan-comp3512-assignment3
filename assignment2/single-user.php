@@ -1,5 +1,5 @@
 <?php
-
+    //Single user page
     $user = $_GET['id'];
     
     if(!isset($user) || empty($user)) {

@@ -1,3 +1,6 @@
+
+<!--Includes all the sources used for Assignment 2-->
+
 <!DOCTYPE html>
 <html lang="en">
     
@@ -6,19 +9,11 @@
         <title>Assignment 2 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <!-- FONTS = Main: Actor, Text: Advent Pro -->
-        
-        <!--<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>-->
-        <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    
-        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"><link rel="stylesheet" href="css/bootstrap.min.css" />
         
         
     
         <link rel="stylesheet" href="css/captions.css" />
-        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />    -->
         <link rel="stylesheet" href="css/format.css" />
         <link rel="stylesheet" href="css/theme.css" />
     

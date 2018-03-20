@@ -1,6 +1,6 @@
 <?php 
-
-
+//THis page is dedicated towards making session cookies to enable login function to work, and store user info into cookies for user
+//profile
 require_once('config.php'); 
 session_start();
 
@@ -13,7 +13,7 @@ $pw =  $_POST['psw'];
         $logF = $dbLog -> getFields(Array(0,1,2,3)); // UserID,UserName, Password, Salt
         $useF = $dbUse -> getFields(Array(0,1,2,3,4,5,6,7,8));
        
-       //REFINE statement to retrieve User profile info!!!!!!! 
+      
         $sql = 'SELECT ' . $logF . ' , ' . $useF .
                 ' FROM ' . $dbLog -> getFrom() .
                 ' JOIN ' . $dbUse->getFrom() .
@@ -24,7 +24,7 @@ $pw =  $_POST['psw'];
          foreach($result as $row) {
         
         
-        
+        // sets cookies for user info if username is found
         if ($usrNm == $row['UserName']){
              $hash = $pw . $row['Salt'];
             $encp = md5($hash);
@@ -48,13 +48,13 @@ $pw =  $_POST['psw'];
                 $_SESSION['favePost'] = array();
                 
               header("Location: userProfile.php");
-                
+            //user is redirected to login page if user types in wrong pass    
             }else {
                 $_SESSION['error'] = "";
                 header("Location: login.php");
             }
             
-            
+            // user is redirected to login page if user types in wrong username
            }else {
              $_SESSION['error'] = "";
              header("Location: checkLogin.php");

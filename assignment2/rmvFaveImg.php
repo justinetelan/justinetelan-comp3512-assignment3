@@ -1,5 +1,5 @@
 <?php
-    
+    //removes individual image post in favourites page
     require_once('config.php');
     session_start();
 
