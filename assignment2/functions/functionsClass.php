@@ -523,7 +523,7 @@
                   
                 <div class="popS"  id='.$img['ImageID'].' >';// popover small image
                     echo '<h4>'.$img['Title'].'</h4>';
-                    echo '<img src="images/medium/' . $img['Path'] . '" >';
+                    echo '<img src="images/medium/' . $img['Path'] . '" style="height: 200px; width:200px">';
                 
                 echo '
                 </div>'; 

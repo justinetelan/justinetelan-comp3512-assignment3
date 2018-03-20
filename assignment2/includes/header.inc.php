@@ -33,10 +33,10 @@
                         <li><a href="aboutus.php">About</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Browse <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
+                           <ul class="dropdown-menu">
                                 <li><a href="browse-countries.php">Countries</a></li>
                                 <li><a href="browse-images.php">Images</a></li>
-                                <li><a href="Posts.php">Posts</a></li>
+                                <li><a href="browse-users.php">Posts</a></li>
                             </ul>
                         </li>
                     </ul>

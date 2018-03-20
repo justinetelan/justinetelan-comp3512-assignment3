@@ -22,7 +22,7 @@ session_start();
         <link rel="stylesheet" href="css/captions.css" />
         <link rel="stylesheet" href="css/format.css" />
         <link rel="stylesheet" href="css/theme.css" />
-        
+        <link rel="stylesheet" href="css/login.css"/>
         <link rel="stylesheet" href="css/general.css"/>
     
     </head>
@@ -61,10 +61,7 @@ session_start();
       <script>
       function err(){
         var a = document.getElementById("error");
-        
-            
-            a.style="visibility: hidden";
-            
+        a.style="visibility: hidden";
       }
         
         </script>
@@ -72,13 +69,15 @@ session_start();
       
       <div class="row">
       
+    <h2>Please log in.</h2>
     <label for="uname"><b>Username</b></label>
     <input type="text" onkeydown="err()" placeholder="Enter Username" name="uname" required>
-
+    <br>
     <label for="psw"><b>Password</b></label>
     <input type="password" onkeydown="err()" placeholder="Enter Password" name="psw" required>
-        
+    <br>
     <button type="submit">Login</button>
+    <div><img src="images/design/login.jpg"></div>
     
   </div>
 
