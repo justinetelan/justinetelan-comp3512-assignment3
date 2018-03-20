@@ -1,5 +1,3 @@
-
-
 <?php
 session_start();
     
@@ -14,7 +12,6 @@ session_start();
                 ' = ' . $dbImg -> getFields(Array(5));
         $cInfo = $dbCountry -> findAllSorted($sql, "both");
         
-        // echo '<div class="panel panel-info">';
         echo '<div class="row" style="padding:1.5em;">';
         
         foreach($cInfo as $countries) {
@@ -26,7 +23,7 @@ session_start();
         }
         
         echo '</div>';
-        // echo '</div>'; // close panel panel-info
+        
     }
     
     function browseUsers($connection) {
@@ -257,15 +254,15 @@ session_start();
                 
         $result = $dbPost -> getById($sql, $_GET['id'], 1);
         
-        foreach($result as $row) {
-            
-            // echo '<div id="smallImg">';
-              echo '<a href="single-image.php?id=' . $row['ImageID'] . '">
-                    <img src="images/square-small/' . $row['Path'] . '"></a>';
-            // echo '</div>';
-            
-        }   
-        
+        showImg("singles", $result);
+        // echo '<div>';
+        // foreach($result as $row) {
+        //     // echo '<div id=smallI>';
+        //     echo '<a href="single-image.php?id=' . $row['ImageID'] . '" id="img">
+        //         <img src="images/square-small/' . $row['Path'] . '"></a>';
+        //     // echo '</div>';
+        // } 
+        // echo '</div>';
     }
     
     function singleUser($connection) {
@@ -393,7 +390,7 @@ session_start();
     // calls another function to show appropriate images via query string for single page CHANGE INTO Gateways
     function identifyType($connection, $type) {
         
-        $object = "";
+        // $object = "";
         
         if($type == "countries") {
             
@@ -408,12 +405,8 @@ session_start();
             ' = ' . $dbIma -> getFields(Array(5)) . ' AND '; 
             // echo $sql1 . '<br>';
             $object = $dbCnty -> getById($sql1, $_GET['id'], 1);
-            
-                                     
+
         } else if($type == "users") {
-            
-        'SELECT Users.UserID, FirstName, LastName, Path, ImageID FROM Users JOIN ImageDetails
-                    WHERE Users.UserID = ImageDetails.UserID AND Users.UserID =?';
             
             $dbUs = new UsersGateway($connection);
             $dbIma = new ImagesGateway($connection);
@@ -425,15 +418,13 @@ session_start();
             ' WHERE ' . $dbUs -> getFields(Array(10)) .
             ' = ' . $dbIma -> getFields(Array(1)) . ' AND ' . $dbUs -> getFrom() . '.';
             
-            // echo $sql2;
-            
             $object = $dbUs -> getById($sql2, $_GET['id'], 1);
             
         }
         
-        
+        // echo '<div>';
         showImg("singles", $object); 
-        echo '</div>'; // close panel-info
+        // echo '</div>';// echo '</div>'; // close panel-info
     }
     
     function dropdown($connection, $type) {
@@ -595,13 +586,13 @@ session_start();
         
     }   
         
-    function showImg($page, $object) {
+   function showImg($page, $object) {
         
         foreach($object as $img) {
             
             if($page == "singles") {
                
-                echo '<div class="smallImg" onmouseover="popIn('.$img['ImageID'].')" onmouseout="popOut('.$img['ImageID'].')">';
+                echo '<div class="smallImg" onmousemove="popIn('.$img['ImageID'].')" onmouseout="popOut('.$img['ImageID'].')">';
                     
                     echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '"></a>';
                 
@@ -622,13 +613,15 @@ session_start();
                         var x = event.clientX;
                         var y = event.clientY ;
                         
-                        var v = Number(x) - 650;
-                        var z = Number(y) - 80;
-                        var snowball = document.getElementById(c);
-                         snowball.style.visibility="visible";
-                        snowball.style.position = "absolute";
-                        snowball.style.right = v + 'px';
-                        snowball.style.top = z + 'px';
+                        var v = Number(x) -1000;
+                        var z = Number(y) -100;
+                        var obj = document.getElementById(c);
+                        obj.style.visibility="visible";
+                        obj.style.position = "absolute";
+                        obj.style.left = v + 'px';
+                        obj.style.top = z + 'px';
+                        
+                        
                         
                     }
                     function popOut(p){

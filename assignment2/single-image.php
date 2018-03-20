@@ -1,13 +1,20 @@
 <?php
 
-    // $img = $_GET['id'];
+    $img = $_GET['id'];
     
-    // if(!isset($img) || empty($img)) {
-    //     header('Location: error.php');
-    // }
+    if(!isset($img) || empty($img)) {
+        header('Location: error.php');
+    }
     
     require_once('config.php'); 
     session_start();
+    
+    $dbImg = new ImagesGateway($connection);
+    $sql = 'SELECT ' . $dbImg -> getPk() . ' FROM ' . $dbImg -> getFrom() . ' WHERE ';
+    $checkImg = $dbImg -> getById($sql, $img, 0);
+    if($checkImg == null) {
+        header('Location: error.php');
+    }
     // try {
     //   $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
     //   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -51,7 +58,6 @@
         <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
         <link rel="stylesheet" href="css/format.css" />
         <link rel="stylesheet" href="css/theme.css" />
-        
     
     </head>
     
@@ -90,20 +96,7 @@
                         
                         <div class='btn-group btn-group-justified' role='group' aria-label='...'>
                             <div class='btn-group' role='group'>
-                                <!--<a href='addToFave.php?id= <?php /*$_SESSION['ids'];*/ ?>'><button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>-->
                                 <?php addFavePost($connection, "singleImg"); ?>
-                            </div>
-                            
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-save' aria-hidden='true'></span></button>
-                            </div>
-                            
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>
-                            </div>
-                            
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-comment' aria-hidden='true'></span></button>
                             </div>
                         </div> <!-- close button class -->
                         

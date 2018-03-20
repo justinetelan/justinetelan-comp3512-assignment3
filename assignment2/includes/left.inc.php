@@ -21,11 +21,13 @@
             
             <?php 
             
-                $contiSql = "SELECT ContinentName, ContinentCode FROM Continents";
-                $statement = $pdo -> prepare($contiSql);
-                $statement -> execute();
+                $dbCont = new ContinentsGateway($connection);
+                $contF = $dbCont -> getFields(Array(0, 1)); // ContinentCode, ContinentName
+            
+                $contiSql = 'SELECT ' . $contF . ' FROM Continents';
+                $result = $dbCont -> runQuery($contiSql, null, 0);
                 
-                while($continents = $statement -> fetch()) {
+                foreach($result as $continents) {
                     echo "<li class='list-group-item'><a href='browse-images.php?continent=" . $continents['ContinentCode'] . "'>" . $continents['ContinentName'] . "</a></li>";
                 }
 
@@ -40,19 +42,22 @@
         <ul class="list-group">
            <?php      
                 
+                $dbCount = new CountriesGateway($connection);
+                $dbImg = new ImagesGateway($connection);
+                $countF = $dbCount -> getFields(Array(0, 2)); // Countries.ISO, CountryName
                 
-                $countrySql = 'SELECT CountryName, ISO FROM Countries JOIN ImageDetails
-                      WHERE Countries.ISO = ImageDetails.CountryCodeISO GROUP BY ISO ORDER BY CountryName';
-                $statement = $pdo -> prepare($countrySql);
-                $statement -> execute();
+            
+                $sqlCount = 'SELECT ' . $countF . ' FROM ' . $dbCount -> getFrom() .
+                            ' JOIN ' . $dbImg -> getFrom() .
+                            ' WHERE ' . $dbCount -> getFields(Array(0)) . ' = ' . $dbImg -> getFields(Array(5));
+                $result = $dbCount -> findAllSorted($sqlCount, "groupBy"); // GROUP BY ISO
                 
-                
-                while($countries = $statement -> fetch()) {
-					
-					echo "<li class='list-group-item'>";
-					echo "<a href='browse-images.php?country=" . $countries['ISO'] . "'>" . $countries['CountryName'] . "</a>";
-					echo "</li>";
+                foreach($result as $countries) {
+                    echo '<li class="list-group-item">';
+                    echo "<a href='browse-images.php?country=" . $countries['ISO'] . "'>" . $countries['CountryName'] . "</a>";
+                    echo '</li>';
                 }
+                
             ?>
         </ul>
     </div>

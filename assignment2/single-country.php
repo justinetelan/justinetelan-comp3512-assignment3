@@ -1,9 +1,23 @@
 <?php
     
-    require_once('config.php');
-    include 'functions/functionsClass.php';
-    session_start();
+    $country = $_GET['id'];
 
+    // if it doesn't exist or is empty
+    if(!isset($country) || empty($country)) {
+        header('Location: error.php');
+    }
+    
+    require_once('config.php');
+    session_start();
+    
+    $dbCountry = new CountriesGateway($connection);
+    $sql = 'SELECT ' . $dbCountry -> getPk() . ' FROM ' . $dbCountry -> getFrom() . ' WHERE ';
+    $checkCountry = $dbCountry -> getById($sql, $country, 0);
+    if($checkCountry == null) {
+        header('Location: error.php');
+    }
+    
+    include 'functions/functionsClass.php';
 ?>
 
 <!DOCTYPE html>
@@ -54,12 +68,7 @@
                 <div class="row">
                     
                     <div class="col-md-8">
-                        
-                        <!--<h3>Country Information</h3>-->
-                        
                         <?php countryInfo($connection); ?>
-                            
-                            
                     </div> <!-- close col-md-8 -->
                         
                         
@@ -68,17 +77,11 @@
                     
                     <div class="col-md-4">
                         <h3>Related Images</h3>
-                        <?php
-                            //relatedImg($connection);
-                            //singleHeader($connection, "countries");
-                            identifyType($connection, "countries");
-                        ?>
+                        <?php identifyType($connection, "countries"); ?>
                     </div> <!-- close col-md-4 -->
                     
                 </div> <!-- close row -->
             </div> <!-- close jumbotron -->
-        
-            <?php // singleHeader($pdo, "countries"); ?>
         
             
         </div>

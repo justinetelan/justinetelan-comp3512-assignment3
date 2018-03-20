@@ -9,8 +9,9 @@
         
         <!-- FONTS = Main: Actor, Text: Advent Pro -->
         
-        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <!--<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>-->
+        <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         
@@ -18,7 +19,8 @@
     
         <link rel="stylesheet" href="css/captions.css" />
         <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />    -->
-        <link rel="stylesheet" href="css/bootstrap-new.css" />
+        <link rel="stylesheet" href="css/format.css" />
+        <link rel="stylesheet" href="css/theme.css" />
     
     </head>
     
@@ -43,13 +45,14 @@
                         
                         <p><strong>Tasks by Elijah Dilan</strong></p>
                         <ul class="list-group">
-                            <li class="list-group-hover list-group-item">Browse Posts</li>
+                            <li class="list-group-item">Class-Based Infrastructure</li>
+                            <li class="list-group-item">Browse Posts</li>
                             <li class="list-group-item">Browse Images</li>
+                            <li class="list-group-item">Google Map</li>
                             <li class="list-group-item">List of Images</li>
+                            <li class="list-group-item">User Profile</li>
                             <li class="list-group-item">Login</li>
                             <li class="list-group-item">Logout</li>
-                            <li class="list-group-item">User Profile</li>
-                            <li class="list-group-item">Google Map</li>
                         </ul>
                         
                     </div>
@@ -58,14 +61,16 @@
                         
                         <p><strong>Tasks by Justine Telan</strong></p>
                         <ul class="list-group">
-                            <li class="list-group-item">Conversion of PHP files</li>
+                            <li class="list-group-item">Class-Based Infrastructure</li>
                             <li class="list-group-item">About Us</li>
-                            <li class="list-group-item">Bootstrap</li>
+                            <li class="list-group-item">Bootstrap Design</li>
                             <li class="list-group-item">Single Post</li>
                             <li class="list-group-item">Single Country</li>
                             <li class="list-group-item">Simple Search</li>
                             <li class="list-group-item">Search Results</li>
                             <li class="list-group-item">Single Image</li>
+                            <li class="list-group-item">View Favourites</li>
+                            <li class="list-group-item">Add Favourites</li>
                         </ul>
                         
                     </div>
@@ -84,6 +89,7 @@
                             <li class="list-group-item"><a href="https://github.com/justinetelan">Github Account (Justine Telan)</a></li>
                             <li class="list-group-item"><a href="https://www.htmlgoodies.com/beyond/javascript/article.php/3902606/How-To-Use-JavaScript-To-Auto-Submit-Dropdowns-With-No-Submit-Button.htm?myfield=Coffee">HTML Goodies (JS Auto-Submit)</a></li>
                             <li class="list-group-item"><a href="http://php.net/">PHP: Hypertext Preprocessor</a></li>
+                            <li class="list-group-item"><a href="https://www.w3schools.com/jsref/met_win_settimeout.asp">W3Schools (JS Hidden Message)</a></li>
                         </ul>
                         
                         

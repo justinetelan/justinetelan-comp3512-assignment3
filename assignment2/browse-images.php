@@ -67,7 +67,7 @@
           <div class="panel-heading">Filters</div>
           
           <div class="panel-body">
-            <form action="browse-images.php" method="get" class="form-horizontal">
+            <form action="browse-images.php" method="get" class="form-horizontal" id="formFilter">
               <div class="form-inline">
               <select name="continent" class="form-control" onchange="this.form.submit()">
                 <option value="0">Select Continent</option>

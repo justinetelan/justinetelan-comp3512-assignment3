@@ -1,15 +1,21 @@
 <?php
 
-    // $post = $_GET['id'];
+    $post = $_GET['id'];
     
-    // if(!isset($post) || empty($post)) {
-    //     header('Location: error.php');
-    // }
+    if(!isset($post) || empty($post)) {
+        header('Location: error.php');
+    }
     
-    require_once('config.php'); 
-    include 'functions/functionsClass.php';
+    require_once('config.php');
     session_start();
-
+    
+    $dbPost = new PostsGateway($connection);
+    $sql = 'SELECT ' . $dbPost -> getPk() . ' FROM ' . $dbPost -> getFrom() . ' WHERE ';
+    $checkPost = $dbPost -> getById($sql, $post, 0);
+    if($checkPost == null) {
+        header('Location: error.php');
+    }
+    include 'functions/functionsClass.php';
 ?>
 
 <!DOCTYPE html>
@@ -20,18 +26,17 @@
         <title>Assignment 2 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        
     
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         
-        
     
         <link rel="stylesheet" href="css/captions.css" />
-        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
-        <link rel="stylesheet" href="css/format.css" />
-        <link rel="stylesheet" href="css/theme.css" />
         
+        <link rel="stylesheet" href="css/format.css" />
+        <link rel="stylesheet" href="css/information.css" />  
+        <link rel="stylesheet" href="css/theme.css" />
+        <link rel="stylesheet" href="css/general.css" /> 
     
     </head>
     
@@ -58,53 +63,11 @@
                 <div class="col-md-10">
                     <div class="row">
                         
-                        <?php 
-                        
-                            singlePost($connection);
-                        
-        //                  $dbPost = new PostsGateway($connection);
-        //                  $dbImg = new ImagesGateway($connection);
-        //                  $dbUser = new UsersGateway($connection);
-        
-        // // get UserID from Posts instead OR Users
-        //                 $postF = $dbPost -> getFields(Array(2, 3, 4, 5)); // MainPostImage, Title, Message, PostTime
-        //                 $imgF = $dbImg -> getFields(Array(0, 6)); // UserID, Path
-        //                 $userF = $dbUser -> getFields(Array(0, 1, 10)); // FirstName, LastName
-        
-        //                 $sql = 'SELECT ' . $postF . ', ' . $imgF . ', ' . $userF .
-        //         ' FROM ' . $dbPost -> getFrom() . ', ' . $dbImg -> getFrom() . ', ' . $dbUser -> getFrom() .
-        //         ' WHERE ' . $dbPost -> getFrom() . '.' . $dbPost -> getFields(Array(2)) . ' = ' . $dbImg -> getFrom() . '.' . $dbImg -> getPk() .
-        //         ' AND ' . $dbPost -> getFields(Array(1)) . ' = ' . $dbUser -> getFrom() . '.' . $dbUser -> getPk() .
-        //         ' AND ';
-        
-        // $result = $dbPost -> getById($sql, $_GET['id'], 0);
-        
-        
-                        
-                        
-                        
-                        
-        //                     $faveArry = array();
-        //                     singlePost($connection); 
-        //                     addFavePost($connection, $faveArry);
-                        
-                        ?>
+                        <?php singlePost($connection); ?>
                         
                         <div class='btn-group btn-group-justified' role='group' aria-label='...'>
                             <div class='btn-group' role='group'>
                                 <?php addFavePost($connection, "singlePost"); ?><!--<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button>-->
-                            </div>
-                            
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-save' aria-hidden='true'></span></button>
-                            </div>
-                            
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>
-                            </div>
-                            
-                            <div class='btn-group' role='group'>
-                                <button type='button' class='btn btn-default'><span class='glyphicon glyphicon-comment' aria-hidden='true'></span></button>
                             </div>
                         </div> <!-- close button class 
                         

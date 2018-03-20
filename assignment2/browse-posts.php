@@ -46,19 +46,12 @@
             <div class="col-md-10">
 
                 <div class="jumbotron" id="postJumbo">
-                    <h1>Posts</h1>
-                    <p>Read other travellers' posts ... or create your own.</p>
-                    <p><a class="btn btn-warning btn-lg">Learn more &raquo;</a></p>
+                    <h1>User Posts</h1>
                 </div>        
       
                  <!-- start post summaries -->
                  <div class="postlist">
-                 <?php
-                 
-                //  include 'test-posts.php';
-                    browsePosts($connection);
-                 
-                 ?>
+                 <?php browsePosts($connection); ?>
                  </div>
                  </div>   <!-- end postlist -->         
                             

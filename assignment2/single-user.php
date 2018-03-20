@@ -1,32 +1,22 @@
 <?php
 
-    // $user = $_GET['id'];
+    $user = $_GET['id'];
     
-    // if(!isset($user) || empty($user)) {
-    //     header('Location: error.php');
-    // }
+    if(!isset($user) || empty($user)) {
+        header('Location: error.php');
+    }
     
     require_once('config.php'); 
     session_start();
-    // try {
-    //   $pdo = new PDO(DBCONNSTRING,DBUSER,DBPASS);
-    //   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //   $checkUser = "SELECT UserID FROM Users WHERE UserID = :user";
-    //   $statement = $pdo -> prepare($checkUser);
-    //   $statement -> bindValue(':user', $user);
-    //   $statement -> execute();
-    //   $res = $statement -> fetch();
-      
-    //   if($res == null) {
-    //       header('Location: error.php');
-    //   }
-      
-    // }
-    // catch (PDOException $e) {
-    //   die( $e->getMessage() );
-    // }
     
-    // include 'functions/functions.php';
+    $dbUser = new UsersGateway($connection);
+    // retrieve UserID
+    $sql = 'SELECT ' . $dbUser -> getPk() . ' FROM ' . $dbUser -> getFrom() . ' WHERE ';
+    $checkUser = $dbUser -> getById($sql, $user, 0);
+    if($checkUser == null) {
+        header('Location: error.php');
+    }
+    
     include 'functions/functionsClass.php';
 
 ?>
@@ -39,8 +29,6 @@
         <title>Assignment 2 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         
@@ -50,8 +38,9 @@
         <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
         <link rel="stylesheet" href="css/format.css" />
         <link rel="stylesheet" href="css/theme.css" />
+        <link rel="stylesheet" href="css/information.css" />  
         <link rel="stylesheet" href="css/general.css" /> 
-        <link rel="stylesheet" href="css/single-country.css" />   
+        <!--<link rel="stylesheet" href="css/single-country.css" />   -->
     
     </head>
     
@@ -73,14 +62,20 @@
         <div class="container">
             
             <div class="jumbotron">
+                <div class="row">
+                    <div class="col-md-8">
+                        <?php singleUser($connection); ?>
+                    </div> <!-- close col-md-8 -->
                 
-                <?php singleUser($connection); ?>
+                    
+                    <div class="col-md-4">
+                        <h3>Related Images</h3>
+                        <?php identifyType($connection, "users"); ?>
+                    </div> <!-- close col-md-8 -->
                 
-                <!--<div id="userPic"><img src="images/design/single_user.jpg"></div>-->
+                </div> <!-- close row -->
                 
-            </div>
-        
-            <?php singleHeader($connection, "users"); ?>
+            </div> <!-- close jumbotron -->
         
         </div>
         
