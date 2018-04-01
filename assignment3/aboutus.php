@@ -76,6 +76,7 @@
                         <p><strong>External Resources Used</strong></p>
                         <ul class="list-group">
                             <li class="list-group-item"><a href="https://getbootstrap.com/docs/4.0/getting-started/introduction/">Boostrap</a></li>
+                            <li class="list-group-item"><a href="https://getbootstrap.com/docs/4.0/components/modal/">Boostrap Modals</a></li>
                             <li class="list-group-item"><a href="http://funwebdev.com/">Fundamentals of Web Development textbook</a></li>
                             <li class="list-group-item"><a href="https://github.com/rconnolly/comp3512-w2018-chapter11">Github Project (Chapter 11)</a></li>
                             <li class="list-group-item"><a href="https://github.com/rconnolly/comp3512-w2018-chapter12">Github Project (Chapter 12)</a></li>

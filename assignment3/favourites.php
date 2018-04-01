@@ -2,6 +2,7 @@
     //This page is dedicated towards the favourites functionality for the website
     require_once('config.php');
     include 'functions/functionsClass.php';
+    
     session_start();
 
 ?>
@@ -24,6 +25,10 @@
         <link rel="stylesheet" href="css/format.css" />
         <link rel="stylesheet" href="css/general.css" /> 
         
+        <!-- used for the bootstrap modal -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="js/ajax-req.js"></script>
     
     </head>
     
@@ -62,6 +67,9 @@
             <?php viewFaves(); ?>
             
         </div>
+        
+        <!--<script src="js/jquery.min.js"></script>-->
+        <!--<script src="js/bootstrap.min.js"></script>-->
         
         
         <footer>
