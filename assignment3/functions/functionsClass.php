@@ -175,7 +175,7 @@
                           <div class="col-md-2"><select name="sizePrice" id="size"></select></div>
                           <div class="col-md-2"><select name="ppr" id="paper"></select></div>
                           <div class="col-md-2"><select name="frm" id="frame"></select></div>
-                          <div class="col-md-2"><input name="qty" class="form-control input-sm" id="inputsm" type="text"></div>
+                          <div class="col-md-2"><input name="qty" size="5" id="inputsm" type="text"></div>
                           <div class="col-md-2"><p id="total"></p></div>';
                     echo '</div>';
                     

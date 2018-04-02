@@ -3,26 +3,50 @@ $.get("print-services.php", function(data){
     let info = $.parseJSON(data); 
     $('form').change(function() {
     
-        // create variable for the value (id) of the option tag
-        let id = $('option').attr('value');
-        console.log('selected size = ' + id);
-        
-        // put this whole thing at the bottom (after retrieving all costs)
+        var sizeID = $('#size').val(); // console.log('selected size = ' + sizeID);
+        // get size cost
         for(let i = 0; i < info['sizes'].length; i++) {
-            let iterate = info['sizes'][i];
-            
+            let sizes = info['sizes'][i];
             // if variable above matches id iterated, calculate the cost
-            if(id == iterate.id) {
-                console.log('id of iterated = ' + iterate.id);
-                // console.log('works ' + iterate.cost);
-                
-                var price = iterate.cost * $('#inputsm').val();
-                // console.log(price);
+            if(sizeID == sizes.id) {
+                var sizeCost = sizes.cost;
             }
+        }
+        
+        var paperID = $('#paper').val(); console.log('selected paper = ' + paperID);
+        // get stock cost
+        for(let i = 0; i < info['stock'].length; i++) {
+            var paper = info['stock'][i];
             
+            // console.log(paper.id);
+            
+            if(paperID == paper.id) {
+                var stCost = 0;
+                
+                // determine size
+                if(sizeID == 0 || sizeID == 1) {
+                    var stCost = paper.small_cost;
+                    // console.log('small price = ' + stCost);
+                } else if(sizeID == 2 || sizeID == 3) {
+                    var stCost = paper.large_cost;
+                    // console.log('large price = ' + stCost);
+                }
+                var paperCost = stCost;
+                // console.log('overall paper = ' + paperCost);
+            }
         }
     
-        $('#total').html('$' + price.toFixed(2));    
+    
+    
+    
+    
+    
+        // calculate price at the bottom
+        console.log(sizeCost); console.log(paperCost);
+        var sum = sizeCost + paperCost;
+        var price = sum * $('#inputsm').val();
+        console.log('overall price = ' + price)
+        // $('#total').html('$' + price.toFixed(2));
         
     }).change();
     
