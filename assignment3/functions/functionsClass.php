@@ -173,57 +173,58 @@
                     echo '<div class="row">';
                     echo '<div class="col-md-2"></div>
                           <div class="col-md-2"><select name="sizePrice" id="size"></select></div>
-                          <div class="col-md-2"><select id="paper"></select></div>
-                          <div class="col-md-2"><select id="frame"></select></div>
-                          <div class="col-md-2"><input class="form-control input-sm" id="inputsm" type="text"></div>
-                          <div class="col-md-2">Total here</div>';
+                          <div class="col-md-2"><select name="ppr" id="paper"></select></div>
+                          <div class="col-md-2"><select name="frm" id="frame"></select></div>
+                          <div class="col-md-2"><input name="qty" class="form-control input-sm" id="inputsm" type="text"></div>
+                          <div class="col-md-2"><p id="total"></p></div>';
                     echo '</div>';
                     
                     
                     
-                    ?>
+                    /*?>
                     <script>
                     //fills sizes
                     $.get("print-services.php", function(data){
                     let size = $.parseJSON(data);
                     for(i=0;i<size['sizes'].length; i++){
-                    let size1 = size['sizes'][i];
-                    let sizeOp = $('<option>'+ size1.name +'</option>');
-                    sizeOp.attr('value', size1.id);
-                    sizeOp.appendTo('#size');
+                        let size1 = size['sizes'][i];
+                        let sizeOp = $('<option>'+ size1.name +'</option>');
+                        sizeOp.attr('value', size1.id);
+                        sizeOp.appendTo('#size');
                 
-                }
-                //fills paper
-                for(i=0;i<size['stock'].length; i++){
-                    let size1 = size['stock'][i].name;
-                    let sizeOp = $('<option>'+ size1 +'</option>');
-                    sizeOp.attr('value', size1.id);
-                    sizeOp.appendTo('#paper');
-                }
-                
-                //fills frames
-                for(i=0;i<size['frame'].length; i++){
-                    let size1 = size['frame'][i];
-                    let sizeOp = $('<option>'+ size1.name +'</option>');
-                    sizeOp.attr('value', size1.id);
-                    sizeOp.appendTo('#frame');
-                }
-                
-                });
-                
-                $('#btnn').click(function calcTotal(){
+                    }
+                    //fills paper
+                    for(i=0;i<size['stock'].length; i++){
+                        let size1 = size['stock'][i].name;
+                        let sizeOp = $('<option>'+ size1 +'</option>');
+                        sizeOp.attr('value', size1.id);
+                        sizeOp.appendTo('#paper');
+                    }
                     
-                    document.write('love');
-                });
-                    </script>
+                    //fills frames
+                    for(i=0;i<size['frame'].length; i++){
+                        let size1 = size['frame'][i];
+                        let sizeOp = $('<option>'+ size1.name +'</option>');
+                        sizeOp.attr('value', size1.id);
+                        sizeOp.appendTo('#frame');
+                    }
                     
-                    <?php
+                    //quantity
+                    $("input:text").val(1);
                 
-                }
+                    });
+                
+                    $('#btnn').click(function calcTotal(){
+                        
+                        document.write('love');
+                    });
+                        </script>
+                        
+                        <?php*/
+                    
+                    }
                 // echo '</div>';
-            }
-            
-            
+            } // close if
             
         }
         

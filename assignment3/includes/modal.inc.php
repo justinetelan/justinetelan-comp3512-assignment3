@@ -28,8 +28,6 @@
              
               ?>
               
-              <!--<p id="test"><h1>Hello</h1></p>-->
-              
           </form>
       </div>
       <div class="modal-footer">
