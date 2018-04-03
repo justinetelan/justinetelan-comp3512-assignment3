@@ -3,8 +3,8 @@ $.get("print-services.php", function(data){
     let info = $.parseJSON(data); 
     $('form').change(function() {
     
+        // size cost
         var sizeID = $('#size').val(); // console.log('selected size = ' + sizeID);
-        // get size cost
         for(let i = 0; i < info['sizes'].length; i++) {
             let sizes = info['sizes'][i];
             // if variable above matches id iterated, calculate the cost
@@ -13,12 +13,10 @@ $.get("print-services.php", function(data){
             }
         }
         
-        var paperID = $('#paper').val(); console.log('selected paper = ' + paperID);
-        // get stock cost
+        // stock cost
+        var paperID = $('#paper').val(); //console.log('selected paper = ' + paperID);
         for(let i = 0; i < info['stock'].length; i++) {
             var paper = info['stock'][i];
-            
-            // console.log(paper.id);
             
             if(paperID == paper.id) {
                 var stCost = 0;
@@ -31,22 +29,46 @@ $.get("print-services.php", function(data){
                     var stCost = paper.large_cost;
                     // console.log('large price = ' + stCost);
                 }
-                var paperCost = stCost;
                 // console.log('overall paper = ' + paperCost);
             }
+            var paperCost = stCost;
         }
     
     
-    
-    
-    
-    
-        // calculate price at the bottom
-        console.log(sizeCost); console.log(paperCost);
-        var sum = sizeCost + paperCost;
+        // frame cost
+        var frameID = $('#frame').val(); console.log('selected frame = ' + frameID);
+        for(let i = 0; i < info['frame'].length; i++) {
+            let frame = info['frame'][i];
+            
+            if(frameID == frame.id) {
+                // determine price depending on size
+                if(sizeID == 0) {
+                    var frCost = frame.costs[0];
+                    // console.log('5x7 cost = ' + frCost)
+                } else if(sizeID == 1) {
+                    var frCost = frame.costs[1];
+                    // console.log('8x10 cost = ' + frCost)
+                } else if(sizeID == 2) {
+                    var frCost = frame.costs[2];
+                    // console.log('11x14 cost = ' + frCost)
+                } else if(sizeID == 3) {
+                    var frCost = frame.costs[3];
+                    // console.log('12x18 cost = ' + frCost)
+                }
+            }
+            var frameCost = frCost;
+        }
+        
+        // calculate overall price
+        // console.log(sizeCost); console.log(paperCost); console.log(frameCost);
+        var sum = sizeCost + paperCost + frameCost;
+        
+        // put in an ARRAY to calculate OVERALL total
         var price = sum * $('#inputsm').val();
-        console.log('overall price = ' + price)
-        // $('#total').html('$' + price.toFixed(2));
+        $('#total').html('$' + price.toFixed(2));
+    
+        // calculate OVERALL total here
+        $('#overall').html('$' + price.toFixed(2));
         
     }).change();
     

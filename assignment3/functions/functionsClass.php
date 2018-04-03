@@ -223,9 +223,34 @@
                         <?php*/
                     
                     }
+                    dispTotal(); // call to display overall total
                 // echo '</div>';
             } // close if
             
+        }
+        
+        function dispTotal() {
+            echo '<div class="row">
+                    <div class="col-md-4"></div><div class="col-md-4"></div>
+                    <div class="col-md-4"><hr></div>
+                    </div>';
+            echo '<div class="row">';
+            for($i = 0; $i < 4; $i++) {
+                echo '<div class="col-md-2"></div>';
+            }
+                    
+            echo '<div class="col-md-2">Subtotal</div>
+                    <div class="col-md-2"><p id="overall"></p></div>';
+            echo '</div>'; // close row
+            
+            echo '<div class="row">';
+            for($i = 0; $i < 4; $i++) {
+                echo '<div class="col-md-2"></div>';
+            }
+                    
+            echo '<div class="col-md-2">Shipping</div>
+                    <div class="col-md-2"><p id="ship"></p></div>';
+            echo '</div>'; // close row
         }
         
         // goes to appropriate php page based on what is being added
