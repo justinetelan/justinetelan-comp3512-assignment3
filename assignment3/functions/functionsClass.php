@@ -160,6 +160,7 @@
         // displays the form for the print favourites modal
         function printFaves() {
             
+            $i = 0;
             // echo '<div class="row">';
             if(count($_SESSION['faveImg']) != 0) {
                 foreach($_SESSION['faveImg'] as $img) {
@@ -174,16 +175,21 @@
                     echo '<div class="col-md-2"></div>';
                     // $count = 0;
                 
-                         echo' <div class="col-md-2"><select name="sizePrice" class="size"></select></div>
-                          <div class="col-md-2"><select name="ppr" class="paper"></select></div>
-                          <div class="col-md-2"><select name="frm" class="frame"></select></div>';
-                          echo '<div class="col-md-2"><input type="text" name="qty" size="5" class="inputsm"></div>';
-                          echo '<div class="col-md-2"><p class="total"></p></div>';
+                        echo '<div class="col-md-2"><select name="sizePrice" id="size' . $i . '"></select></div>
+                              <div class="col-md-2"><select name="ppr" id="paper' .$i. '"></select></div>
+                              <div class="col-md-2"><select name="frm" id="frame' .$i. '"></select></div>';
+                        echo '<div class="col-md-2"><input type="text" name="qty" size="5" id="inputsm' .$i. '"></div>';
+                        echo '<div class="col-md-2"><p id="total' . $i . '"></p></div>';
+                          
                     echo '</div>';
+                    
+                    $i++;
                    
                 }
                
-            } 
+            }
+            
+            echo '<input type="hidden" id="hide" name="totalImg" value="' . $i . '">';
             
         }
         
