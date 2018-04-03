@@ -14,7 +14,7 @@
         </button>
       </div>
       <div class="modal-body">
-          <form action="includes/modal.inc.php" method="post"> <!-- should we put method and action or nah -->
+          <form> <!-- should we put method and action or nah -->
               <legend>Print Favourites</legend>
               <div class="row">
                   <div class="col-md-2"></div>
@@ -24,22 +24,21 @@
                   <div class="col-md-2"><label>Quantity</label></div>
                   <div class="col-md-2"><label>Total</label></div>
               </div>
-              <?php printFaves(); 
-             
-              ?>
+              <?php 
+              
+            printFaves(); 
+            
+            
+            ?>
+              
               
           </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-primary">Order</input>
-        <?php    echo $_POST['sizePrice']; ?>
+        <button type="button" id="btnn" class="btn btn-primary">Order</button>
         <script>
-        
-        // $('#btnn').click(function calcTotal(){
-        //             var price = "";
-        //             document.write(price);
-        //         });
+       
                     </script>
       </div>
     </div>

@@ -4,7 +4,7 @@ $.get("print-services.php", function(data){
     $('form').change(function() {
     
         // size cost
-        var sizeID = $('#size').val(); // console.log('selected size = ' + sizeID);
+        var sizeID = $('.size').val(); // console.log('selected size = ' + sizeID);
         for(let i = 0; i < info['sizes'].length; i++) {
             let sizes = info['sizes'][i];
             // if variable above matches id iterated, calculate the cost
@@ -14,7 +14,7 @@ $.get("print-services.php", function(data){
         }
         
         // stock cost
-        var paperID = $('#paper').val(); //console.log('selected paper = ' + paperID);
+        var paperID = $('.paper').val(); //console.log('selected paper = ' + paperID);
         for(let i = 0; i < info['stock'].length; i++) {
             var paper = info['stock'][i];
             
@@ -36,7 +36,7 @@ $.get("print-services.php", function(data){
     
     
         // frame cost
-        var frameID = $('#frame').val(); console.log('selected frame = ' + frameID);
+        var frameID = $('.frame').val(); //console.log('selected frame = ' + frameID);
         for(let i = 0; i < info['frame'].length; i++) {
             let frame = info['frame'][i];
             
@@ -60,15 +60,19 @@ $.get("print-services.php", function(data){
         }
         
         // calculate overall price
-        // console.log(sizeCost); console.log(paperCost); console.log(frameCost);
+        // console.log('size cost = ' + sizeCost); console.log('paper cost = ' + paperCost); console.log('frame cost = ' + frameCost);
         var sum = sizeCost + paperCost + frameCost;
         
+        // console.log(sum);
+        // console.log('textbox = ' + $(".inputsm").val());
+        
         // put in an ARRAY to calculate OVERALL total
-        var price = sum * $('#inputsm').val();
-        $('#total').html('$' + price.toFixed(2));
+        var price = sum * $('.inputsm').val();
+        $('.total').html('$' + price.toFixed(2));
+        // console.log('calculated price = ' + price);
     
         // calculate OVERALL total here
-        $('#overall').html('$' + price.toFixed(2));
+        // $('#overall').html('$' + price.toFixed(2));
         
     }).change();
     

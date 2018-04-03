@@ -29,6 +29,9 @@
 					
 				} else if($count == count($_SESSION['faveImg'])) {
 					array_push($_SESSION['faveImg'], $result);
+					?>
+					
+					<?php
 					header('Location: favourites.php');	
 				}
 				$count++;

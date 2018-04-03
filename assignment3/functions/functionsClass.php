@@ -171,86 +171,20 @@
                     echo '</p>';
                     
                     echo '<div class="row">';
-                    echo '<div class="col-md-2"></div>
-                          <div class="col-md-2"><select name="sizePrice" id="size"></select></div>
-                          <div class="col-md-2"><select name="ppr" id="paper"></select></div>
-                          <div class="col-md-2"><select name="frm" id="frame"></select></div>
-                          <div class="col-md-2"><input name="qty" size="5" id="inputsm" type="text"></div>
-                          <div class="col-md-2"><p id="total"></p></div>';
+                    echo '<div class="col-md-2"></div>';
+                    // $count = 0;
+                
+                         echo' <div class="col-md-2"><select name="sizePrice" class="size"></select></div>
+                          <div class="col-md-2"><select name="ppr" class="paper"></select></div>
+                          <div class="col-md-2"><select name="frm" class="frame"></select></div>';
+                          echo '<div class="col-md-2"><input type="text" name="qty" size="5" class="inputsm"></div>';
+                          echo '<div class="col-md-2"><p class="total"></p></div>';
                     echo '</div>';
-                    
-                    
-                    
-                    /*?>
-                    <script>
-                    //fills sizes
-                    $.get("print-services.php", function(data){
-                    let size = $.parseJSON(data);
-                    for(i=0;i<size['sizes'].length; i++){
-                        let size1 = size['sizes'][i];
-                        let sizeOp = $('<option>'+ size1.name +'</option>');
-                        sizeOp.attr('value', size1.id);
-                        sizeOp.appendTo('#size');
-                
-                    }
-                    //fills paper
-                    for(i=0;i<size['stock'].length; i++){
-                        let size1 = size['stock'][i].name;
-                        let sizeOp = $('<option>'+ size1 +'</option>');
-                        sizeOp.attr('value', size1.id);
-                        sizeOp.appendTo('#paper');
-                    }
-                    
-                    //fills frames
-                    for(i=0;i<size['frame'].length; i++){
-                        let size1 = size['frame'][i];
-                        let sizeOp = $('<option>'+ size1.name +'</option>');
-                        sizeOp.attr('value', size1.id);
-                        sizeOp.appendTo('#frame');
-                    }
-                    
-                    //quantity
-                    $("input:text").val(1);
-                
-                    });
-                
-                    $('#btnn').click(function calcTotal(){
-                        
-                        document.write('love');
-                    });
-                        </script>
-                        
-                        <?php*/
-                    
-                    }
-                    dispTotal(); // call to display overall total
-                // echo '</div>';
-            } // close if
+                   
+                }
+               
+            } 
             
-        }
-        
-        function dispTotal() {
-            echo '<div class="row">
-                    <div class="col-md-4"></div><div class="col-md-4"></div>
-                    <div class="col-md-4"><hr></div>
-                    </div>';
-            echo '<div class="row">';
-            for($i = 0; $i < 4; $i++) {
-                echo '<div class="col-md-2"></div>';
-            }
-                    
-            echo '<div class="col-md-2">Subtotal</div>
-                    <div class="col-md-2"><p id="overall"></p></div>';
-            echo '</div>'; // close row
-            
-            echo '<div class="row">';
-            for($i = 0; $i < 4; $i++) {
-                echo '<div class="col-md-2"></div>';
-            }
-                    
-            echo '<div class="col-md-2">Shipping</div>
-                    <div class="col-md-2"><p id="ship"></p></div>';
-            echo '</div>'; // close row
         }
         
         // goes to appropriate php page based on what is being added

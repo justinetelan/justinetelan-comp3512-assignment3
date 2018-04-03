@@ -31,6 +31,7 @@
 					header('Location: single-post.php?id=' . $_GET['id']);
 				} else if($count == count($_SESSION['favePost'])) {
 					array_push($_SESSION['favePost'], $result);
+				
 					header('Location: favourites.php');	
 				}
 				$count++;

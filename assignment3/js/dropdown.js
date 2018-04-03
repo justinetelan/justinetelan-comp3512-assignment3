@@ -1,12 +1,14 @@
 $.get("print-services.php", function(data){
     var info = $.parseJSON(data);
+   
+   
     
     // fills size
     for(let i = 0; i < info['sizes'].length; i++){
         let size = info['sizes'][i];
         let sizeOp = $('<option>'+ size.name +'</option>');
         sizeOp.attr('value', size.id);
-        sizeOp.appendTo('#size');
+        sizeOp.appendTo('.size');
     }
     
     //fills paper
@@ -14,7 +16,7 @@ $.get("print-services.php", function(data){
         let ppr = info['stock'][i];
         let pprOp = $('<option>'+ ppr.name +'</option>');
         pprOp.attr('value', ppr.id);
-        pprOp.appendTo('#paper');
+        pprOp.appendTo('.paper');
     }
     
     //fills frames
@@ -22,15 +24,16 @@ $.get("print-services.php", function(data){
         let frame = info['frame'][i];
         let frameOp = $('<option>'+ frame.name +'</option>');
         frameOp.attr('value', frame.id);
-        frameOp.appendTo('#frame');
+        frameOp.appendTo('.frame');
     }
     
     //quantity
-    $("#inputsm").val(1);
+    $(".inputsm").val(1);
+    // console.log($(".inputsm").val());
+    
+    // $("#inputsm").val(1);
+    // console.log($("#inputsm").val());
+    
+    // $('input[type="text"][class="inputsm"]').prop("value", 1);  
     
     });
-    
-    $('#btnn').click(function calcTotal(){
-        
-        document.write('love');
-});
