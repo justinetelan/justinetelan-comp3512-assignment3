@@ -8,7 +8,7 @@ $.get("print-services.php", function(data){
     
     $('form').change(function() { // OR PUT 'select'
     
-    
+        var totals =0;
         for(let c = 0; c <= hid-1; c++) {
             
             // size cost
@@ -69,44 +69,71 @@ $.get("print-services.php", function(data){
                 
             }
             
+            
+            
+            
+            
+            
+            
+            
+            
             var sum = sizeCost + paperCost + frameCost;
             var price = sum * $('#inputsm' + c).val();
-            $('#total' + c).html('$' + price.toFixed(2));
-            totalArray.push(price);
-        }
-        
-        // calculate overall price
-        // console.log('size cost = ' + sizeCost); console.log('paper cost = ' + paperCost); console.log('frame cost = ' + frameCost);
-        
-        
-        
-        // loop through array of images
-            // $(array[i]).change(function() { ...
-                // make price changes here
-        
-        // $('.total0').change(function() {
+            $('#total' + c).html(price.toFixed(2));
             
-        // }).change();
+            console.log('totalss = ' + $('#total' + c).text());
+            var add = $('#total' + c).text();
+            totals += parseInt(add);
+            console.log(totals)
+            $('#overall').html('$' + totals);
+            
+            
+                        for(let b = 0; b <= hid-1; b++) {
+            var shipId = $('#ship' + b).val();
+            for(let i = 0; i < info['shipping'].length; i++) {
+                let ship = info['shipping'][i];
+            if(shipId == ship.id) {
+                    // determine price depending on size
+                    if(sizeID == 0) {
+                        
+                        if(totals < 5){
+                          var shCost = ship.rules[0];  
+                            
+                        }else if(totals > 5 && totals < 10){
+                            var shCost = ship.rules[1];
+                        }else if(totals >10){
+                            var shCost = ship.rules[2];
+                        }
+                        // console.log('5x7 cost = ' + frCost)
+                    } else if(sizeID == 1) {
+                        if(totals < 5){
+                          var shCost = ship.rules[0];  
+                        }else if(totals > 5 && totals < 10){
+                            var shCost = ship.rules[1];
+                        }else if(totals >10){
+                            var shCost = ship.rules[2];
+                        }
+                        // console.log('8x10 cost = ' + frCost)
+                    }
+                    
+                    var shipCost = shCost;
+            }
+                }
+            }
+            
+            var grand = shipCost + totals;
+            $('#ships').html('$' + grand);
+            
+            
+            
+            
+           
+        }
+
         
         
-        // put in an ARRAY to calculate OVERALL total
         
-    
-        // calculate OVERALL total here
-        // $('#overall').html('$' + price.toFixed(2));
         
     }).change();
-    
-    // add eventlistener here maybe
-    // var trial = document.getElementsByClassName('');
-    
-    
-    // $('.total0').change(function() {
-    //     var price = sum * $('.inputsm').val();
-    //     console.log(price);
-    //     // $('.total0').html('$' + price.toFixed(2));
-    // }).change();
-    
-    
     
 })

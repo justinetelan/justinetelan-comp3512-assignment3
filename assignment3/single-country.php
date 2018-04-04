@@ -43,6 +43,7 @@
         <link rel="stylesheet" href="css/information.css" />   
         <link rel="stylesheet" href="css/general.css" /> 
         <script src="js/map.js" type="text/JavaScript"></script>
+        <script src="js/jquery-3.3.1.js"></script>
         
     
     </head>
@@ -101,6 +102,8 @@
             // simpleSearch($connection);
             
         ?>
+        
+        <script src="js/img-hover.js" type="text/JavaScript"></script>
         
     </body>
     

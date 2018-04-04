@@ -33,6 +33,24 @@ $.get("print-services.php", function(data){
             frameOp.appendTo('#frame' + c);
         }
         
+        
+        // radio buttons
+        
+      
+        for(let i=0; i < info['shipping'].length; i++){
+            let ship = info['shipping'][i];
+            
+            console.log(ship);
+            
+            let shipRad = $('<input type="radio" name="rad">'+ ship.name +'</input>');
+            shipRad.attr('value', ship.id);
+            shipRad.appendTo('#rads');
+            
+        }
+        
+        
+        
+        
         //quantity
         $("#inputsm" + c).val(1);
         

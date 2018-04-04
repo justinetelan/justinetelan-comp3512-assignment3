@@ -186,11 +186,45 @@
                     $i++;
                    
                 }
+             
+             dispTotal();
                
             }
             
             echo '<input type="hidden" id="hide" name="totalImg" value="' . $i . '">';
             
+        }
+        
+        function dispTotal() {
+            echo '<div class="row">
+                    <div class="col-md-4"></div><div class="col-md-4"></div>
+                    <div class="col-md-4"><hr></div>
+                    </div>';
+            echo '<div class="row">';
+            for($i = 0; $i < 4; $i++) {
+                echo '<div class="col-md-2"></div>';
+            }
+                    
+            echo '<div class="col-md-2">Subtotal</div>
+                    <div class="col-md-2"><p id="overall"></p></div>';
+            echo '</div>'; // close row
+            
+            echo '<div class="row">';
+            
+                echo '<div class="col-md-3"></div>';
+                echo '<div class="col-md-3"></div>';
+            
+            
+            echo '<div id="rads">
+                    
+                    </div>';        
+            echo '<div class="col-md-3">Shipping</div>';
+                    // <div class="col-md-2">
+                    ';
+                    
+                    
+                    // </div>';
+            echo '</div>'; // close row
         }
         
         // goes to appropriate php page based on what is being added
@@ -552,20 +586,20 @@
                 
                 if($page == "singles") {
                    
-                    echo '<div class="smallImg" onmousemove="popIn('.$img['ImageID'].')" onmouseout="popOut('.$img['ImageID'].')">';
-                        
-                        echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '"></a>';
-                    
+                    echo '<div class="smallImg">';
+                        echo '<a href="single-image.php?id=' . $img['ImageID'] . '">
+                        <img src="images/square-small/' . $img['Path'] . '" alt=' . $img['Path'] . '></a>';
+                        echo '<div id="pre"></div>';
                     echo '</div>'; // close images div 
+                    // echo '<input type="hidden" id="hide" name="imgID" value="' . $img['ImageID'] . '">';
                     
-                     echo '
+                    
                       
-                    <div class="popS"  id='.$img['ImageID'].' >';// popover small image
-                        echo '<h4>'.$img['Title'].'</h4>';
-                        echo '<img src="images/medium/' . $img['Path'] . '" style="height: 200px; width:200px">';
+                    // <div class="popS"  id='.$img['ImageID'].' >';// popover small image
+                    //     echo '<h4>'.$img['Title'].'</h4>';
+                    //     echo '<img src="images/medium/' . $img['Path'] . '" style="height: 200px; width:200px">';
                     
-                    echo '
-                    </div>'; 
+                    // echo '</div>'; 
                     
                     ?>
                     <script>
@@ -607,7 +641,7 @@
                 
             
             } // close loop
-        
+            
         
         }
         
