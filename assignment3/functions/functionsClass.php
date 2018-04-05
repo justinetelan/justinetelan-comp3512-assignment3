@@ -179,6 +179,7 @@
                               <div class="col-md-2"><select name="ppr" id="paper' .$i. '"></select></div>
                               <div class="col-md-2"><select name="frm" id="frame' .$i. '"></select></div>';
                         echo '<div class="col-md-2"><input type="text" name="qty" size="5" id="inputsm' .$i. '"></div>';
+                                // put input type hidden here to store total of qty
                         echo '<div class="col-md-2"><p id="total' . $i . '"></p></div>';
                           
                     echo '</div>';
@@ -196,35 +197,44 @@
         }
         
         function dispTotal() {
+            // display the line
             echo '<div class="row">
                     <div class="col-md-4"></div><div class="col-md-4"></div>
                     <div class="col-md-4"><hr></div>
-                    </div>';
+                    </div>'; // close row
+            
+            // row for SUBTOTAL
             echo '<div class="row">';
-            for($i = 0; $i < 4; $i++) {
+            for($i = 0; $i < 4; $i++) { // goes up to 8
                 echo '<div class="col-md-2"></div>';
             }
                     
             echo '<div class="col-md-2">Subtotal</div>
                     <div class="col-md-2"><p id="overall"></p></div>';
-            echo '</div>'; // close row
+            echo '</div>'; // close SUBTOTAL
             
+            // row for SHIPPING
             echo '<div class="row">';
-            
-                echo '<div class="col-md-3"></div>';
-                echo '<div class="col-md-3"></div>';
-            
-            
-            echo '<div id="rads">
+                echo '<div class="col-md-2"></div>';
+                echo '<div class="col-md-2"></div>';
+                echo '<div class="col-md-2"></div>';
+                echo '<div class="col-md-2" id="rads" style="padding: 5px;">
+                        <input type="hidden" id="hideTot" name="totalC">
+                    </div>';
+                echo '<div class="col-md-2">Shipping</div>';
+                echo '<div class="col-md-2"><p id="shipping"></p></div>';
+                echo '<input type="hidden" id="shipCst" name="shipC">';
                     
-                    </div>';        
-            echo '<div class="col-md-3">Shipping</div>';
-                    // <div class="col-md-2">
-                    ';
-                    
-                    
-                    // </div>';
-            echo '</div>'; // close row
+            echo '</div>'; // close row for SHIPPING
+            
+            // row for GRAND TOTAL
+            echo '<div class="row">';
+            for($i = 0; $i < 4; $i++) { // goes up to 8
+                echo '<div class="col-md-2"></div>';
+            }
+            echo '<div class="col-md-2">Grand Total</div>';
+            echo '<div class="col-md-2"><p id="total"></p></div>';
+            echo '</div>'; // close row for GRAND TOTAL
         }
         
         // goes to appropriate php page based on what is being added
@@ -588,42 +598,12 @@
                    
                     echo '<div class="smallImg">';
                         echo '<a href="single-image.php?id=' . $img['ImageID'] . '">
-                        <img src="images/square-small/' . $img['Path'] . '" alt=' . $img['Path'] . '></a>';
+                        <img src="images/square-small/' . $img['Path'] . '" alt=' . $img['Title'] . '></a>';
+                        // echo '<h1>' . $img['Title'] . '</h1>';
                         echo '<div id="pre"></div>';
                     echo '</div>'; // close images div 
                     // echo '<input type="hidden" id="hide" name="imgID" value="' . $img['ImageID'] . '">';
                     
-                    
-                      
-                    // <div class="popS"  id='.$img['ImageID'].' >';// popover small image
-                    //     echo '<h4>'.$img['Title'].'</h4>';
-                    //     echo '<img src="images/medium/' . $img['Path'] . '" style="height: 200px; width:200px">';
-                    
-                    // echo '</div>'; 
-                    
-                    ?>
-                    <script>
-                    
-                    // Generates image preview event
-                        function popIn(c){
-                            var x = event.clientX;
-                            var y = event.clientY ;
-                            
-                            var v = Number(x) -1000;
-                            var z = Number(y) -100;
-                            var obj = document.getElementById(c);
-                            obj.style.visibility="visible";
-                            obj.style.position = "absolute";
-                            obj.style.left = v + 'px';
-                            obj.style.top = z + 'px';
-                            
-                        }
-                        function popOut(p){
-                            document.getElementById(p).style.visibility="hidden";
-                        }
-                    </script>
-                
-                 <?php   
                    
                 } else if($page == "filtering") {
                     

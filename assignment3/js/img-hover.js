@@ -2,21 +2,24 @@ $('.smallImg img').mouseover(function(e) {
     
     var imgs = $('.smallImg img');
     var src = $(this).attr('src');
+    var title = $(this).attr('alt');
     
     console.log('src = ' + $(this).attr('src'));
-    console.log('alt = ' + $(this).attr('alt'));
+    console.log('alt = ' + title);
     
-    x = e.pageX + 20; y = e.pageY + 20;
+    // x = e.pageX + 20; y = e.pageY + 20;
     
     var hover = $('<img>');
     hover.attr('src', src);
     
-    // temp = $('<div class="temp"></div>');
+    // temp = $('<div id="temp">');
     
     prev = $('<div id="preview">');
+    imgT = $('<p>').html(title);
     prev.append(hover).appendTo('#pre');
+    imgT.appendTo(prev);
     
-    $("#preview").css({ left: x, top: y, display: "block" });
+    $("#preview").css({ left: e.clientX, top:e.clientY });//left: x, top: y, display: "block" });
     
 });
 

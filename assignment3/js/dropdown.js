@@ -33,20 +33,17 @@ $.get("print-services.php", function(data){
             frameOp.appendTo('#frame' + c);
         }
         
-        
-        // radio buttons
-        
-      
-        for(let i=0; i < info['shipping'].length; i++){
-            let ship = info['shipping'][i];
+        // // radio buttons
+        // for(let i=0; i < info['shipping'].length; i++){
+        //     let ship = info['shipping'][i];
             
-            console.log(ship);
+        //     // console.log(ship);
             
-            let shipRad = $('<input type="radio" name="rad">'+ ship.name +'</input>');
-            shipRad.attr('value', ship.id);
-            shipRad.appendTo('#rads');
+        //     let shipRad = $('<input type="radio" name="rad">'+ ship.name +'</input>');
+        //     shipRad.attr('value', ship.id);
+        //     shipRad.appendTo('#rads');
             
-        }
+        // }
         
         
         
