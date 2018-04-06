@@ -86,6 +86,7 @@
                             <li class="list-group-item"><a href="https://github.com/justinetelan">Github Account (Justine Telan)</a></li>
                             <li class="list-group-item"><a href="https://www.htmlgoodies.com/beyond/javascript/article.php/3902606/How-To-Use-JavaScript-To-Auto-Submit-Dropdowns-With-No-Submit-Button.htm?myfield=Coffee">HTML Goodies (JS Auto-Submit)</a></li>
                             <li class="list-group-item"><a href="http://php.net/">PHP: Hypertext Preprocessor</a></li>
+                            <li class="list-group-item"><a href="https://stackoverflow.com/questions/2272507/find-out-if-radio-button-is-checked-with-jquery">Stackoverflow (checked button)</a></li>
                             <li class="list-group-item"><a href="https://www.w3schools.com/jsref/met_win_settimeout.asp">W3Schools (JS Hidden Message)</a></li>
                         </ul>
                         

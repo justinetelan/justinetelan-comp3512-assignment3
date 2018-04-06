@@ -3,6 +3,8 @@ echo '<div class="row">
         <div class="col-md-4"></div><div class="col-md-4"></div>
         <div class="col-md-4"><hr></div>
         </div>'; // close row
+        
+        
 echo '<div class="row">';
 for($i = 0; $i < 4; $i++) { // goes up to 8
     echo '<div class="col-md-2"></div>';

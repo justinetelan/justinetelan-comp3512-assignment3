@@ -220,10 +220,12 @@
                 echo '<div class="col-md-2"></div>';
                 echo '<div class="col-md-2" id="rads" style="padding: 5px;">
                         <input type="hidden" id="hideTot" name="totalC">
+                        <input type="hidden" id="hideFr" name="totalF">
                     </div>';
                 echo '<div class="col-md-2">Shipping</div>';
                 echo '<div class="col-md-2"><p id="shipping"></p></div>';
                 echo '<input type="hidden" id="shipCst" name="shipC">';
+                echo '<input type="hidden" id="frID" name="frC">';
                     
             echo '</div>'; // close row for SHIPPING
             

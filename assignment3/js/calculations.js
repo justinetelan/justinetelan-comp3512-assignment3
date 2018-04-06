@@ -87,6 +87,7 @@ $.get("print-services.php", function(data){
             
             // put the total inside 'hidden' as its value
             var totHid = $('#hideTot').attr('value', totals);
+            var qtyHid = $('#hideFr').attr('value', qty);
             // var storedTot = totHid.val();
             // console.log('stored val = ' + totHid.val());
            
@@ -107,8 +108,24 @@ $.get("print-services.php", function(data){
     }
     
     // !!! check standard by default - requirement !!!
-    $('#ship0').attr('checked', 'checked'); // NOT WORKING - FIX
+    $('#ship0').prop('checked', true); // NOT WORKING - FIX
+    // window.load(function(e){
     
+    var storedTot = parseInt($('#hideTot').val());
+        $('#shipping').html('$' + 5);
+        $('#total').html(storedTot + 5);
+        
+        $('#ship1').click(function(e){
+            $('#shipping').html('$' + 15);
+        $('#total').html(storedTot + 15);
+        })
+        
+        $('#ship0').click(function(e){
+            $('#shipping').html('$' + 5);
+        $('#total').html(storedTot + 5);
+        })
+        
+    // })
     
     $('input[type=radio][id=ship0]').click(function(e) {
        
@@ -124,13 +141,17 @@ $.get("print-services.php", function(data){
     
     // standard shipping
     $('form').change(function(e) {//'input[type=radio][id=ship0]').change(function(e) {
-        
-        
+        for(let c = 0; c <= hid-1; c++) {
+            $('#frame' + c).change(function(e) {
+                frameID = $('#frame' + c).val();
+                console.log(frameID);
+            })}
         if($("input:radio[id='ship0']").is(":checked")) {
             console.log('YES');
             
             var shipIdStd = $('#ship0').val(); //console.log(shipIdStd);
-            var storedTot = parseInt($('#hideTot').val()); //console.log('stnd = ' + storedTot);
+            var storedTot = parseInt($('#hideTot').val());
+            var storedQty = parseInt($('#hideFr').val());//console.log('stnd = ' + storedTot);
             // go through thresholds
             for(let i = 0; i < info['shipping'].length; i++) {
                 let ship = info['shipping'][i];
@@ -138,18 +159,21 @@ $.get("print-services.php", function(data){
                 
                 // !!! CHANGE THIS - use frame and qty !!!
                 if(shipIdStd == ship.id) {
-                    
+                    if(frameID == 0){
+                        var shCost = ship.rules['none'];
+                    }
                     // determine price depending on size
-                    if(storedTot < 5){
-                      var shCost = ship.rules['none'];  
-                    } else if(storedTot > 5 && storedTot < 10){
+                    else if(frameID > 0){
+                      
+                     if(storedQty < 10){
                         var shCost = ship.rules['under10'];
-                    } else if(storedTot >10 && storedTot < thresh['amount']){
+                    } else if(storedQty <= 10){
                         var shCost = ship.rules['over10'];
-                    } else if(storedTot > thresh['amount']){
+                    }
+                    }
+                    if(storedTot > thresh['amount']){
                         var shCost = 0;
                     }
-                    
                     var shipCost = parseInt(shCost);
                     $('#shipping').html('$' + shipCost);
                     // store in input type hidden for grand total
@@ -161,7 +185,8 @@ $.get("print-services.php", function(data){
             console.log('YES EXP');
             
             var shipIdExp = $('#ship1').val(); // console.log(shipIdExp);
-            var storedTot = parseInt($('#hideTot').val()); //console.log('exp = ' + storedTot);
+            var storedTot = parseInt($('#hideTot').val());
+            var storedQty = parseInt($('#hideFr').val());//console.log('exp = ' + storedTot);
             
             for(let i = 0; i < info['shipping'].length; i++) {
                 let ship = info['shipping'][i];
@@ -169,19 +194,21 @@ $.get("print-services.php", function(data){
                 
                 // !!! CHANGE THIS - use frame and qty !!!
                 if(shipIdExp == ship.id) {
+                    if(frameID == 0){
+                        var shCost = ship.rules['none'];
+                    }
                     // determine price depending on size
-                    if(storedTot < 5){
-                      var shCost = ship.rules['none'];  
-                    }else if(storedTot > 5 && storedTot < 10){
+                    else if(frameID > 0){
+                      
+                     if(storedQty < 10){
                         var shCost = ship.rules['under10'];
-                    }else if(storedTot >10 && storedTot < thresh['amount']){
+                    } else if(storedQty <= 10){
                         var shCost = ship.rules['over10'];
-                    }else if(storedTot > thresh['amount']){
+                    } 
+                    }
+                    if(storedTot > thresh['amount']){
                         var shCost = 0;
                     }
-                    // console.log('8x10 cost = ' + frCost)
-                
-                
                     var shipCost = parseInt(shCost);
                     $('#shipping').html('$' + shipCost);
                     // store in input type hidden for grand total
@@ -195,147 +222,8 @@ $.get("print-services.php", function(data){
         
         var grand = hidShipC + storedTot;
         $('#total').html('$' + grand);
-        
+           
     }).change();
     
-    // express shipping
-    // $('form').change(function(e) {//'input[type=radio][id=ship1]').change(function(e) {
-        
-    //     // $('#ship1').click(function(e){
-        
-    //         var shipIdExp = $('#ship1').val(); // console.log(shipIdExp);
-    //         var storedTot = parseInt($('#hideTot').val()); //console.log('exp = ' + storedTot);
-            
-    //         for(let i = 0; i < info['shipping'].length; i++) {
-    //             let ship = info['shipping'][i];
-    //             let thresh = info['freeThresholds'][i];
-                
-    //             // !!! CHANGE THIS - use frame and qty !!!
-    //             if(shipIdExp == ship.id) {
-    //                 // determine price depending on size
-    //                 if(storedTot < 5){
-    //                   var shCost = ship.rules['none'];  
-    //                 }else if(storedTot > 5 && storedTot < 10){
-    //                     var shCost = ship.rules['under10'];
-    //                 }else if(storedTot >10 && storedTot < thresh['amount']){
-    //                     var shCost = ship.rules['over10'];
-    //                 }else if(storedTot > thresh['amount']){
-    //                     var shCost = 0;
-    //                 }
-    //                 // console.log('8x10 cost = ' + frCost)
-                
-                
-    //                 var shipCost = parseInt(shCost);
-    //                 $('#shipping').html('$' + shipCost);
-    //                 // store in input type hidden for grand total
-    //                 $('#shipCst').attr('value', shipCost);
-    //             }
-    //         }
-        
-    //     // });
-        
-    // }).change();
-    
-    // $('input[type=radio]').click(function(e) {
-        
-    //     var hidShipC = parseInt($('#shipCst').val()); console.log('shipping cost = ' + hidShipC)
-    //     var storedTot = parseInt($('#hideTot').val()); console.log('stnd = ' + storedTot);
-        
-        // var grand = hidShipC + storedTot;
-        // console.log(grand);
-        // $('#rads').empty();
-        // $('#total').html('$' + grand);
-        //  $('#ship1').prop('checked', false);
-        
-        
-    // }).change();
-    
-    // $('#ship0').click(function(e){ // standard shipping
-    // // for(let b = 0; b < info['shipping'].length; b++) {
-            
-            
-            
-    //         var shipId = $('#ship0').val();
-    //         var storedTot = parseInt($('#hideTot').val());
-    //         for(let i = 0; i < info['shipping'].length; i++) {
-    //             let ship = info['shipping'][i];
-    //             let thresh = info['freeThresholds'][i];
-    //         if(shipId == ship.id) {
-    //                 // determine price depending on size
-                    
-                        
-    //                     if(storedTot < 5){
-    //                       var shCost = ship.rules['none'];  
-                            
-    //                     }else if(storedTot > 5 && storedTot < 10){
-    //                         var shCost = ship.rules['under10'];
-    //                     }else if(storedTot >10 && storedTot < thresh['amount']){
-    //                         var shCost = ship.rules['over10'];
-    //                     }else if(storedTot > thresh['amount']){
-    //                         var shCost = 0;
-    //                     }
-    //                     // console.log('5x7 cost = ' + frCost)
-                   
-                    
-    //                 var shipCost = parseInt(shCost);
-    //         }
-    //             // }
-            
-            
-            
-    // }
-    // var grand = shipCost + storedTot;
-    //         // console.log('tst: ' + grand);
-    //         // $('#rads').empty();
-    //         $('#total').html('$' + grand);
-    //         //  $('#ship1').prop('checked', false);
-    // })
-    
-    
-    // $('#ship1').click(function(e){ // express shipping
-    // // for(let b = 0; b < info['shipping'].length; b++) {
-            
-    //         var shipId = $('#ship1').val();
-    //         var storedTot = parseInt($('#hideTot').val());
-    //         for(let i = 0; i < info['shipping'].length; i++) {
-    //             let ship = info['shipping'][i];
-    //             let thresh = info['freeThresholds'][i];
-    //         if(shipId == ship.id) {
-    //                 // determine price depending on size
-                    
-    //                     if(storedTot < 5){
-    //                       var shCost = ship.rules['none'];  
-    //                     }else if(storedTot > 5 && storedTot < 10){
-    //                         var shCost = ship.rules['under10'];
-    //                     }else if(storedTot >10 && storedTot < thresh['amount']){
-    //                         var shCost = ship.rules['over10'];
-    //                     }else if(storedTot > thresh['amount']){
-    //                         var shCost = 0;
-    //                     }
-    //                     // console.log('8x10 cost = ' + frCost)
-                    
-                    
-    //                 var shipCost = parseInt(shCost);
-    //                 // $('#hideShip').attr('value', shipCost);
-    //                 // console.log(shCost);
-    //         }
-    //             // }
-            
-            
-            
-    // }   
-    // var grand = shipCost + storedTot;
-    //         // console.log('tst: ' + grand);
-    //         // $('#rads').empty();
-    //         $('#total').html('$' + grand);
-    //         // $('#ship1').prop('checked', false);
-    // });
-    
-    // $('form').change(function(e){
-        
-    //     $('#ship1').prop('checked', false);
-    //     $('#ship1').prop('checked', false);
-        
-    // })
     
 })

@@ -28,7 +28,7 @@ $.get("print-services.php", function(data){
         //fills frames
         for(let i=0; i < info['frame'].length; i++){
             let frame = info['frame'][i];
-            let frameOp = $('<option>'+ frame.name +'</option>');
+            let frameOp = $('<option id="fr' +i+ '">'+ frame.name +'</option>');
             frameOp.attr('value', frame.id);
             frameOp.appendTo('#frame' + c);
         }
