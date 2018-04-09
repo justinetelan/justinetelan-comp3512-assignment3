@@ -36,10 +36,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="btnn" class="btn btn-primary">Order</button>
-        <script>
-       
-                    </script>
+        <button type="button" id="bttn"class="btn btn-primary">Order</button>
+                                               
+                                                <!--size1=0&paper1=0&frame1=0&qty1=1&size2=2&paper2=2&frame2=2&qty2=3&ship=1-->
       </div>
     </div>
   </div>

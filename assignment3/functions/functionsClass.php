@@ -209,7 +209,7 @@
                 echo '<div class="col-md-2"></div>';
             }
                     
-            echo '<div class="col-md-2">Subtotal</div>
+            echo '<div class="col-md-2"><i>Subtotal</i></div>
                     <div class="col-md-2"><p id="overall"></p></div>';
             echo '</div>'; // close SUBTOTAL
             
@@ -221,8 +221,9 @@
                 echo '<div class="col-md-2" id="rads" style="padding: 5px;">
                         <input type="hidden" id="hideTot" name="totalC">
                         <input type="hidden" id="hideFr" name="totalF">
+                        <input type="hidden" id="queryS" name="totalq">
                     </div>';
-                echo '<div class="col-md-2">Shipping</div>';
+                echo '<div class="col-md-2"><i>Shipping</i></div>';
                 echo '<div class="col-md-2"><p id="shipping"></p></div>';
                 echo '<input type="hidden" id="shipCst" name="shipC">';
                 echo '<input type="hidden" id="frID" name="frC">';
@@ -234,20 +235,36 @@
             for($i = 0; $i < 4; $i++) { // goes up to 8
                 echo '<div class="col-md-2"></div>';
             }
-            echo '<div class="col-md-2">Grand Total</div>';
-            echo '<div class="col-md-2"><p id="total"></p></div>';
+            echo '<div class="col-md-2"><strong>Grand Total</strong></div>';
+            echo '<div class="col-md-2"><strong><p id="total"></p></strong></div>';
             echo '</div>'; // close row for GRAND TOTAL
         }
         
         // goes to appropriate php page based on what is being added
         function addFavePost($connection, $faveType) {
-            
+            require_once('config.php');
             if($faveType == "singleImg") {
                 echo "<a href='addFaveImg.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
                 
             } else if($faveType == "singlePost") {
                 echo "<a href='addFavePost.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
             }
+            
+            // echo '<p id="existMsg">KKkkkkkkdhgksdhgkjsh</p>';
+            // echo '<p>hello</p>';
+            // echo $_SESSION['faveImg'];
+            ?>
+            
+            <script>
+                $('#existMsg').hide();
+                
+                $(".btn").change(function () { //use change event
+                    $('#existMsg').stop(true,true).show(2000);
+                });
+                
+            </script>
+            
+            <?php
             
         }
         
@@ -593,7 +610,7 @@
         
         // shows images from single pages and filter image
         function showImg($page, $object) {
-            
+            echo '<div id="pre"></div>';
             foreach($object as $img) {
                 
                 if($page == "singles") {
@@ -602,8 +619,8 @@
                         echo '<a href="single-image.php?id=' . $img['ImageID'] . '">
                         <img src="images/square-small/' . $img['Path'] . '" alt=' . $img['Title'] . '></a>';
                         // echo '<h1>' . $img['Title'] . '</h1>';
-                        echo '<div id="pre"></div>';
-                    echo '</div>'; // close images div 
+                        
+                    echo '</div>'; // close smallImg div 
                     // echo '<input type="hidden" id="hide" name="imgID" value="' . $img['ImageID'] . '">';
                     
                    

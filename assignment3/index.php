@@ -11,7 +11,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Assignment 2 (Winter 2018)</title>
+        <title>Assignment 3 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
         

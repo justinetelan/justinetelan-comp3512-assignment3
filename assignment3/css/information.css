@@ -11,11 +11,11 @@
     display: inline-block;
     padding: 1em;
 }
-.popS {
-    visibility: hidden;
-   top: 0px;
-   right: 0px;
-}
+/*.popS {*/
+/*    visibility: hidden;*/
+/*   top: 0px;*/
+/*   right: 0px;*/
+/*}*/
 
 #map {
     height: 390px;

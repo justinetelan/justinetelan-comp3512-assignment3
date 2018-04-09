@@ -49,28 +49,65 @@
             
             ?>
         </header>
-        <?php
-        if(isset($_SESSION['faveP'])){
-        echo '<div class="alert alert-success" id="favePost" role="alert" style="visibility:hidden">';
-             echo'   POST ADDED TO FAVOURITES';
-             echo' </div>';
-             unset($_SESSION['faveP']);
         
-        }
-        if(isset($_SESSION['faveI'])){
-        echo' <div class="alert alert-warning" id="favePost" role="alert" style="visibility:hidden">';
-             echo'   IMAGE ADDED TO FAVOURITES';
-             echo' </div>';
-             unset($_SESSION['faveI']);
-        
-        }
-        ?>
         <div class="container">
             
             <?php 
+            // here u are gonna do $_POST[dataString . g] to make unique id
+            // include'requestTest.php'; 
+            $length = $_GET['total'];
+            // echo "DATA: ". $_GET['qty'. $length];
             
-            echo $_POST['dataString'];
-            viewFaves(); ?>
+            for($i = 0; $i < $length; $i++){
+                echo 'ITEM'. $i. "  &nbsp&nbsp    ";
+                if($_GET['size'. $i] == 0){
+                    echo '5x7   &nbsp&nbsp   ';
+                }elseif ($_GET['size'. $i] == 1) {
+                    echo '8x10   &nbsp&nbsp   ';
+                }elseif ($_GET['size'. $i] == 2) {
+                    echo '11x14   &nbsp&nbsp  ';
+                }elseif ($_GET['size'. $i] == 3) {
+                    echo '12x18   &nbsp&nbsp   ';
+                }
+                
+                
+                if($_GET['paper'. $i] == 0){
+                    echo '      Matte  &nbsp&nbsp     ';
+                }elseif ($_GET['paper'. $i] == 1) {
+                    echo '      Glossy   &nbsp&nbsp   ';
+                }elseif ($_GET['paper'. $i] == 2) {
+                    echo '      Canvas   &nbsp&nbsp   ';
+                }
+                
+                
+                if($_GET['frame'. $i] == 0){
+                    echo '      None  &nbsp&nbsp     ';
+                }elseif ($_GET['frame'. $i] == 1) {
+                    echo '      Blonde Maple   &nbsp&nbsp   ';
+                }elseif ($_GET['frame'. $i] == 2) {
+                    echo '      Expresso Walnut   &nbsp&nbsp   ';
+                }elseif ($_GET['frame'. $i] == 3) {
+                    echo '      Silver Metal   &nbsp&nbsp   ';
+                }elseif ($_GET['frame'. $i] == 4) {
+                    echo '      Gold Accent   &nbsp&nbsp   ';
+                }
+                
+                echo 'Quantity:&nbsp&nbsp'. $_GET['qty'. $i];
+                
+                echo '<br/>';
+                
+                
+            }
+                if($_GET['ship'] == 0){
+                    echo '      Standard Shipping &nbsp&nbsp     ';
+                }elseif ($_GET['ship'] == 1) {
+                    echo '      Express  Shipping &nbsp&nbsp   ';
+                }
+                
+                echo '<br/>';
+            
+            
+            ?>
             
         </div>
         

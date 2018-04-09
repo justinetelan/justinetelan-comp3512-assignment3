@@ -6,7 +6,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Assignment 2 (Winter 2018)</title>
+        <title>Assignment 3 (Winter 2018)</title>
     
           <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"><link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -85,6 +85,7 @@
                             <li class="list-group-item"><a href="https://github.com/mru-comp3512-archive/comp3512-f2017-chapter17">Github Project (Chapter 17)</a></li>
                             <li class="list-group-item"><a href="https://github.com/justinetelan">Github Account (Justine Telan)</a></li>
                             <li class="list-group-item"><a href="https://www.htmlgoodies.com/beyond/javascript/article.php/3902606/How-To-Use-JavaScript-To-Auto-Submit-Dropdowns-With-No-Submit-Button.htm?myfield=Coffee">HTML Goodies (JS Auto-Submit)</a></li>
+                            <li class="list-group-item"><a href="https://api.jquery.com/change/">jQuery (change form event)</a></li>
                             <li class="list-group-item"><a href="http://php.net/">PHP: Hypertext Preprocessor</a></li>
                             <li class="list-group-item"><a href="https://stackoverflow.com/questions/2272507/find-out-if-radio-button-is-checked-with-jquery">Stackoverflow (checked button)</a></li>
                             <li class="list-group-item"><a href="https://www.w3schools.com/jsref/met_win_settimeout.asp">W3Schools (JS Hidden Message)</a></li>

@@ -3,6 +3,7 @@ $.get("print-services.php", function(data){
     let info = $.parseJSON(data); 
     var hid = $('#hide').val();
     var totalArray = new Array();
+    queryID = "";
     
     $('form').change(function() { // OR PUT 'select'
     
@@ -47,20 +48,21 @@ $.get("print-services.php", function(data){
             var frameID = $('#frame' + c).val(); //console.log('selected frame = ' + frameID);
             for(let i = 0; i < info['frame'].length; i++) {
                 let frame = info['frame'][i];
+                var frCost = 0;
                 
                 if(frameID == frame.id) {
                     // determine price depending on size
                     if(sizeID == 0) {
-                        var frCost = frame.costs[0];
+                        frCost = frame.costs[0];
                         // console.log('5x7 cost = ' + frCost)
                     } else if(sizeID == 1) {
-                        var frCost = frame.costs[1];
+                        frCost = frame.costs[1];
                         // console.log('8x10 cost = ' + frCost)
                     } else if(sizeID == 2) {
-                        var frCost = frame.costs[2];
+                        frCost = frame.costs[2];
                         // console.log('11x14 cost = ' + frCost)
                     } else if(sizeID == 3) {
-                        var frCost = frame.costs[3];
+                        frCost = frame.costs[3];
                         // console.log('12x18 cost = ' + frCost)
                     }
                     var frameCost = frCost;
@@ -83,18 +85,79 @@ $.get("print-services.php", function(data){
             
             // var qtyHid ...
             // console.log(totals);
+            var tot = totals + 5;
+             
             $('#overall').html('$' + totals);
             
+            
+            
+            
+            $('#total').html('$' + tot);
             // put the total inside 'hidden' as its value
             var totHid = $('#hideTot').attr('value', totals);
             var qtyHid = $('#hideFr').attr('value', qty);
-            // var storedTot = totHid.val();
+            // // var storedTot = totHid.val();
             // console.log('stored val = ' + totHid.val());
            
         } // end for loop
         
+      }).change();
+    // console.log("testA:" +  queryArray);
+    
+    
+    $("#bttn").click(function(e) {
+     
+        var queryArray = new Array();   
+        for(let g =0; g <hid; g++){
+            var itemQue = [];
+            
+        // var sz =$('#size' + g).val() 
+        // var pp = $('#paper' + g).val();  
+        // var fr = $('#frame' + g).val(); 
+           
+        itemQue['size'] = $('#size' + g).val() 
+        itemQue['paper'] = $('#paper' + g).val();  
+        itemQue['frame'] = $('#frame' + g).val();
+        itemQue['quantity'] = $('#inputsm' + g).val();
+       
+        // let query = "" +sz + pp + fr;
+        queryArray.push(itemQue);
+    }  
+    
+    var orderQuery = "";
+    for(let g =0; g <hid; g++){
+    orderQuery += "size" +g+ "=" + queryArray[g].size+ "&paper" +g+ "=" + queryArray[g].paper + "&frame" +g+ "=" +queryArray[g].frame + "&qty" +g+ "=" +queryArray[g].quantity +"&total=" + (g+1);
+    // ('#queryS').attr('value', queryArray);
+    }
+    var ships= 0;
+    if($("input:radio[id='ship0']").is(":checked")) {
+        ships = 0;
+    }else if($("input:radio[id='ship1']").is(":checked")) {
+        ships=1;
+    }
+    orderQuery = orderQuery + "&ship=" + ships;
         
-    }).change();
+    // console.log(orderQuery);
+    
+    // turn data into data + g to make unique ids
+   $.ajax({
+    type: "POST",
+    url: "requestTest.php",
+    dataType : 'text',
+    data: { dataString: orderQuery },
+    success: function(data)
+        {
+            alert("SUCCESS: " + data);
+            var url = 'order.php?' + orderQuery;
+            window.location = url;
+        }
+    });
+    
+    
+    
+    
+    })
+    
     
     
     // radio buttons
@@ -108,21 +171,24 @@ $.get("print-services.php", function(data){
     }
     
     // !!! check standard by default - requirement !!!
-    $('#ship0').prop('checked', true); // NOT WORKING - FIX
+    $('#ship0').prop('checked', true);
     // window.load(function(e){
     
     var storedTot = parseInt($('#hideTot').val());
         $('#shipping').html('$' + 5);
-        $('#total').html(storedTot + 5);
+        var tots = storedTot + 5;
+        $('#total').html('$' + tots);
         
-        $('#ship1').click(function(e){
-            $('#shipping').html('$' + 15);
-        $('#total').html(storedTot + 15);
+       $('#ship0').click(function(e){
+            $('#shipping').html('$' + 5);
+        var tots = storedTot + 5;
+         $('#total').html('$' + tots);
         })
         
-        $('#ship0').click(function(e){
-            $('#shipping').html('$' + 5);
-        $('#total').html(storedTot + 5);
+         $('#ship1').click(function(e){
+            $('#shipping').html('$' + 15);
+        var tots = storedTot + 15;
+         $('#total').html('$' + tots);
         })
         
     // })
@@ -167,7 +233,7 @@ $.get("print-services.php", function(data){
                       
                      if(storedQty < 10){
                         var shCost = ship.rules['under10'];
-                    } else if(storedQty <= 10){
+                    } else if(storedQty >= 10){
                         var shCost = ship.rules['over10'];
                     }
                     }
@@ -202,7 +268,7 @@ $.get("print-services.php", function(data){
                       
                      if(storedQty < 10){
                         var shCost = ship.rules['under10'];
-                    } else if(storedQty <= 10){
+                    } else if(storedQty >= 10){
                         var shCost = ship.rules['over10'];
                     } 
                     }

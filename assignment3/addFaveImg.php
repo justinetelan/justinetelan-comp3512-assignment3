@@ -2,6 +2,7 @@
 
 	require_once('config.php');
 	include 'functions/functionsClass.php';
+	
 	session_start();
 	
 	echo $_SESSION['ids'] . '<br>' . $_GET['id'] . '<br>';
@@ -23,15 +24,11 @@
 			foreach($_SESSION['faveImg'] as $currFaveImg) {
 			
 				if($currFaveImg['ImageID'] == $result['ImageID']) { // if it's already in favourites
-					
+					echo 'hello';
 					header('Location: single-image.php?id=' . $_GET['id']);
-					echo '<h1>this already exists</h1>'; // this isn't showing, FIX
 					
 				} else if($count == count($_SESSION['faveImg'])) {
 					array_push($_SESSION['faveImg'], $result);
-					?>
-					
-					<?php
 					header('Location: favourites.php');	
 				}
 				$count++;
@@ -44,7 +41,5 @@
 	} else if(!isset($_SESSION['user'])) {
 		header("Location: login.php");
 	}
-	
-	
 	
 ?>
