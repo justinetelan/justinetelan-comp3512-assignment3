@@ -242,29 +242,13 @@
         
         // goes to appropriate php page based on what is being added
         function addFavePost($connection, $faveType) {
-            require_once('config.php');
+            
             if($faveType == "singleImg") {
-                echo "<a href='addFaveImg.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
+                echo "<a href='addFaveImg.php?id=" . $_GET['id'] . "'><button type='button' id='hi' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
                 
             } else if($faveType == "singlePost") {
-                echo "<a href='addFavePost.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
+                echo "<a href='addFavePost.php?id=" . $_GET['id'] . "'><button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
             }
-            
-            // echo '<p id="existMsg">KKkkkkkkdhgksdhgkjsh</p>';
-            // echo '<p>hello</p>';
-            // echo $_SESSION['faveImg'];
-            ?>
-            
-            <script>
-                $('#existMsg').hide();
-                
-                $(".btn").change(function () { //use change event
-                    $('#existMsg').stop(true,true).show(2000);
-                });
-                
-            </script>
-            
-            <?php
             
         }
         

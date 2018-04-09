@@ -1,3 +1,6 @@
-$(".btn").change(function () { //use change event
-    $('#existMsg').stop(true,true).show(2000);
+$(window).bind("load", function() {
+    $("button").click(function () { 
+        $("#existIm").show();
+        setTimeout(function() { $("#existIm").hide(); }, 5000);
+    });
 });

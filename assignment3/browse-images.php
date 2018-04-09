@@ -22,12 +22,11 @@
     
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         
-        
-    
         <link rel="stylesheet" href="css/captions.css" />
-        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
         <link rel="stylesheet" href="css/format.css" />
         <link rel="stylesheet" href="css/theme.css" />
+        <script src="js/jquery-3.3.1.js"></script>
+        <script src="js/auto-submit.js"></script>
     
     </head>
     
@@ -54,39 +53,27 @@
           <div class="panel-body">
             <form action="browse-images.php" method="get" class="form-horizontal" id="formFilter">
               <div class="form-inline">
-              <select name="continent" class="form-control" onchange="this.form.submit()">
+              <select name="continent" class="form-control"> <!--onchange="this.form.submit()">-->
                 <option value="0">Select Continent</option>
                 
                 /* display list of continents */
-                <?php 
-                  // dropdownF($pdo, "continent"); 
-                  dropdown($connection, "continent");
-                ?>
+                <?php dropdown($connection, "continent"); ?>
                 
               </select>     
               
-              <select name="country" class="form-control" onchange="this.form.submit()">
+              <select name="country" class="form-control"> <!--onchange="this.form.submit()">-->
                 <option value="0">Select Country</option>
                 
                 /* display list of countries */
-                <?php 
-                  
-                  // dropdown($pdo, "country"); 
-                  dropdown($connection, "country");
-                  
-                ?>
+                <?php dropdown($connection, "country"); ?>
                 
               </select>    
               
-              <select name="city" class="form-control" onchange="this.form.submit()">
+              <select name="city" class="form-control"> <!--onchange="this.form.submit()">-->
                 <option value="0">Select City</option>
                 
                 /* display list of cities */ 
-                <?php 
-                
-                  dropdown($connection, "city"); 
-                
-                ?>
+                <?php dropdown($connection, "city"); ?>
                 
               </select>    
               

@@ -1,9 +1,7 @@
 <?php
-
+	session_start();
 	require_once('config.php');
 	include 'functions/functionsClass.php';
-	
-	session_start();
 	
 	echo $_SESSION['ids'] . '<br>' . $_GET['id'] . '<br>';
 	
@@ -24,7 +22,6 @@
 			foreach($_SESSION['faveImg'] as $currFaveImg) {
 			
 				if($currFaveImg['ImageID'] == $result['ImageID']) { // if it's already in favourites
-					echo 'hello';
 					header('Location: single-image.php?id=' . $_GET['id']);
 					
 				} else if($count == count($_SESSION['faveImg'])) {

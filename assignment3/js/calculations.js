@@ -87,22 +87,17 @@ $.get("print-services.php", function(data){
             // console.log(totals);
             var tot = totals + 5;
              
-            $('#overall').html('$' + totals);
+            $('#overall').html('$' + totals.toFixed(2));
             
             
-            
-            
-            $('#total').html('$' + tot);
+            $('#total').html('$' + tot.toFixed(2));
             // put the total inside 'hidden' as its value
             var totHid = $('#hideTot').attr('value', totals);
             var qtyHid = $('#hideFr').attr('value', qty);
-            // // var storedTot = totHid.val();
-            // console.log('stored val = ' + totHid.val());
            
         } // end for loop
         
       }).change();
-    // console.log("testA:" +  queryArray);
     
     
     $("#bttn").click(function(e) {
@@ -147,7 +142,6 @@ $.get("print-services.php", function(data){
     data: { dataString: orderQuery },
     success: function(data)
         {
-            alert("SUCCESS: " + data);
             var url = 'order.php?' + orderQuery;
             window.location = url;
         }
@@ -177,18 +171,18 @@ $.get("print-services.php", function(data){
     var storedTot = parseInt($('#hideTot').val());
         $('#shipping').html('$' + 5);
         var tots = storedTot + 5;
-        $('#total').html('$' + tots);
+        $('#total').html('$' + tots.toFixed(2));
         
        $('#ship0').click(function(e){
             $('#shipping').html('$' + 5);
         var tots = storedTot + 5;
-         $('#total').html('$' + tots);
+         $('#total').html('$' + tots.toFixed(2));
         })
         
          $('#ship1').click(function(e){
             $('#shipping').html('$' + 15);
         var tots = storedTot + 15;
-         $('#total').html('$' + tots);
+         $('#total').html('$' + tots.toFixed(2));
         })
         
     // })
@@ -206,24 +200,22 @@ $.get("print-services.php", function(data){
     });
     
     // standard shipping
-    $('form').change(function(e) {//'input[type=radio][id=ship0]').change(function(e) {
+    $('form').change(function(e) {
         for(let c = 0; c <= hid-1; c++) {
             $('#frame' + c).change(function(e) {
                 frameID = $('#frame' + c).val();
-                console.log(frameID);
-            })}
+            }).change();
+        }
         if($("input:radio[id='ship0']").is(":checked")) {
-            console.log('YES');
             
-            var shipIdStd = $('#ship0').val(); //console.log(shipIdStd);
+            var shipIdStd = $('#ship0').val(); 
             var storedTot = parseInt($('#hideTot').val());
-            var storedQty = parseInt($('#hideFr').val());//console.log('stnd = ' + storedTot);
+            var storedQty = parseInt($('#hideFr').val());
             // go through thresholds
             for(let i = 0; i < info['shipping'].length; i++) {
                 let ship = info['shipping'][i];
                 let thresh = info['freeThresholds'][i];
                 
-                // !!! CHANGE THIS - use frame and qty !!!
                 if(shipIdStd == ship.id) {
                     if(frameID == 0){
                         var shCost = ship.rules['none'];
@@ -241,14 +233,13 @@ $.get("print-services.php", function(data){
                         var shCost = 0;
                     }
                     var shipCost = parseInt(shCost);
-                    $('#shipping').html('$' + shipCost);
+                    $('#shipping').html('$' + shipCost.toFixed(2));
                     // store in input type hidden for grand total
                     $('#shipCst').attr('value', shipCost);
                 }
             }
             
         } else if($("input:radio[id='ship1']").is(":checked")) {
-            console.log('YES EXP');
             
             var shipIdExp = $('#ship1').val(); // console.log(shipIdExp);
             var storedTot = parseInt($('#hideTot').val());
@@ -276,18 +267,18 @@ $.get("print-services.php", function(data){
                         var shCost = 0;
                     }
                     var shipCost = parseInt(shCost);
-                    $('#shipping').html('$' + shipCost);
+                    $('#shipping').html('$' + shipCost.toFixed(2));
                     // store in input type hidden for grand total
                     $('#shipCst').attr('value', shipCost);
                 }
             }
         }
             
-        var hidShipC = parseInt($('#shipCst').val()); //console.log('shipping cost = ' + hidShipC)
-        var storedTot = parseInt($('#hideTot').val()); //console.log('stnd = ' + storedTot);
+        var hidShipC = parseInt($('#shipCst').val()); 
+        var storedTot = parseInt($('#hideTot').val()); 
         
         var grand = hidShipC + storedTot;
-        $('#total').html('$' + grand);
+        $('#total').html('$' + grand.toFixed(2));
            
     }).change();
     

@@ -55,57 +55,69 @@
             <?php 
             // here u are gonna do $_POST[dataString . g] to make unique id
             // include'requestTest.php'; 
+            include 'formatOrder.php';
+            echo '<div class="row">
+                  <div class="col-md-2"><label><b>Size</b></label></div>
+                  <div class="col-md-2"><label><b>Paper</b></label></div>
+                  <div class="col-md-2"><label><b>Frame</b></label></div>
+                  <div class="col-md-2"><label><b>Quantity</b></label></div>';        
+        
+         echo '</div>';
             $length = $_GET['total'];
+            $sz = "";
+            $pp = "";
+            $fr = "";
+            $qt = "";
+            $sp ="";
             // echo "DATA: ". $_GET['qty'. $length];
             
             for($i = 0; $i < $length; $i++){
-                echo 'ITEM'. $i. "  &nbsp&nbsp    ";
                 if($_GET['size'. $i] == 0){
-                    echo '5x7   &nbsp&nbsp   ';
+                    $sz = '5x7';
                 }elseif ($_GET['size'. $i] == 1) {
-                    echo '8x10   &nbsp&nbsp   ';
+                    $sz = '8x10';
                 }elseif ($_GET['size'. $i] == 2) {
-                    echo '11x14   &nbsp&nbsp  ';
+                    $sz = '11x14';
                 }elseif ($_GET['size'. $i] == 3) {
-                    echo '12x18   &nbsp&nbsp   ';
+                    $sz = '12x18';
                 }
                 
                 
                 if($_GET['paper'. $i] == 0){
-                    echo '      Matte  &nbsp&nbsp     ';
+                    $pp ='Matte';
                 }elseif ($_GET['paper'. $i] == 1) {
-                    echo '      Glossy   &nbsp&nbsp   ';
+                    $pp = 'Glossy';
                 }elseif ($_GET['paper'. $i] == 2) {
-                    echo '      Canvas   &nbsp&nbsp   ';
+                    $pp = 'Canvas';
                 }
                 
                 
                 if($_GET['frame'. $i] == 0){
-                    echo '      None  &nbsp&nbsp     ';
+                    $fr =  'None';
                 }elseif ($_GET['frame'. $i] == 1) {
-                    echo '      Blonde Maple   &nbsp&nbsp   ';
+                    $fr =  'Blonde Maple';
                 }elseif ($_GET['frame'. $i] == 2) {
-                    echo '      Expresso Walnut   &nbsp&nbsp   ';
+                    $fr =  'Expresso Walnut';
                 }elseif ($_GET['frame'. $i] == 3) {
-                    echo '      Silver Metal   &nbsp&nbsp   ';
+                    $fr =  'Silver Metal';
                 }elseif ($_GET['frame'. $i] == 4) {
-                    echo '      Gold Accent   &nbsp&nbsp   ';
+                    $fr = 'Gold Accent';
                 }
                 
-                echo 'Quantity:&nbsp&nbsp'. $_GET['qty'. $i];
+                $qt = $_GET['qty'. $i];
                 
                 echo '<br/>';
-                
+                format($sz, $pp, $fr, $qt);
                 
             }
                 if($_GET['ship'] == 0){
-                    echo '      Standard Shipping &nbsp&nbsp     ';
+                    $sp = 'Standard Shipping';
                 }elseif ($_GET['ship'] == 1) {
-                    echo '      Express  Shipping &nbsp&nbsp   ';
+                    $sp = 'Express Shipping';
                 }
                 
                 echo '<br/>';
-            
+                echo '<h4><b>'.$sp.'</b></h4>';
             
             ?>
             

@@ -6,8 +6,9 @@
         header('Location: error.php');
     }
     
-    require_once('config.php'); 
     session_start();
+    require_once('config.php');
+    include 'functions/functionsClass.php';
     
     $dbImg = new ImagesGateway($connection);
     $sql = 'SELECT ' . $dbImg -> getPk() . ' FROM ' . $dbImg -> getFrom() . ' WHERE ';
@@ -16,9 +17,6 @@
         header('Location: error.php');
     }
     
-    include 'functions/functionsClass.php';
-    session_start();
-
 ?>
 
 <!DOCTYPE html>
@@ -65,24 +63,36 @@
                 <div class="col-md-10">
                     <div class="row">
                         
-                        <?php 
-                        
-                            // singleImage($pdo); 
-                            singleImg($connection);
-                            // echo $_SESSION['ids'];
-                        ?>
-                        
-                        <!-- USE JS TO SHOW TEMP MESSAGE ONCE ADDED -->
-                        <div class="hiddenAdd"></div>
+                        <?php singleImg($connection); ?>
                         
                         <div class='btn-group btn-group-justified' role='group' aria-label='...'>
                             <div class='btn-group' role='group'>
                                 <?php addFavePost($connection, "singleImg"); ?>
                                 
-                                <!--<div class="alert alert-success" id="alrExist" role="alert" style="visibility:hidden">-->
-                                    <input type="hidden" id="exists" name="faveExists">
-                                    <!--<h1 id="exists">hello</h1>-->
-                                <!--</div>-->
+                                    <p id="existIm">Image already exists in favourites list.</p>
+                                    <script>$('#existIm').hide();</script>
+                                    
+                                    <?php
+                                    
+                                    $dbImg = new ImagesGateway($connection);
+                                	$imgF = $dbImg -> getFields(Array(0, 1, 2, 6)); // ImageID, UserID, Title, Path
+                                	
+                                	$sql = 'SELECT ' . $imgF . ' FROM ' . $dbImg -> getFrom() . ' WHERE ';
+                                	
+                                	$result = $dbImg -> getById($sql, $_GET['id'], 0);
+                                    if(isset($_SESSION['user'])) {
+                                		if(count($_SESSION['faveImg']) != 0) { // if there are already image favourites
+                                		
+                                			foreach($_SESSION['faveImg'] as $currFaveImg) {
+                                			
+                                				if($currFaveImg['ImageID'] == $result['ImageID']) { // show message
+                                					echo '<script src="js/img-exist.js"></script>';
+                                				}
+                                			}
+                                		}
+                                	}
+                                	?>
+                                	
                             </div>
                         </div> <!-- close button class -->
                         
