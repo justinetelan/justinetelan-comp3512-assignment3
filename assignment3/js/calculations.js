@@ -5,6 +5,8 @@ $.get("print-services.php", function(data){
     var totalArray = new Array();
     queryID = "";
     
+    // --------------- ITEM PRICE ---------------
+    
     $('form').change(function() { 
     
         var totals = 0;
@@ -95,6 +97,8 @@ $.get("print-services.php", function(data){
         
     }
     
+    // --------------- SHIPPING PRICE ---------------
+    
     // check standard shipping by default
     $('#ship0').prop('checked', true);
     
@@ -132,11 +136,15 @@ $.get("print-services.php", function(data){
        
     });
     
-    
+    // determine shipping based on frame and quantity
     $('form').change(function(e) {
         var frameID = 0;
         for(let c = 0; c <= hid-1; c++) {
-            frameID = $('#frame' + c).val();
+            if ($('#frame' + c).val() > 1){
+                frameID = $('#frame' + c).val();
+                c= 1000000;
+            }
+            
         }
         
         if($("input:radio[id='ship0']").is(":checked")) {
@@ -168,6 +176,7 @@ $.get("print-services.php", function(data){
                     $('#shipping').html('$' + shipCost.toFixed(2));
                     // store in input type hidden for grand total
                     $('#shipCst').attr('value', shipCost);
+                    console.log(frameID);
                 }
             }
             

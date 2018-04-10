@@ -30,6 +30,7 @@ $.get("print-services.php", function(data){
             let frame = info['frame'][i];
             let frameOp = $('<option id="fr' +i+ '">'+ frame.name +'</option>');
             frameOp.attr('value', frame.id);
+            frameOp.attr('class', 'test');
             frameOp.appendTo('#frame' + c);
         }
         

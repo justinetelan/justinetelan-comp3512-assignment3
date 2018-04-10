@@ -26,7 +26,8 @@
         <link rel="stylesheet" href="css/format.css" />
         <link rel="stylesheet" href="css/theme.css" />
         <script src="js/jquery-3.3.1.js"></script>
-        <script src="js/auto-submit.js"></script>
+        
+        <!--<script>alert('fuck');</script>-->
     
     </head>
     
@@ -53,40 +54,49 @@
           <div class="panel-body">
             <form action="browse-images.php" method="get" class="form-horizontal" id="formFilter">
               <div class="form-inline">
-              <select name="continent" class="form-control"> <!--onchange="this.form.submit()">-->
+              <select name="continent" class="form-control" id="contin">
                 <option value="0">Select Continent</option>
                 
-                /* display list of continents */
                 <?php dropdown($connection, "continent"); ?>
                 
               </select>     
               
-              <select name="country" class="form-control"> <!--onchange="this.form.submit()">-->
+              <select name="country" class="form-control"> 
                 <option value="0">Select Country</option>
                 
-                /* display list of countries */
                 <?php dropdown($connection, "country"); ?>
                 
               </select>    
               
-              <select name="city" class="form-control"> <!--onchange="this.form.submit()">-->
+              <select name="city" class="form-control"> 
                 <option value="0">Select City</option>
                 
-                /* display list of cities */ 
                 <?php dropdown($connection, "city"); ?>
                 
               </select>    
               
               
               <button type="submit" value="Reset" class="btn btn-success">Clear</button>
+              <!-- handles auto-submit -->
+              <script>
+                
+                $(function() {
+                    $("select").change(function(){
+                        $('form').submit();
+                    });
+                });
+                
+              </script>
               </div>
             </form>
             <script>
               
-              function showMenu() {
-                document.getElementById("continent").classList.toggle("show");
-              }
+            //   function showMenu() {
+            //     document.getElementById("continent").classList.toggle("show");
+            //   }
             </script>
+            
+            
 
           </div>
         </div>     
@@ -97,6 +107,8 @@
 		     <?php filterHeader($connection); ?> 
 	    	  
         </ul>   
+        
+        
     
         </main>
         

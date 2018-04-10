@@ -35,11 +35,11 @@
         
     
         <link rel="stylesheet" href="css/captions.css" />
-        <!--<link rel="stylesheet" href="css/bootstrap-theme.css" />-->
         <link rel="stylesheet" href="css/format.css" />
         <link rel="stylesheet" href="css/theme.css" />
         <link rel="stylesheet" href="css/information.css" />  
         <link rel="stylesheet" href="css/general.css" /> 
+        <script src="js/jquery-3.3.1.js"></script>
         <!--<link rel="stylesheet" href="css/single-country.css" />   -->
     
     </head>
@@ -70,7 +70,9 @@
                     
                     <div class="col-md-4">
                         <h3>Related Images</h3>
+                        <div id="pre">
                         <?php identifyType($connection, "users"); ?>
+                        </div>
                     </div> <!-- close col-md-8 -->
                 
                 </div> <!-- close row -->
@@ -89,7 +91,7 @@
             </div>
         </footer>
         
-        
+        <script src="js/img-hover.js" type="text/JavaScript"></script>
         
     </body>
     

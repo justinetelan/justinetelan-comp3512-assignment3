@@ -51,7 +51,7 @@
         </header>
         
         <div class="container">
-            
+            <h3><b>Order Summary</b></h3>
             <?php 
             // here u are gonna do $_POST[dataString . g] to make unique id
             // include'requestTest.php'; 
@@ -67,15 +67,16 @@
                   <div class="col-md-2"><label>Quantity</label></div>
               </div>
               <br/>';
-                  
-            $length = $_GET['total'];
             $sz = "";
             $pp = "";
             $fr = "";
             $qt = "";
             $sp = "";
             
-            for($i = 0; $i < $length; $i++){
+            if(count($_SESSION['faveImg']) != 0) {
+                $i =0;
+                foreach($_SESSION['faveImg'] as $img) {
+                $pic = '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image"></a>';
                 if($_GET['size'. $i] == 0){
                     $sz = '5x7';
                 }elseif ($_GET['size'. $i] == 1) {
@@ -110,23 +111,28 @@
                 
                 
                 $qt = $_GET['qty'. $i];
-                format($sz, $pp, $fr, $qt);
+                format($pic, $sz, $pp, $fr, $qt);
                 
             
                 echo '<br/>';
                 
-                
+              $i++;  
+            }
             }
                 if($_GET['ship'] == 0){
-                    echo '<b>Standard Shipping</b>';
+                    echo '<div class="col-md-2"></div><div class="col-md-2"></div><div class="col-md-2"></div><div class="col-md-2"></div><b>Standard Shipping</b>';
                 }elseif ($_GET['ship'] == 1) {
-                    echo '<b>Express  Shipping</b>';
+                    echo '<div class="col-md-2"></div><div class="col-md-2"></div><div class="col-md-2"></div><div class="col-md-2"></div><b>Express  Shipping</b>';
                 }
                 
                 echo '<br/>';
                 
             
             ?>
+            <div class="container">
+         <div class="jumbotron" id="postJumbo">
+        <h3><i><b>Thank You For Shopping With Us</b></i></h3>
+        </div>   
             
         </div>
         

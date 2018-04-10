@@ -242,28 +242,13 @@
         
         // goes to appropriate php page based on what is being added
         function addFavePost($connection, $faveType) {
-            // require_once('config.php');
+            
             if($faveType == "singleImg") {
-                echo "<a href='addFaveImg.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
+                echo "<a href='addFaveImg.php?id=" . $_GET['id'] . "'><button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
                 
             } else if($faveType == "singlePost") {
-                echo "<a href='addFavePost.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
+                echo "<a href='addFavePost.php?id=" . $_GET['id'] . "'><button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
             }
-            
-            echo '<div id="existI"></div>';
-            // echo $_SESSION['faveImg'];
-            ?>
-            
-            <script>
-                $('#existMsg').hide();
-                
-                $(".btn").change(function () { //use change event
-                    $('#existMsg').stop(true,true).show(2000);
-                });
-                
-            </script>
-            
-            <?php
             
         }
         
@@ -609,7 +594,7 @@
         
         // shows images from single pages and filter image
         function showImg($page, $object) {
-            echo '<div id="pre"></div>';
+            // echo '<div id="pre">';
             foreach($object as $img) {
                 
                 if($page == "singles") {
@@ -618,9 +603,15 @@
                         echo '<a href="single-image.php?id=' . $img['ImageID'] . '">
                         <img src="images/square-small/' . $img['Path'] . '" alt=' . $img['Title'] . '></a>';
                         // echo '<h1>' . $img['Title'] . '</h1>';
-                        
+                        echo '<input type="hidden" id="hidImgTitle" name="' . $img['Title'] . '">';
                     echo '</div>'; // close smallImg div 
                     // echo '<input type="hidden" id="hide" name="imgID" value="' . $img['ImageID'] . '">';
+                    
+                    // echo '<div class="popS"  id='.$img['ImageID'].' >';// popover small image
+                    // echo '<h4>'.$img['Title'].'</h4>';
+                    // echo '<img src="images/square-small/' . $img['Path'] . '>';
+                
+                    // echo '</div>'; 
                     
                    
                 } else if($page == "filtering") {
@@ -639,7 +630,7 @@
                 
             
             } // close loop
-            
+            // echo '</div>';
         
         }
         
