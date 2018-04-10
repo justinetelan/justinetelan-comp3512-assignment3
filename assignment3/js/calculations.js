@@ -140,7 +140,7 @@ $.get("print-services.php", function(data){
     $('form').change(function(e) {
         var frameID = 0;
         for(let c = 0; c <= hid-1; c++) {
-            if ($('#frame' + c).val() > 1){
+            if ($('#frame' + c).val() >= 1){
                 frameID = $('#frame' + c).val();
                 c= 1000000;
             }
@@ -152,15 +152,24 @@ $.get("print-services.php", function(data){
             var shipIdStd = $('#ship0').val(); // get standard id
             var storedTot = parseInt($('#hideTot').val()); // stored subtotal
             var storedQty = parseInt($('#hideFr').val()); // stored qty total - help determine shipping
+            
+            
+            
             // go through thresholds
             for(let i = 0; i < info['shipping'].length; i++) {
                 let ship = info['shipping'][i];
                 let thresh = info['freeThresholds'][i];
                 
+                console.log('stored qty = ' + storedQty);
+                console.log('stored frameid = ' + frameID);
+                
                 if(shipIdStd == ship.id) {
                     if(frameID == 0) { // no frame
                         var shCost = ship.rules['none'];
                     } else if(frameID > 0) { // has frame
+                    
+                        console.log('WORKS');
+                    
                         // determine total qty
                         if(storedQty < 10){
                             var shCost = ship.rules['under10'];
@@ -176,7 +185,7 @@ $.get("print-services.php", function(data){
                     $('#shipping').html('$' + shipCost.toFixed(2));
                     // store in input type hidden for grand total
                     $('#shipCst').attr('value', shipCost);
-                    console.log(frameID);
+                    // console.log(frameID);
                 }
             }
             

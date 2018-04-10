@@ -75,7 +75,9 @@
                     
                     <div class="col-md-4">
                         <h3>Related Images</h3>
+                        <div id="pre">
                         <?php identifyType($connection, "countries"); ?>
+                        </div>
                     </div> <!-- close col-md-4 -->
                     
                 </div> <!-- close row -->

@@ -594,24 +594,19 @@
         
         // shows images from single pages and filter image
         function showImg($page, $object) {
-            // echo '<div id="pre">';
+            
             foreach($object as $img) {
                 
                 if($page == "singles") {
                    
                     echo '<div class="smallImg">';
                         echo '<a href="single-image.php?id=' . $img['ImageID'] . '">
-                        <img src="images/square-small/' . $img['Path'] . '" alt=' . $img['Title'] . '></a>';
-                        // echo '<h1>' . $img['Title'] . '</h1>';
-                        echo '<input type="hidden" id="hidImgTitle" name="' . $img['Title'] . '">';
-                    echo '</div>'; // close smallImg div 
-                    // echo '<input type="hidden" id="hide" name="imgID" value="' . $img['ImageID'] . '">';
+                        <img src="images/square-small/' . $img['Path'] . '" alt="' . $img['Title'] . '"></a>';
+                    echo '</div>'; // close smallImg div
                     
-                    // echo '<div class="popS"  id='.$img['ImageID'].' >';// popover small image
-                    // echo '<h4>'.$img['Title'].'</h4>';
-                    // echo '<img src="images/square-small/' . $img['Path'] . '>';
-                
-                    // echo '</div>'; 
+                    // echo '<div class="hideImgH">';
+                    //     echo '<img id="mImg" src="images/square-medium/' . $img['Path'] . '" alt="' . $img['Title'] . '">';
+                    // echo '</div>';
                     
                    
                 } else if($page == "filtering") {
@@ -630,7 +625,6 @@
                 
             
             } // close loop
-            // echo '</div>';
         
         }
         
