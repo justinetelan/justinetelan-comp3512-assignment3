@@ -1,7 +1,6 @@
 $('select').change(function() {
     
-    // $('#formFilter').submit();
+    $('#formFilter').submit();
     // $(this).$('form').submit();
-    alert('works');
     
 }).change();

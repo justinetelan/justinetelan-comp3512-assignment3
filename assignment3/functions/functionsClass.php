@@ -236,19 +236,34 @@
                 echo '<div class="col-md-2"></div>';
             }
             echo '<div class="col-md-2"><strong>Grand Total</strong></div>';
-            echo '<div class="col-md-2"><strong><p id="total"></p></strong></div>';
+            echo '<div class="col-md-2"><strong><p id="totalG"></p></strong></div>';
             echo '</div>'; // close row for GRAND TOTAL
         }
         
         // goes to appropriate php page based on what is being added
         function addFavePost($connection, $faveType) {
-            
+            // require_once('config.php');
             if($faveType == "singleImg") {
-                echo "<a href='addFaveImg.php?id=" . $_GET['id'] . "'><button type='button' id='hi' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
+                echo "<a href='addFaveImg.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";
                 
             } else if($faveType == "singlePost") {
-                echo "<a href='addFavePost.php?id=" . $_GET['id'] . "'><button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
+                echo "<a href='addFavePost.php?id=" . $_GET['id'] . "'<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-heart' aria-hidden='true'></span></button></a>";    
             }
+            
+            echo '<div id="existI"></div>';
+            // echo $_SESSION['faveImg'];
+            ?>
+            
+            <script>
+                $('#existMsg').hide();
+                
+                $(".btn").change(function () { //use change event
+                    $('#existMsg').stop(true,true).show(2000);
+                });
+                
+            </script>
+            
+            <?php
             
         }
         

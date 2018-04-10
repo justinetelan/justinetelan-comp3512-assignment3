@@ -14,8 +14,8 @@ $('.smallImg img').mouseover(function(e) {
     
     // temp = $('<div id="temp">');
     
-    prev = $('<div id="preview">');
-    imgT = $('<p>').html(title);
+    var prev = $('<div id="preview">');
+    var imgT = $('<p>').html(title);
     prev.append(hover).appendTo('#pre');
     imgT.appendTo(prev);
     
@@ -23,10 +23,10 @@ $('.smallImg img').mouseover(function(e) {
     
 });
 
-// $('.smallImg img').mousemove(function(e){
-//     xC = e.pageX + 20; yC = e.pageY + 20;
-//     $("#preview").css({ top: yC, left: xC, display: "block"});
-// });
+$('.smallImg img').mousemove(function(e){
+    xC = e.pageX + 20; yC = e.pageY + 20;
+    $("#preview").css({ top: yC, left: xC, display: "block"});
+});
 
 $('.smallImg img').mouseleave(function(e){
     $('#preview').remove();
