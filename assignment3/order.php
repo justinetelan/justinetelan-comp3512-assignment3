@@ -76,7 +76,7 @@
             if(count($_SESSION['faveImg']) != 0) {
                 $i =0;
                 foreach($_SESSION['faveImg'] as $img) {
-                $pic = '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image"></a>';
+                $pic = '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image" class="img-circle"></a>';
                 if($_GET['size'. $i] == 0){
                     $sz = '5x7';
                 }elseif ($_GET['size'. $i] == 1) {

@@ -167,7 +167,7 @@
                 
                     echo '<p>';
                     // echo '<div class="col-md-2">';
-                    echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image"></a>';
+                    echo '<a href="single-image.php?id=' . $img['ImageID'] . '"><img src="images/square-small/' . $img['Path'] . '" alt="Favourite Image" class="img-circle"></a>';
                     // echo '</div>';
                     echo '</p>';
                     
@@ -179,7 +179,7 @@
                               <div class="col-md-2"><select name="ppr" id="paper' .$i. '"></select></div>
                               <div class="col-md-2"><select name="frm" id="frame' .$i. '"></select></div>';
                         echo '<div class="col-md-2"><input type="text" name="qty" size="5" id="inputsm' .$i. '"></div>';
-                                // put input type hidden here to store total of qty
+                                
                         echo '<div class="col-md-2"><p id="total' . $i . '"></p></div>';
                           
                     echo '</div>';
@@ -200,7 +200,7 @@
             // display the line
             echo '<div class="row">
                     <div class="col-md-4"></div><div class="col-md-4"></div>
-                    <div class="col-md-4"><hr></div>
+                    <div class="col-md-4"><br><div style="border-bottom: 1px solid;"></div><br></div>
                     </div>'; // close row
             
             // row for SUBTOTAL
@@ -235,9 +235,10 @@
             for($i = 0; $i < 4; $i++) { // goes up to 8
                 echo '<div class="col-md-2"></div>';
             }
-            echo '<div class="col-md-2"><strong>Grand Total</strong></div>';
-            echo '<div class="col-md-2"><strong><p id="totalG"></p></strong></div>';
+            echo '<div class="col-md-2"><strong><p style="color: rgb(183, 65, 77); font-size: 12pt;">Grand Total</p></strong></div>';
+            echo '<div class="col-md-2"><strong><p id="totalG" style="color: rgb(183, 65, 77); font-size: 12pt;"></p></strong></div>';
             echo '</div>'; // close row for GRAND TOTAL
+            echo '<div style="border-bottom: 1px dotted;"></div>';
         }
         
         // goes to appropriate php page based on what is being added
