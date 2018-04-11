@@ -600,13 +600,20 @@
                 if($page == "singles") {
                    
                     echo '<div class="smallImg">';
+                        // echo '<div id="' . $img['ImageID'] . '">';
                         echo '<a href="single-image.php?id=' . $img['ImageID'] . '">
                         <img src="images/square-small/' . $img['Path'] . '" alt="' . $img['Title'] . '"></a>';
+                        // echo '</div>';
                     echo '</div>'; // close smallImg div
                     
-                    // echo '<div class="hideImgH">';
-                    //     echo '<img id="mImg" src="images/square-medium/' . $img['Path'] . '" alt="' . $img['Title'] . '">';
-                    // echo '</div>';
+                    echo '<div class="hideImgH">';
+                        echo '<div id="' . $img['ImageID'] . '">';
+                            echo '<img id="' . $img['ImageID'] . '" src="images/square-medium/' . $img['Path'] . '" alt="' . $img['Title'] . '">';
+                            echo '<h3>' . $img['Title'] . '</h3>';
+                        echo '</div>';
+                    echo '</div>';
+                    
+                    // echo '<div id="testing"></div>';
                     
                    
                 } else if($page == "filtering") {
